@@ -2,7 +2,7 @@ import { PasswordPattern } from '@/models/patterns.model'
 import {
     InputType,
     Input
-} from './input.component'
+} from '../input.component'
 import {
     FieldErrors,
     UseFormRegister,

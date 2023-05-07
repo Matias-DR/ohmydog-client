@@ -2,7 +2,7 @@ import { NamePattern } from '@/models/patterns.model'
 import {
     InputType,
     Input
-} from './input.component'
+} from '../input.component'
 import {
     FieldErrors,
     UseFormRegister,
@@ -17,23 +17,23 @@ export interface Props {
     defaultValue?: string
 }
 
-const UsernameInput = ({
+const LastnameInput = ({
     register,
     errors,
     trigger,
     pattern = NamePattern,
     defaultValue = ''
 }: Props) => <Input
-        name='name'
+        name='lastname'
         register={register}
         errors={errors}
-        label='Nombre/s'
+        label='Apellido/s'
         type={InputType.TEXT}
         defaultValue={defaultValue}
         trigger={trigger}
         inputProps={{
-            ...register('name', {
-                required: 'Nombre requerido',
+            ...register('lastname', {
+                required: 'Apellido/s requerido',
                 pattern: {
                     value: pattern,
                     message: 'Solo letras y espacios.'
@@ -43,4 +43,4 @@ const UsernameInput = ({
         required={false}
     />
 
-export default UsernameInput
+export default LastnameInput

@@ -1,6 +1,9 @@
 import styled from '@emotion/styled'
-import { TextField } from '@mui/material'
 
-export const StyledTextField = styled(TextField)`
-    margin-bottom: 1rem;
+export const StyledMain = styled.main`
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `

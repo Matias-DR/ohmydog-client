@@ -1,8 +1,8 @@
-import { TelephonePattern } from '@/models/patterns.model'
+import { TextFieldPattern } from '@/models/patterns.model'
 import {
     InputType,
     Input
-} from './input.component'
+} from '../input.component'
 import {
     FieldErrors,
     UseFormRegister,
@@ -17,30 +17,30 @@ export interface Props {
     defaultValue?: string
 }
 
-const TelephoneInput = ({
+const PetOriginInput = ({
     register,
     errors,
     trigger,
-    pattern = TelephonePattern,
+    pattern = TextFieldPattern,
     defaultValue = ''
 }: Props) => <Input
-        name='telephone'
+        name='petorigin'
         register={register}
         errors={errors}
-        label='Teléfono'
+        label='Origen'
         type={InputType.TEXT}
         defaultValue={defaultValue}
         trigger={trigger}
         inputProps={{
-            ...register('telephone', {
-                required: 'Teléfono requerido',
+            ...register('petorigin', {
+                // required: 'Campo requerido',
                 pattern: {
                     value: pattern,
-                    message: 'Solo números'
+                    message: 'Solo letras, números y espacios.'
                 }
             })
         }}
         required={false}
     />
 
-export default TelephoneInput
+export default PetOriginInput

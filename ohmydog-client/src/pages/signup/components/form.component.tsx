@@ -3,27 +3,26 @@ import {
     StyledForm,
     StyledTitle,
     StyledFieldset,
+    StyledUserFieldSetAndButtonContainer,
     StyledLegend,
     StyledImage,
     StyledSubmitButton,
-    StyledGrid
-} from '../styled-components/form.styled-components'
+    StyledButtonContainer,
+    StyledSideGrid
+} from '@/pages/signup/styled-components/form.styled-components'
 import {
-    UsernameInput,
-    EmailInput,
-    PasswordInput,
-    RepeatPasswordInput,
-    AgeInput,
-    DniInput,
-    LastnameInput,
-    TelephoneInput,
-} from '@/components'
+    UserInputs,
+    PetInputs
+} from './'
 import ohmydogB64Image from '@/assets/images/ohmydog-b64-image'
 import { User } from '@/models/user.model'
 import { useFetchAndLoad } from '@/hooks/use-fetch-and-load.hook'
 import { dispatchUtility } from '@/utilities/dispatch.utility'
-import { signup } from '@/pages/signup/services/signup.service'
+import { SignupBodyProps, signup } from '@/pages/signup/services/signup.service'
 import { useForm } from 'react-hook-form'
+import { StyledGrid } from '@/pages/signup/styled-components/form.styled-components'
+import createUserAdapter from '../adapters/create-user.adapter'
+import createPetAdapter from '../adapters/create-pet-adapter'
 
 export interface FormProps extends User {
     repeatPassword: string,
@@ -42,9 +41,14 @@ export default function Form() {
     } = useFetchAndLoad()
     const { dispatchCreateUser } = dispatchUtility()
 
-    const onSubmit = async (user: User) => {
-        const res = await callEndpoint(signup(user))
-        console.log(res.data)
+    const onSubmit = async (data: any) => {
+        const user = createUserAdapter(data)
+        const pet = createPetAdapter(data)
+        const body: SignupBodyProps = {
+            user: user,
+            pet: pet
+        }
+        const res = await callEndpoint(signup(body))
         if (res.status === 200) {
             dispatchCreateUser(user)
         } else {
@@ -53,77 +57,65 @@ export default function Form() {
     }
 
     return <StyledFormSection>
+        <StyledImage
+            src={`data:image/jpeg;base64,${ohmydogB64Image}`}
+            alt="Oh My Dog!"
+        />
+        <StyledTitle>
+            CREACIÓN DE CUENTA
+        </StyledTitle>
         <StyledForm onSubmit={handleSubmit(onSubmit)}>
-            <StyledFieldset>
-                <StyledLegend>
-                    <StyledImage
-                        src={`data:image/jpeg;base64,${ohmydogB64Image}`}
-                        alt="Oh My Dog!"
-                    />
-                    <StyledTitle>
-                        Registro de usuario
-                    </StyledTitle>
-                </StyledLegend>
-                <StyledGrid container spacing={2}>
-                    <StyledGrid sm={6}>
-                        <UsernameInput
+            <StyledGrid container spacing={2}>
+                <StyledSideGrid xs={12} sm={6}>
+                    <StyledUserFieldSetAndButtonContainer>
+                        <StyledFieldset>
+                            <StyledLegend>
+                                <StyledTitle>
+                                    Datos del usuario
+                                </StyledTitle>
+                            </StyledLegend>
+                            <UserInputs
+                                register={register}
+                                errors={errors}
+                                password={watch('password')}
+                            ></UserInputs>
+                        </StyledFieldset>
+                        <StyledButtonContainer sx={{ display: { xs: 'none', sm: 'block' } }}>
+                            <StyledSubmitButton
+                                type='submit'
+                                variant='contained'
+                                color='primary'
+                                loading={loading}
+                            >
+                                Registrarse
+                            </StyledSubmitButton>
+                        </StyledButtonContainer>
+                    </StyledUserFieldSetAndButtonContainer>
+                </StyledSideGrid>
+                <StyledSideGrid xs={12} sm={6}>
+                    <StyledFieldset>
+                        <StyledLegend>
+                            <StyledTitle>
+                                Datos de la mascota
+                            </StyledTitle>
+                        </StyledLegend>
+                        <PetInputs
                             register={register}
                             errors={errors}
-                        />
-                    </StyledGrid>
-                    <StyledGrid sm={6}>
-                        <LastnameInput
-                            register={register}
-                            errors={errors}
-                        />
-                    </StyledGrid>
-                    <StyledGrid sm={6}>
-                        <AgeInput
-                            register={register}
-                            errors={errors}
-                        />
-                    </StyledGrid>
-                    <StyledGrid sm={6}>
-                        <DniInput
-                            register={register}
-                            errors={errors}
-                        />
-                    </StyledGrid>
-                    <StyledGrid sm={6}>
-                        <EmailInput
-                            register={register}
-                            errors={errors}
-                        />
-                    </StyledGrid>
-                    <StyledGrid sm={6}>
-                        <TelephoneInput
-                            register={register}
-                            errors={errors}
-                        />
-                    </StyledGrid>
-                    <StyledGrid sm={6}>
-                        <PasswordInput
-                            register={register}
-                            errors={errors}
-                        />
-                    </StyledGrid>
-                    <StyledGrid sm={6}>
-                        <RepeatPasswordInput
-                            register={register}
-                            errors={errors}
-                            password={watch('password')}
-                        />
-                    </StyledGrid>
-                </StyledGrid>
-            </StyledFieldset>
-            <StyledSubmitButton
-                type='submit'
-                variant='contained'
-                color='primary'
-                loading={loading}
-            >
-                Registrarse
-            </StyledSubmitButton>
+                        ></PetInputs>
+                    </StyledFieldset>
+                </StyledSideGrid>
+            </StyledGrid>
+            <StyledButtonContainer sx={{ display: { xs: 'block', sm: 'none' } }}>
+                <StyledSubmitButton
+                    type='submit'
+                    variant='contained'
+                    color='primary'
+                    loading={loading}
+                >
+                    Registrarse
+                </StyledSubmitButton>
+            </StyledButtonContainer>
         </StyledForm>
     </StyledFormSection>
 }

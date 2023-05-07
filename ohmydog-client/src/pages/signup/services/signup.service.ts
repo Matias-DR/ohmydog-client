@@ -1,12 +1,18 @@
 import { User } from '@/models/user.model'
 import { Session } from '@/models/session.model'
 import { AxiosCall } from '@/models/axios-call.model'
+import { Pet } from '@/models/pet.model'
 import axios from 'axios'
 
-export const signup = (user: User): AxiosCall<Session> => {
+export interface SignupBodyProps {
+    user: User
+    pet: Pet
+}
+
+export const signup = (body: SignupBodyProps): AxiosCall<Session> => {
     const controller = new AbortController()
     return {
-        call: axios.post<Session>('/api/signup', user, {signal: controller.signal}),
+        call: axios.post<Session>('/api/signup', body, {signal: controller.signal}),
         controller
     }
 }

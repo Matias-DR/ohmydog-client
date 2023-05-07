@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import {
     InputType,
     Input
-} from './input.component'
+} from '../input.component'
 import {
     FieldErrors,
     UseFormRegister,

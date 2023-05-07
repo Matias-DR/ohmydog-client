@@ -1,6 +1,8 @@
-import { StyledTextField } from '../../styled-components/styled-components'
-import { TextFieldVariants } from '@mui/material'
-import { InputBaseProps } from '@mui/material'
+import { StyledTextField } from './styled-components'
+import {
+    TextFieldVariants,
+    InputBaseProps
+} from '@mui/material'
 import {
     FieldErrors,
     UseFormRegister,

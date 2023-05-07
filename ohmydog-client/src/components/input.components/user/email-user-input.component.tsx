@@ -7,7 +7,7 @@ import {
 import {
     InputType,
     Input
-} from './input.component'
+} from '../input.component'
 
 export interface Props {
     register: UseFormRegister<any>,

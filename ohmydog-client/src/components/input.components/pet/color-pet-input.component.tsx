@@ -1,8 +1,8 @@
-import { DniPattern } from '@/models/patterns.model'
+import { ColorPattern } from '@/models/patterns.model'
 import {
     InputType,
     Input
-} from './input.component'
+} from '../input.component'
 import {
     FieldErrors,
     UseFormRegister,
@@ -17,30 +17,30 @@ export interface Props {
     defaultValue?: string
 }
 
-const DniInput = ({
+const PetColorInput = ({
     register,
     errors,
     trigger,
-    pattern = DniPattern,
+    pattern = ColorPattern,
     defaultValue = ''
 }: Props) => <Input
-        name='dni'
+        name='petcolor'
         register={register}
         errors={errors}
-        label='DNI'
-        type={InputType.NUMBER}
+        label='Color'
+        type={InputType.TEXT}
         defaultValue={defaultValue}
         trigger={trigger}
         inputProps={{
-            ...register('dni', {
-                required: 'DNI requerido',
+            ...register('petcolor', {
+                required: 'Campo requerido',
                 pattern: {
                     value: pattern,
-                    message: 'Solo números.'
+                    message: 'Solo letras.'
                 }
             })
         }}
         required={false}
     />
 
-export default DniInput
+export default PetColorInput
