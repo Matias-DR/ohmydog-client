@@ -15,6 +15,7 @@ export interface Props {
     trigger?: UseFormTrigger<any>,
     pattern?: RegExp,
     patternMessage?: string,
+    defaultValue?: string
 }
 
 const PasswordInput = ({
@@ -23,15 +24,17 @@ const PasswordInput = ({
     trigger,
     pattern = PasswordPattern,
     patternMessage = 'La contraseña debe contener al menos 8 caracteres y poseer una minúscula, una mayúscula, un número y un caracter especial',
+    defaultValue = 'qweQWE123/*-',
 }: Props) => <Input
-    name='password'
+    name='user.contraseña'
     register={register}
     errors={errors}
     label='Contraseña'
     type={InputType.PASSWORD}
+    defaultValue={defaultValue}
     trigger={trigger}
     inputProps={{
-        ...register('password', {
+        ...register('user.contraseña', {
             required: 'Contraseña requerida',
             pattern: {
                 value: pattern,

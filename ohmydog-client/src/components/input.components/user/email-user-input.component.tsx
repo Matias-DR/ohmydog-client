@@ -22,16 +22,16 @@ const EmailInput = ({
     errors,
     trigger,
     pattern = EmailPattern,
-    defaultValue = ''
+    defaultValue = 'ejemplo@ejemplo.com'
 }: Props) => <Input
-        name='email'
+        name='user.email'
         register={register}
         errors={errors}
         label='Email'
         type={InputType.EMAIL}
         trigger={trigger}
         inputProps={{
-            ...register('email', {
+            ...register('user.email', {
                 required: 'Email requerido',
                 pattern: {
                     value: pattern,

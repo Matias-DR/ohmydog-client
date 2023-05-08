@@ -22,9 +22,9 @@ const PetWeightInput = ({
     errors,
     trigger,
     pattern = WeightPattern,
-    defaultValue = ''
+    defaultValue = '10'
 }: Props) => <Input
-        name='petweight'
+        name='pet.peso'
         register={register}
         errors={errors}
         label='Peso (kg)'
@@ -32,7 +32,7 @@ const PetWeightInput = ({
         defaultValue={defaultValue}
         trigger={trigger}
         inputProps={{
-            ...register('petweight', {
+            ...register('pet.peso', {
                 required: 'Campo requerido',
                 pattern: {
                     value: pattern,

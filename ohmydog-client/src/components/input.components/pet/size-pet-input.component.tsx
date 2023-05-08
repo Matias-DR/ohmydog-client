@@ -22,9 +22,9 @@ const PetSizeInput = ({
     errors,
     trigger,
     pattern = TextFieldPattern,
-    defaultValue = ''
+    defaultValue = 'Ejemplo'
 }: Props) => <Input
-        name='petsize'
+        name='pet.tamaño'
         register={register}
         errors={errors}
         label='Tamaño'
@@ -32,7 +32,7 @@ const PetSizeInput = ({
         defaultValue={defaultValue}
         trigger={trigger}
         inputProps={{
-            ...register('petsize', {
+            ...register('pet.tamaño', {
                 required: 'Campo requerido',
                 pattern: {
                     value: pattern,

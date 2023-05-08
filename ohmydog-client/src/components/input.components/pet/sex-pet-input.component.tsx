@@ -28,13 +28,13 @@ const PetSexInput = ({
     onChange,
 }: Props) => <SelectInput
         value={value}
-        name='petsex'
+        name='pet.sexo'
         register={register}
         errors={errors}
         defaultValue={defaultValue}
         trigger={trigger}
         inputProps={{
-            ...register('petsex', {
+            ...register('pet.sexo', {
                 required: 'Campo requerido',
                 pattern: {
                     value: pattern,

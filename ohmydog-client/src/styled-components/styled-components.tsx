@@ -7,3 +7,8 @@ export const StyledMain = styled.main`
     justify-content: center;
     align-items: center;
 `
+
+export const StyledTitle = styled.h1`
+    font-size: 1.3rem;
+    color: var(--ohmydog-lightblue-color);
+`

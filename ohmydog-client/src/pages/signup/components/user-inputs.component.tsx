@@ -1,7 +1,7 @@
 import {
     StyledGridContainer,
     StyledGrid,
-} from '@/pages/signup/styled-components/input-frames.styled-components'
+} from '@/styled-components/input-frames.styled-components'
 import {
     UsernameInput,
     EmailInput,

@@ -22,9 +22,9 @@ const LastnameInput = ({
     errors,
     trigger,
     pattern = NamePattern,
-    defaultValue = ''
+    defaultValue = 'Ejemplo'
 }: Props) => <Input
-        name='lastname'
+        name='user.apellido'
         register={register}
         errors={errors}
         label='Apellido/s'
@@ -32,7 +32,7 @@ const LastnameInput = ({
         defaultValue={defaultValue}
         trigger={trigger}
         inputProps={{
-            ...register('lastname', {
+            ...register('user.apellido', {
                 required: 'Apellido/s requerido',
                 pattern: {
                     value: pattern,

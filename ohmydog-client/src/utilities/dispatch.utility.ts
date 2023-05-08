@@ -1,5 +1,7 @@
+import { Session } from '@/models/session.model';
 import { User } from '@/models/user.model';
 import { createUserReduxAdapter } from '@/redux/adapters/create-user.redux-adapter';
+import { createSession } from '@/redux/states/session.state';
 import { createUser } from '@/redux/states/user.state';
 import { Dispatch } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux';
@@ -16,5 +18,9 @@ export const dispatchUtility = () => {
         dispatch(createUser(createUserReduxAdapter(user)))
     }
 
-    return { dispatchCreateUser }
+    const dispatchCreateSession = (session: Session) => {
+        dispatch(createSession(session))
+    }
+
+    return { dispatchCreateUser, dispatchCreateSession }
 }

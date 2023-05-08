@@ -22,9 +22,9 @@ const DniInput = ({
     errors,
     trigger,
     pattern = DniPattern,
-    defaultValue = ''
+    defaultValue = '12345678'
 }: Props) => <Input
-        name='dni'
+        name='user.dni'
         register={register}
         errors={errors}
         label='DNI'
@@ -32,7 +32,7 @@ const DniInput = ({
         defaultValue={defaultValue}
         trigger={trigger}
         inputProps={{
-            ...register('dni', {
+            ...register('user.dni', {
                 required: 'DNI requerido',
                 pattern: {
                     value: pattern,

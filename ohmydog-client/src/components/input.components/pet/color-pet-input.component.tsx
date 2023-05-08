@@ -22,9 +22,9 @@ const PetColorInput = ({
     errors,
     trigger,
     pattern = ColorPattern,
-    defaultValue = ''
+    defaultValue = 'Ejemplo'
 }: Props) => <Input
-        name='petcolor'
+        name='pet.color'
         register={register}
         errors={errors}
         label='Color'
@@ -32,7 +32,7 @@ const PetColorInput = ({
         defaultValue={defaultValue}
         trigger={trigger}
         inputProps={{
-            ...register('petcolor', {
+            ...register('pet.color', {
                 required: 'Campo requerido',
                 pattern: {
                     value: pattern,

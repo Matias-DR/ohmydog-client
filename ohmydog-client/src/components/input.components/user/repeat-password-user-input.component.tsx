@@ -14,6 +14,7 @@ export interface Props {
     errors: FieldErrors,
     trigger?: UseFormTrigger<any>,
     password: string,
+    defaultValue?: string
 }
 
 const RepeatPasswordInput = ({
@@ -21,15 +22,17 @@ const RepeatPasswordInput = ({
     errors,
     trigger,
     password,
+    defaultValue = 'qweQWE123/*-',
 }: Props) => <Input
-    name='repeated-password'
+    name='user.recontraseña'
     register={register}
     errors={errors}
     label='Reingrese la contraseña'
     type={InputType.PASSWORD}
+    defaultValue={defaultValue}
     trigger={trigger}
     inputProps={{
-        ...register('repeated-password', {
+        ...register('user.recontraseña', {
             required: 'Las contraseñas no son iguales',
             validate: value => value === password,
         })

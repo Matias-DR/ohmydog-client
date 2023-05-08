@@ -22,9 +22,9 @@ const TelephoneInput = ({
     errors,
     trigger,
     pattern = TelephonePattern,
-    defaultValue = ''
+    defaultValue = '+54 123 456 7890'
 }: Props) => <Input
-        name='telephone'
+        name='user.telefono'
         register={register}
         errors={errors}
         label='Teléfono'
@@ -32,7 +32,7 @@ const TelephoneInput = ({
         defaultValue={defaultValue}
         trigger={trigger}
         inputProps={{
-            ...register('telephone', {
+            ...register('user.telefono', {
                 required: 'Teléfono requerido',
                 pattern: {
                     value: pattern,

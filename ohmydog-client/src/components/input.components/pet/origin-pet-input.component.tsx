@@ -22,9 +22,9 @@ const PetOriginInput = ({
     errors,
     trigger,
     pattern = TextFieldPattern,
-    defaultValue = ''
+    defaultValue = 'Ejemplo'
 }: Props) => <Input
-        name='petorigin'
+        name='pet.origen'
         register={register}
         errors={errors}
         label='Origen'
@@ -32,7 +32,7 @@ const PetOriginInput = ({
         defaultValue={defaultValue}
         trigger={trigger}
         inputProps={{
-            ...register('petorigin', {
+            ...register('pet.origen', {
                 // required: 'Campo requerido',
                 pattern: {
                     value: pattern,

@@ -22,9 +22,9 @@ const AgeInput = ({
     errors,
     trigger,
     pattern = AgePattern,
-    defaultValue = ''
+    defaultValue = '18'
 }: Props) => <Input
-        name='age'
+        name='user.edad'
         register={register}
         errors={errors}
         label='Edad'
@@ -32,7 +32,7 @@ const AgeInput = ({
         defaultValue={defaultValue}
         trigger={trigger}
         inputProps={{
-            ...register('age', {
+            ...register('user.edad', {
                 required: 'Edad requerida',
                 pattern: {
                     value: pattern,

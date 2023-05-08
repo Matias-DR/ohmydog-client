@@ -17,7 +17,7 @@ export default function Signup() {
                 alt="Oh My Dog!"
             />
             <StyledTitle>
-                CREACIÓN DE CUENTA
+                INICIO DE SESIÓN
             </StyledTitle>
             <Form />
         </StyledSection >

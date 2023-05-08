@@ -1,0 +1,7 @@
+{
+    "signup": {},
+    "signin": {
+        "token": "toqueneta",
+        "refresh": "refresheta"
+    }
+}
