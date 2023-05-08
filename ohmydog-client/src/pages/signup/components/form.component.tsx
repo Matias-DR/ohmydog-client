@@ -1,14 +1,11 @@
 import {
-    StyledFormSection,
-    StyledForm,
-    StyledTitle,
-    StyledFieldset,
-    StyledUserFieldSetAndButtonContainer,
-    StyledLegend,
+    StyledSection,
     StyledImage,
+    StyledTitle,
+    StyledForm,
+    StyledFieldset,
+    StyledLegend,
     StyledSubmitButton,
-    StyledButtonContainer,
-    StyledSideGrid
 } from '@/pages/signup/styled-components/form.styled-components'
 import {
     UserInputs,
@@ -20,7 +17,6 @@ import { useFetchAndLoad } from '@/hooks/use-fetch-and-load.hook'
 import { dispatchUtility } from '@/utilities/dispatch.utility'
 import { SignupBodyProps, signup } from '@/pages/signup/services/signup.service'
 import { useForm } from 'react-hook-form'
-import { StyledGrid } from '@/pages/signup/styled-components/form.styled-components'
 import createUserAdapter from '../adapters/create-user.adapter'
 import createPetAdapter from '../adapters/create-pet-adapter'
 
@@ -56,7 +52,7 @@ export default function Form() {
         }
     }
 
-    return <StyledFormSection>
+    return <StyledSection>
         <StyledImage
             src={`data:image/jpeg;base64,${ohmydogB64Image}`}
             alt="Oh My Dog!"
@@ -65,7 +61,40 @@ export default function Form() {
             CREACIÓN DE CUENTA
         </StyledTitle>
         <StyledForm onSubmit={handleSubmit(onSubmit)}>
-            <StyledGrid container spacing={2}>
+            <StyledFieldset>
+                <StyledLegend>
+                    <StyledTitle>
+                        Datos del usuario
+                    </StyledTitle>
+                </StyledLegend>
+                <UserInputs
+                    register={register}
+                    errors={errors}
+                    password={watch('password')}
+                ></UserInputs>
+            </StyledFieldset>
+            <StyledFieldset>
+                <StyledLegend>
+                    <StyledTitle>
+                        Datos de la mascota
+                    </StyledTitle>
+                </StyledLegend>
+                <PetInputs
+                    register={register}
+                    errors={errors}
+                ></PetInputs>
+            </StyledFieldset>
+            <StyledSubmitButton
+                type='submit'
+                variant='contained'
+                color='primary'
+                loading={loading}
+            >
+                Registrarse
+            </StyledSubmitButton>
+        </StyledForm>
+
+        {/* <StyledGrid container spacing={2}>
                 <StyledSideGrid xs={12} sm={6}>
                     <StyledUserFieldSetAndButtonContainer>
                         <StyledFieldset>
@@ -115,7 +144,6 @@ export default function Form() {
                 >
                     Registrarse
                 </StyledSubmitButton>
-            </StyledButtonContainer>
-        </StyledForm>
-    </StyledFormSection>
+            </StyledButtonContainer> */}
+    </StyledSection>
 }

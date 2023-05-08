@@ -1,7 +1,7 @@
 import {
+    StyledGridContainer,
     StyledGrid,
-    StyledInputsGrid
-} from '@/pages/signup/styled-components/form.styled-components'
+} from '@/pages/signup/styled-components/input-frames.styled-components'
 import {
     PetAgeInput,
     PetCaracteristicsInput,
@@ -32,32 +32,32 @@ export default function PetInputs(props: Props) {
         setSex(e.target.value)
     }
 
-    return <StyledInputsGrid container spacing={2}>
-        <StyledGrid sm={6}>
+    return <StyledGridContainer container spacing={1}>
+        <StyledGrid xs={12} sm={6} md={3}>
             <PetAgeInput
                 register={props.register}
                 errors={props.errors}
             />
         </StyledGrid>
-        <StyledGrid sm={6}>
+        <StyledGrid xs={12} sm={6} md={3}>
             <PetCaracteristicsInput
                 register={props.register}
                 errors={props.errors}
             />
         </StyledGrid>
-        <StyledGrid sm={6}>
+        <StyledGrid xs={12} sm={6} md={3}>
             <PetNameInput
                 register={props.register}
                 errors={props.errors}
             />
         </StyledGrid>
-        <StyledGrid sm={6}>
+        <StyledGrid xs={12} sm={6} md={3}>
             <PetRaceInput
                 register={props.register}
                 errors={props.errors}
             />
         </StyledGrid>
-        <StyledGrid width={'100%'} sm={6}>
+        <StyledGrid xs={12} sm={6} md={3}>
             <PetSexInput
                 register={props.register}
                 errors={props.errors}
@@ -65,29 +65,29 @@ export default function PetInputs(props: Props) {
                 onChange={onChangeSex}
             />
         </StyledGrid>
-        <StyledGrid sm={6}>
+        <StyledGrid xs={12} sm={6} md={3}>
             <PetSizeInput
                 register={props.register}
                 errors={props.errors}
             />
         </StyledGrid>
-        <StyledGrid sm={6}>
+        <StyledGrid xs={12} sm={6} md={3}>
             <PetColorInput
                 register={props.register}
                 errors={props.errors}
             />
         </StyledGrid>
-        <StyledGrid sm={6}>
+        <StyledGrid xs={12} sm={6} md={3}>
             <PetOriginInput
                 register={props.register}
                 errors={props.errors}
             />
         </StyledGrid>
-        <StyledGrid sm={6}>
+        <StyledGrid xs={12} sm={6} md={3}>
             <PetWeightInput
                 register={props.register}
                 errors={props.errors}
             />
         </StyledGrid>
-    </StyledInputsGrid>
+    </StyledGridContainer>
 }

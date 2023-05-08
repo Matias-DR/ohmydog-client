@@ -1,7 +1,7 @@
 import {
+    StyledGridContainer,
     StyledGrid,
-    StyledInputsGrid
-} from '@/pages/signup/styled-components/form.styled-components'
+} from '@/pages/signup/styled-components/input-frames.styled-components'
 import {
     UsernameInput,
     EmailInput,
@@ -25,55 +25,55 @@ export interface Props {
 }
 
 export default function UserInputs(props: Props) {
-    return <StyledInputsGrid container spacing={2}>
-        <StyledGrid sm={6}>
+    return <StyledGridContainer container spacing={1}>
+        <StyledGrid xs={12} sm={6} md={3}>
             <UsernameInput
                 register={props.register}
                 errors={props.errors}
             />
         </StyledGrid>
-        <StyledGrid sm={6}>
+        <StyledGrid xs={12} sm={6} md={3}>
             <LastnameInput
                 register={props.register}
                 errors={props.errors}
             />
         </StyledGrid>
-        <StyledGrid sm={6}>
+        <StyledGrid xs={12} sm={6} md={3}>
             <AgeInput
                 register={props.register}
                 errors={props.errors}
             />
         </StyledGrid>
-        <StyledGrid sm={6}>
+        <StyledGrid xs={12} sm={6} md={3}>
             <DniInput
                 register={props.register}
                 errors={props.errors}
             />
         </StyledGrid>
-        <StyledGrid sm={6}>
+        <StyledGrid xs={12} sm={6} md={3}>
             <EmailInput
                 register={props.register}
                 errors={props.errors}
             />
         </StyledGrid>
-        <StyledGrid sm={6}>
+        <StyledGrid xs={12} sm={6} md={3}>
             <TelephoneInput
                 register={props.register}
                 errors={props.errors}
             />
         </StyledGrid>
-        <StyledGrid sm={6}>
+        <StyledGrid xs={12} sm={6} md={3}>
             <PasswordInput
                 register={props.register}
                 errors={props.errors}
             />
         </StyledGrid>
-        <StyledGrid sm={6}>
+        <StyledGrid xs={12} sm={6} md={3}>
             <RepeatPasswordInput
                 register={props.register}
                 errors={props.errors}
                 password={props.password}
             />
         </StyledGrid>
-    </StyledInputsGrid>
+    </StyledGridContainer>
 }
