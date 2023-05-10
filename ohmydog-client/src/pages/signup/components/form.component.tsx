@@ -41,8 +41,8 @@ export default function Form() {
         const user = createUserAdapter(data)
         const pet = createPetAdapter(data)
         const body: SignupBodyProps = {
-            user: user,
-            pet: pet
+            cliente: user,
+            mascota: pet
         }
         const res = await callEndpoint(signup(body))
         if (res.status === 200) {

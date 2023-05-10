@@ -5,8 +5,8 @@ import { Pet } from '@/models/pet.model'
 import axios from 'axios'
 
 export interface SignupBodyProps {
-    user: User
-    pet: Pet
+    cliente: User
+    mascota: Pet
 }
 
 export const signup = (body: SignupBodyProps): AxiosCall<Session> => {

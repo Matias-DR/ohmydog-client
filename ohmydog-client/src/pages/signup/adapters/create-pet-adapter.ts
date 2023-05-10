@@ -1,15 +1,15 @@
 import { Pet } from '@/models/pet.model'
 
 const createPetAdapter = (data: any): Pet => ({
-    name: data.petname,
-    age: data.petage,
-    sex: data.petsex,
-    size: data.petsize,
-    caracteristics: data.petcaracteristics,
-    weight: data.petweight,
-    race: data.petrace,
+    nombre: data.petname,
+    edad: data.petage,
+    sexo: data.petsex,
+    tamanio: data.petsize,
+    caracteristica: data.petcaracteristics,
+    peso: data.petweight,
+    raza: data.petrace,
     color: data.petcolor,
-    origin: data.petorigin,
+    origen: data.petorigin,
 })
 
 export default createPetAdapter

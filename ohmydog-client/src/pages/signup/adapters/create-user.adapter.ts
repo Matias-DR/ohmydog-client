@@ -20,12 +20,12 @@ import { User } from '@/models/user.model'
 // username: "Matias"
 
 const createUserAdapter = (data: any): User => ({
-    username: data.username,
-    lastname: data.lastname,
-    age: data.age,
+    nombre: data.username,
+    apellido: data.lastname,
+    edad: data.age,
     dni: data.dni,
     email: data.email,
-    telephone: data.telephone,
+    telefono: data.telephone,
     password: data.password,
 })
 
