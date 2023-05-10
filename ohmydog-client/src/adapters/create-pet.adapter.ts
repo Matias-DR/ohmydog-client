@@ -4,7 +4,7 @@ const createPetAdapter = (data: any): Pet => ({
     nombre: data.petname,
     edad: data.petage,
     sexo: data.petsex,
-    tamanio: data.petsize,
+    tamaño: data.petsize,
     caracteristica: data.petcaracteristics,
     peso: data.petweight,
     raza: data.petrace,

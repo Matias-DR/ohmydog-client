@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import LoadingButton from '@mui/lab/LoadingButton'
 
 export const StyledSection = styled.section`
+    box-sizing: border-box !important;
     height: 100%;
     width: 90%;
     min-width: 280px;
@@ -15,11 +16,6 @@ export const StyledImage = styled.img`
     width: 10rem;
 `
 
-export const StyledTitle = styled.h1`
-    font-size: 1.3rem;
-    color: var(--ohmydog-lightblue-color);
-`
-
 export const StyledForm = styled.form`
     height: 100%;
     width: 100%;
@@ -27,18 +23,18 @@ export const StyledForm = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
 `
 
 export const StyledFieldset = styled.fieldset`
     margin-bottom: .5rem;
-    padding-top: 0.3rem;
+    padding-top: 1rem;
     border: 1px solid var(--ohmydog-orange-color);
     border-radius: 1rem;
 `
 
 export const StyledLegend = styled.legend`
-    margin: 0 auto;
+    margin: -1rem auto;
 `
 
 export const StyledSubmitButton = styled(LoadingButton)`

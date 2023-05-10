@@ -4,6 +4,6 @@ export interface User {
     edad: number,
     dni: number,
     email: string,
-    telefono: number,
-    password: string,
+    telefono: string,
+    contraseña: string,
 }
