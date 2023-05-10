@@ -12,7 +12,6 @@ import {
 import { Signup } from '@/pages/signup/signup.model'
 import { useFetchAndLoad } from '@/hooks/use-fetch-and-load.hook'
 import { signup } from '@/pages/signup/signup.service'
-import { createSignupAdapter } from '@/pages/signup/create-signup.adapter'
 import { SnackbarUtilities } from '@/utilities/snackbar.utility'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
@@ -33,8 +32,7 @@ export default function Form() {
 
     const onSubmit = async (data: any) => {
         console.log('ESTO ES EL FORMULARIO', data)
-        const body: Signup = createSignupAdapter(data)
-        const res = await callEndpoint(signup(body))
+        const res = await callEndpoint(signup(data))
         if (res.status === 200) {
             SnackbarUtilities.success('Usuario creado')
             router.replace('/signin')
