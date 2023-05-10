@@ -177,7 +177,7 @@ const SignupInputs = {
             errors,
             password
         }: RePasswordProps) => <TextField
-                id='user-password'
+                id='user-repassword'
                 type='password'
                 label='Repita la contraseña'
                 defaultValue='qweQWE123/*-'

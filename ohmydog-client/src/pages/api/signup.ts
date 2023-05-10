@@ -5,6 +5,7 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
+    console.log('ESTO ES EL FORMULARIO', req.body)
     try {
         console.log("ABER SI ENTRA", req.body)
         const extRes = await axios.post(

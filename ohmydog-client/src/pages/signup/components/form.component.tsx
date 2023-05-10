@@ -22,7 +22,8 @@ export default function Form() {
         handleSubmit,
         formState: { errors },
         watch,
-        clearErrors
+        clearErrors,
+        setValue
     } = useForm<Signup>()
     const {
         loading,
@@ -31,7 +32,6 @@ export default function Form() {
     const router = useRouter()
 
     const onSubmit = async (data: any) => {
-        console.log('ESTO ES EL FORMULARIO', data)
         const res = await callEndpoint(signup(data))
         if (res.status === 200) {
             SnackbarUtilities.success('Usuario creado')
@@ -65,6 +65,7 @@ export default function Form() {
                 errors={errors}
                 watch={watch}
                 clearErrors={clearErrors}
+                setValue={setValue}
             ></PetInputs>
         </StyledFieldset>
         <StyledSubmitButton
