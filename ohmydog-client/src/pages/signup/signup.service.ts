@@ -2,7 +2,7 @@ import { AxiosCall } from '@/models/axios-call.model'
 import { Signup } from '@/pages/signup/signup.model'
 import axios from 'axios'
 
-export const signup = (body: Signup): AxiosCall<any> => {
+export const signup = (body: FormData): AxiosCall<any> => {
     const controller = new AbortController()
     return {
         call: axios.post<any>(

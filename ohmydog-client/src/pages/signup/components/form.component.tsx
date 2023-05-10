@@ -32,7 +32,10 @@ export default function Form() {
     const router = useRouter()
 
     const onSubmit = async (data: any) => {
-        const res = await callEndpoint(signup(data))
+        const form = new FormData()
+        form.append('cliente', JSON.stringify(data.cliente))
+        form.append('mascota', JSON.stringify(data.mascota))
+        const res = await callEndpoint(signup(form))
         if (res.status === 200) {
             SnackbarUtilities.success('Usuario creado')
             router.replace('/signin')
@@ -41,7 +44,10 @@ export default function Form() {
         }
     }
 
-    return <StyledForm onSubmit={handleSubmit(onSubmit)}>
+    return <StyledForm
+        encType="multipart/form-data"
+        onSubmit={handleSubmit(onSubmit)}
+    >
         <StyledFieldset>
             <StyledLegend>
                 <StyledTitle>
