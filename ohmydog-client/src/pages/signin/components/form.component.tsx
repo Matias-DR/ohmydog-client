@@ -3,7 +3,14 @@ import {
     StyledFieldset,
     StyledSubmitButton,
 } from '@/styled-components/form.styled-components'
-import { UserInputs } from './'
+import {
+    StyledGridContainer,
+    StyledGrid,
+} from '@/styled-components/input-frames.styled-components'
+import {
+    Email,
+    Password
+} from './credential-inputs.component'
 import { useFetchAndLoad } from '@/hooks/use-fetch-and-load.hook'
 import { dispatchUtility } from '@/utilities/dispatch.utility'
 import { Credential } from '@/pages/signin/credential.model'
@@ -36,10 +43,10 @@ export default function Form() {
         const credential: Credential = createCredentialAdapter(data)
         const res = await callEndpoint(signin(credential))
         const session: Session = createSessionAdapter(res.data)
-        // const user: User = createUserAdapter(res.data)
+        const user: User = createUserAdapter(res.data)
         if (session.token) {
-            // dispatchCreateUser(user)
-            // dispatchCreateSession(session)
+            dispatchCreateUser(user)
+            dispatchCreateSession(session)
             SnackbarUtilities.success('Sesión iniciada')
             router.replace('/walkers-sitters')
         } else {
@@ -47,12 +54,22 @@ export default function Form() {
         }
     }
 
-    return <StyledForm onSubmit={handleSubmit(onSubmit)}>
+    return <StyledForm noValidate onSubmit={handleSubmit(onSubmit)}>
         <StyledFieldset>
-            <UserInputs
-                register={register}
-                errors={errors}
-            ></UserInputs>
+            <StyledGridContainer container spacing={1}>
+                <StyledGrid xs={12}>
+                    <Email
+                        register={register}
+                        errors={errors}
+                    ></Email>
+                </StyledGrid>
+                <StyledGrid xs={12}>
+                    <Password
+                        register={register}
+                        errors={errors}
+                    ></Password>
+                </StyledGrid>
+            </StyledGridContainer>
         </StyledFieldset>
         <StyledSubmitButton
             type='submit'

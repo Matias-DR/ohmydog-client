@@ -9,29 +9,22 @@ import {
     UserInputs,
     PetInputs
 } from './'
-import { User } from '@/models/user.model'
-import { Pet } from '@/models/pet.model'
-import { useFetchAndLoad } from '@/hooks/use-fetch-and-load.hook'
-import { dispatchUtility } from '@/utilities/dispatch.utility'
-import { signup } from '@/pages/signup/signup.service'
 import { Signup } from '@/pages/signup/signup.model'
+import { useFetchAndLoad } from '@/hooks/use-fetch-and-load.hook'
+import { signup } from '@/pages/signup/signup.service'
 import { createSignupAdapter } from '@/pages/signup/create-signup.adapter'
 import { SnackbarUtilities } from '@/utilities/snackbar.utility'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
-
-export interface FormProps {
-    user: User,
-    pet: Pet
-}
 
 export default function Form() {
     const {
         register,
         handleSubmit,
         formState: { errors },
-        watch
-    } = useForm<FormProps>()
+        watch,
+        clearErrors
+    } = useForm<Signup>()
     const {
         loading,
         callEndpoint
@@ -39,6 +32,7 @@ export default function Form() {
     const router = useRouter()
 
     const onSubmit = async (data: any) => {
+        console.log('ESTO ES EL FORMULARIO', data)
         const body: Signup = createSignupAdapter(data)
         const res = await callEndpoint(signup(body))
         if (res.status === 200) {
@@ -59,7 +53,7 @@ export default function Form() {
             <UserInputs
                 register={register}
                 errors={errors}
-                password={watch('user.contraseña')}
+                password={watch('cliente.contraseña')}
             ></UserInputs>
         </StyledFieldset>
         <StyledFieldset>
@@ -71,6 +65,8 @@ export default function Form() {
             <PetInputs
                 register={register}
                 errors={errors}
+                watch={watch}
+                clearErrors={clearErrors}
             ></PetInputs>
         </StyledFieldset>
         <StyledSubmitButton

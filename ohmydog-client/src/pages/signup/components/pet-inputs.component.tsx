@@ -2,92 +2,85 @@ import {
     StyledGridContainer,
     StyledGrid,
 } from '@/styled-components/input-frames.styled-components'
-import {
-    PetAgeInput,
-    PetCaracteristicsInput,
-    PetNameInput,
-    PetRaceInput,
-    PetSexInput,
-    PetSizeInput,
-    PetColorInput,
-    PetOriginInput,
-    PetWeightInput
-} from '@/components'
-import { FormProps } from './form.component'
+import { Signup } from '../signup.model'
+import { SignupInputs } from './'
 import {
     UseFormRegister,
     FieldErrors
 } from 'react-hook-form'
-import { useState } from 'react'
+import { ImgUploader } from '@/components'
 
 export interface Props {
-    register: UseFormRegister<FormProps>,
+    register: UseFormRegister<Signup>,
     errors: FieldErrors,
+    watch: (field: string) => any,
+    clearErrors: () => void,
 }
 
 export default function PetInputs(props: Props) {
-    const [sex, setSex] = useState<string>('')
-
-    const onChangeSex = (e: any) => {
-        setSex(e.target.value)
-    }
-
     return <StyledGridContainer container spacing={1}>
         <StyledGrid xs={12} sm={6} md={3}>
-            <PetAgeInput
-                register={props.register}
-                errors={props.errors}
-            />
+            {SignupInputs.pet.name({
+                register: props.register,
+                errors: props.errors
+            })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
-            <PetCaracteristicsInput
-                register={props.register}
-                errors={props.errors}
-            />
+            {SignupInputs.pet.race({
+                register: props.register,
+                errors: props.errors
+            })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
-            <PetNameInput
-                register={props.register}
-                errors={props.errors}
-            />
+            {SignupInputs.pet.color({
+                register: props.register,
+                errors: props.errors
+            })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
-            <PetRaceInput
-                register={props.register}
-                errors={props.errors}
-            />
+            {SignupInputs.pet.age({
+                register: props.register,
+                errors: props.errors
+            })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
-            <PetSexInput
-                register={props.register}
-                errors={props.errors}
-                value={sex}
-                onChange={onChangeSex}
-            />
+            {SignupInputs.pet.sex({
+                register: props.register,
+                errors: props.errors,
+                clearErrors: props.clearErrors,
+            })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
-            <PetSizeInput
-                register={props.register}
-                errors={props.errors}
-            />
+            {SignupInputs.pet.size({
+                register: props.register,
+                errors: props.errors,
+                clearErrors: props.clearErrors,
+            })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
-            <PetColorInput
-                register={props.register}
-                errors={props.errors}
-            />
+            {SignupInputs.pet.weight({
+                register: props.register,
+                errors: props.errors
+            })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
-            <PetOriginInput
-                register={props.register}
-                errors={props.errors}
-            />
+            {SignupInputs.pet.origin({
+                register: props.register,
+                errors: props.errors
+            })}
         </StyledGrid>
-        <StyledGrid xs={12} sm={6} md={3}>
-            <PetWeightInput
+        <StyledGrid xs={12} sm={9}>
+            {SignupInputs.pet.caracteristics({
+                register: props.register,
+                errors: props.errors
+            })}
+        </StyledGrid>
+        <StyledGrid xs={12} sm={3}>
+            <ImgUploader
                 register={props.register}
                 errors={props.errors}
-            />
+                file={props.watch('mascota.foto')}
+            ></ImgUploader>
         </StyledGrid>
     </StyledGridContainer>
 }
