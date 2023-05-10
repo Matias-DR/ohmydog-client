@@ -6,7 +6,8 @@ import { Signup } from '../signup.model'
 import { SignupInputs } from './'
 import {
     UseFormRegister,
-    FieldErrors
+    FieldErrors,
+    UseFormSetValue
 } from 'react-hook-form'
 import { ImgUploader } from '@/components'
 
@@ -15,6 +16,7 @@ export interface Props {
     errors: FieldErrors,
     watch: (field: string) => any,
     clearErrors: () => void,
+    setValue: UseFormSetValue<Signup>,
 }
 
 export default function PetInputs(props: Props) {
@@ -80,6 +82,7 @@ export default function PetInputs(props: Props) {
                 register={props.register}
                 errors={props.errors}
                 file={props.watch('mascota.foto')}
+                setValue={props.setValue}
             ></ImgUploader>
         </StyledGrid>
     </StyledGridContainer>
