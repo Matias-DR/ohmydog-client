@@ -18,7 +18,7 @@ import { User } from '@/models/user.model'
 import { createCredentialAdapter } from '@/pages/signin/create-credential.adapter'
 import { signin } from '@/pages/signin/signin.service'
 import { Session } from '@/models/session.model'
-import { createSessionAdapter, createUserAdapter } from '@/adapters'
+import { createSessionAdapter } from '@/adapters'
 import { SnackbarUtilities } from '@/utilities/snackbar.utility'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
@@ -41,11 +41,11 @@ export default function Form() {
 
     const onSubmit = async (data: any) => {
         const credential: Credential = createCredentialAdapter(data)
-        const res = await callEndpoint(signin(credential))
+        const res = await callEndpoint(signin(data))
         const session: Session = createSessionAdapter(res.data)
-        const user: User = createUserAdapter(res.data)
+        //const user: User = createUserAdapter(res.data)
         if (session.token) {
-            dispatchCreateUser(user)
+            //dispatchCreateUser(user)
             dispatchCreateSession(session)
             SnackbarUtilities.success('Sesión iniciada')
             router.replace('/walkers-sitters')
