@@ -8,5 +8,5 @@ export interface Pet {
     peso: number,
     origen?: string,
     caracteristica?: string,
-    foto?: File,
+    foto?: string,
 }

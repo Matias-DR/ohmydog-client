@@ -32,27 +32,10 @@ export default function Form() {
     const router = useRouter()
 
     const onSubmit = async (data: Signup) => {
-        const formData = new FormData()
+        // const formData = new FormData()
         // formData.append('cliente', JSON.stringify(data.cliente))
         // formData.append('mascota', JSON.stringify(data.mascota))
-
-        if (data.mascota.foto) {
-            formData.append(
-                'mascota.foto',
-                data.mascota.foto,
-                data.mascota.foto.name
-            )
-        }
-        Object.entries(data.cliente).forEach(([key, value]) => {
-            formData.append(`cliente.${key}`, value);
-        });
-        Object.entries(data.mascota).forEach(([key, value]) => {
-            if (key !== 'foto') {
-                formData.append(`mascota.${key}`, value);
-            }
-        });
-
-        const res = await callEndpoint(signup(formData))
+        const res = await callEndpoint(signup(data))
         if (res.status === 200) {
             SnackbarUtilities.success('Usuario creado')
             router.replace('/signin')

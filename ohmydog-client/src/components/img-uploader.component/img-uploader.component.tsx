@@ -6,6 +6,7 @@ import {
     StyledHelperText,
 } from './img-uploader.styled-components'
 import { IconButton } from '@mui/material'
+import { imgToB64 } from '@/utilities/img-to-b64.utility'
 import {
     FieldErrors,
     UseFormRegister,
@@ -30,7 +31,8 @@ export default function ImgUploader({
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
         if (file && file.size < 3 * 1024 ** 2) {
-            setValue('mascota.foto', file)
+            const base64Img = imgToB64(file)
+                .then(res => setValue('mascota.foto', res))
             setFileUploaded(true)
         } else {
             setValue('mascota.foto', undefined)
