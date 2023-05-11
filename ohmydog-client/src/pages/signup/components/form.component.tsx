@@ -36,7 +36,7 @@ export default function Form() {
 
         if (data.mascota.foto) {
             formData.append(
-                'mascota[foto]',
+                'mascota.foto',
                 data.mascota.foto,
                 data.mascota.foto.name
             )

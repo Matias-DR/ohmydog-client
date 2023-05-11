@@ -9,8 +9,7 @@ export default async function handler(
     try {
         console.log("ABER SI ENTRA", req.body)
         const extRes = await axios.post(
-            // 'http://localhost:7162/api/register',
-            'http://localhost:3001/signup',
+            'http://localhost:7162/api/register',
             req.body
         )
         res.status(200).json(extRes.data)
