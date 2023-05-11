@@ -1,5 +1,4 @@
 import { AxiosCall } from '@/models/axios-call.model'
-import { Signup } from '@/pages/signup/signup.model'
 import axios from 'axios'
 
 export const signup = (body: FormData): AxiosCall<any> => {

@@ -8,6 +8,7 @@ import {
 } from '@/styled-components/styled-components'
 import ohmydogB64Image from '@/assets/images/ohmydog-b64-image'
 import { Form } from './components'
+import { RedirectTo } from '@/components'
 
 export default function Signup() {
     return <StyledMain>
@@ -21,5 +22,10 @@ export default function Signup() {
             </StyledTitle>
             <Form />
         </StyledSection >
+        <RedirectTo
+            to="/signin"
+            speech="¿Ya tiene cuenta?"
+            linkText="Inicie sesión"
+        />
     </StyledMain>
 }

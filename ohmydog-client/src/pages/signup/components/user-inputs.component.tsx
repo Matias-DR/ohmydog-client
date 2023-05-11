@@ -11,7 +11,7 @@ import {
 
 export interface Props {
     register: UseFormRegister<Signup>,
-    errors: FieldErrors,
+    errors: FieldErrors<Signup>,
     password: string,
 }
 
