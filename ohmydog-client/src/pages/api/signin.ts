@@ -7,11 +7,13 @@ export default async function handler(
 ) {
     console.log('SIGNIN - REQ.BODY', req.body)
     try {
+        console.log("ESTO ES EL BODY", req.body)
         const extRes = await axios.post(
             'http://localhost:7162/api/login',
             req.body
         )
     } catch (err) {
+        console.log("ESTE ES EL ERROR DEL LOGIN", err)
         try {
             const jsonSvRes = await axios.get('http://localhost:3001/signin')
             res.status(200).json(jsonSvRes.data)
