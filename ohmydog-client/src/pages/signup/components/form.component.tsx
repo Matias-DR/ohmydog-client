@@ -33,6 +33,8 @@ export default function Form() {
 
     const onSubmit = async (data: Signup) => {
         const formData = new FormData()
+        // formData.append('cliente', JSON.stringify(data.cliente))
+        // formData.append('mascota', JSON.stringify(data.mascota))
 
         if (data.mascota.foto) {
             formData.append(
@@ -41,23 +43,14 @@ export default function Form() {
                 data.mascota.foto.name
             )
         }
-        formData.append('mascota', JSON.stringify({
-            ...data.mascota,
-            foto: undefined
-        }))
-        formData.append('cliente', JSON.stringify(data.cliente))
-        // formData.append('mascota', JSON.stringify(data.mascota))
-
-        // Object.entries(data.cliente).forEach(([key, value]) => {
-        //     formData.append(`cliente.${key}`, value);
-        // });
-        // Object.entries(data.mascota).forEach(([key, value]) => {
-        //     if (key === 'foto') {
-        //         formData.append('mascota.foto', value, value.name);
-        //     } else {
-        //         formData.append(`mascota.${key}`, value);
-        //     }
-        // });
+        Object.entries(data.cliente).forEach(([key, value]) => {
+            formData.append(`cliente.${key}`, value);
+        });
+        Object.entries(data.mascota).forEach(([key, value]) => {
+            if (key !== 'foto') {
+                formData.append(`mascota.${key}`, value);
+            }
+        });
 
         const res = await callEndpoint(signup(formData))
         if (res.status === 200) {
