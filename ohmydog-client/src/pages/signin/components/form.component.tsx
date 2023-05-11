@@ -15,7 +15,6 @@ import { useFetchAndLoad } from '@/hooks/use-fetch-and-load.hook'
 import { dispatchUtility } from '@/utilities/dispatch.utility'
 import { Credential } from '@/pages/signin/credential.model'
 import { User } from '@/models/user.model'
-import { createCredentialAdapter } from '@/pages/signin/create-credential.adapter'
 import { signin } from '@/pages/signin/signin.service'
 import { Session } from '@/models/session.model'
 import { createSessionAdapter } from '@/adapters'
@@ -39,13 +38,12 @@ export default function Form() {
     } = dispatchUtility()
     const router = useRouter()
 
-    const onSubmit = async (data: any) => {
-        const credential: Credential = createCredentialAdapter(data)
+    const onSubmit = async (data: Credential) => {
         const res = await callEndpoint(signin(data))
         const session: Session = createSessionAdapter(res.data)
-        //const user: User = createUserAdapter(res.data)
+        // const user: User = createUserAdapter(res.data)
         if (session.token) {
-            //dispatchCreateUser(user)
+            // dispatchCreateUser(user)
             dispatchCreateSession(session)
             SnackbarUtilities.success('Sesión iniciada')
             router.replace('/walkers-sitters')

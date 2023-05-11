@@ -31,11 +31,35 @@ export default function Form() {
     } = useFetchAndLoad()
     const router = useRouter()
 
-    const onSubmit = async (data: any) => {
-        const form = new FormData()
-        form.append('cliente', JSON.stringify(data.cliente))
-        form.append('mascota', JSON.stringify(data.mascota))
-        const res = await callEndpoint(signup(form))
+    const onSubmit = async (data: Signup) => {
+        const formData = new FormData()
+
+        if (data.mascota.foto) {
+            formData.append(
+                'mascota[foto]',
+                data.mascota.foto,
+                data.mascota.foto.name
+            )
+        }
+        formData.append('mascota', JSON.stringify({
+            ...data.mascota,
+            foto: undefined
+        }))
+        formData.append('cliente', JSON.stringify(data.cliente))
+        // formData.append('mascota', JSON.stringify(data.mascota))
+
+        // Object.entries(data.cliente).forEach(([key, value]) => {
+        //     formData.append(`cliente.${key}`, value);
+        // });
+        // Object.entries(data.mascota).forEach(([key, value]) => {
+        //     if (key === 'foto') {
+        //         formData.append('mascota.foto', value, value.name);
+        //     } else {
+        //         formData.append(`mascota.${key}`, value);
+        //     }
+        // });
+
+        const res = await callEndpoint(signup(formData))
         if (res.status === 200) {
             SnackbarUtilities.success('Usuario creado')
             router.replace('/signin')
@@ -69,7 +93,6 @@ export default function Form() {
             <PetInputs
                 register={register}
                 errors={errors}
-                watch={watch}
                 clearErrors={clearErrors}
                 setValue={setValue}
             ></PetInputs>

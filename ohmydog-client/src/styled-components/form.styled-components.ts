@@ -44,10 +44,10 @@ export const StyledSubmitButton = styled(LoadingButton)`
     font-weight: bold;
     position: relative;
 
-    &::after {
+    /* &::after {
         height: 3rem;
         width: 1rem;
         content: '';
         position: absolute;
-    }
+    } */
 `

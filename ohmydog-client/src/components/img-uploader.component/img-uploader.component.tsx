@@ -1,33 +1,43 @@
-import { Signup } from '@/pages/signup/signup.model';
-import { StyledImgUploaderContainer } from './img-uploader.styled-components'
-import { IconButton } from '@mui/material';
+import { Signup } from '@/pages/signup/signup.model'
+import {
+    StyledImgUploaderContainer,
+    StyledDoneIcon,
+    StyledAddPhotoIcon,
+    StyledHelperText,
+} from './img-uploader.styled-components'
+import { IconButton } from '@mui/material'
 import {
     FieldErrors,
     UseFormRegister,
     UseFormSetValue
-} from 'react-hook-form';
-import DoneIcon from '@mui/icons-material/Done';
-import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+} from 'react-hook-form'
+import { useState } from 'react'
 
 export interface ImgUploaderProps {
     register: UseFormRegister<any>,
-    errors: FieldErrors
-    file?: string,
+    errors: FieldErrors<Signup>
     setValue: UseFormSetValue<Signup>
 }
 
 export default function ImgUploader({
     register,
     errors,
-    file,
     setValue
 }: ImgUploaderProps) {
+    const [fileUploaded, setFileUploaded] = useState<boolean>(false)
+    const [errorMessage, setErrorMessage] = useState<string>('')
+
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const selectedFile = e.target.files?.[0];
-        if (selectedFile) {
-            setValue('mascota.foto', selectedFile);
+        const file = e.target.files?.[0]
+        if (file && file.size < 3 * 1024 ** 2) {
+            setValue('mascota.foto', file)
+            setFileUploaded(true)
+        } else {
+            setValue('mascota.foto', undefined)
+            setFileUploaded(false)
+            setErrorMessage('Peso máximo 3mb')
         }
-    };
+    }
 
     return <StyledImgUploaderContainer>
         <IconButton
@@ -38,15 +48,12 @@ export default function ImgUploader({
                 hidden
                 accept='image/*'
                 type='file'
-                {...register('mascota.foto')}
                 onChange={handleFileChange}
             />
-            {file ? <DoneIcon
-                sx={{ width: '3rem', height: '3rem', color: 'green' }}
-            ></DoneIcon> : <AddPhotoAlternateIcon
-                sx={{ width: '3rem', height: '3rem' }}
-            />}
+            {fileUploaded ? <StyledDoneIcon /> : <StyledAddPhotoIcon />}
         </IconButton>
-        {file ? <p>Foto añadida</p> : null}
+        <StyledHelperText color={fileUploaded ? 'black' : 'red'}>
+            {fileUploaded ? 'Foto añadida' : errorMessage}
+        </StyledHelperText>
     </StyledImgUploaderContainer>
 }

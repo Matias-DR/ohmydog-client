@@ -5,6 +5,7 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
+    console.log('SIGNIN - REQ.BODY', req.body)
     try {
         console.log("ESTO ES EL BODY", req.body)
         const extRes = await axios.post(

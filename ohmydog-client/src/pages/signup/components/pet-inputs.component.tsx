@@ -13,8 +13,7 @@ import { ImgUploader } from '@/components'
 
 export interface Props {
     register: UseFormRegister<Signup>,
-    errors: FieldErrors,
-    watch: (field: string) => any,
+    errors: FieldErrors<Signup>,
     clearErrors: () => void,
     setValue: UseFormSetValue<Signup>,
 }
@@ -81,7 +80,6 @@ export default function PetInputs(props: Props) {
             <ImgUploader
                 register={props.register}
                 errors={props.errors}
-                file={props.watch('mascota.foto')}
                 setValue={props.setValue}
             ></ImgUploader>
         </StyledGrid>
