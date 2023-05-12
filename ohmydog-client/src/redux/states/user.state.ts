@@ -5,7 +5,7 @@ const initialState: ReduxUser = {
     username: '',
     lastname: '',
     email: '',
-    telephone: 0,
+    telephone: '0',
 }
 
 export const userSlice = createSlice({

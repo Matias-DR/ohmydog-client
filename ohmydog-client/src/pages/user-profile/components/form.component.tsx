@@ -3,9 +3,9 @@ import {
     StyledFieldset,
     StyledForm,
     StyledLegend,
+    StyledTitle,
     StyledSubmitButton
 } from '@/styled-components/form.styled-components'
-import { StyledTitle } from '@/styled-components/styled-components'
 import { UserInputs } from './'
 import { SnackbarUtilities } from '@/utilities/snackbar.utility'
 import { ChangeUserData } from '@/pages/user-profile/change-user-data.model'

@@ -21,7 +21,8 @@ export default async function handler(
         } catch (err) {
             res.status(200).json({
                 token: '',
-                cliente: {}
+                cliente: {},
+                mascotas: [],
             })
         }
     }

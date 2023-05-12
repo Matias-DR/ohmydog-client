@@ -5,7 +5,12 @@ export const StyledGridContainer = styled(Grid)`
     width: 100%;
     justify-content: center;
     align-items: center;
+    /* margin: 1rem; */
+    padding: 0;
 `
 
 export const StyledGrid = styled(Grid)`
+    margin-bottom: 1rem;
+    padding-top: .5rem;
+    /* padding: 0; */
 `

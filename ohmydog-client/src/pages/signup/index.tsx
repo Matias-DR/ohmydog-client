@@ -1,11 +1,9 @@
 import {
     StyledSection,
     StyledImage,
+    StyledTitle
 } from '@/styled-components/form.styled-components'
-import {
-    StyledMain,
-    StyledTitle,
-} from '@/styled-components/styled-components'
+import { StyledMain } from './styled-components'
 import ohmydogB64Image from '@/assets/images/ohmydog-b64-image'
 import { Form } from './components'
 import { RedirectTo } from '@/components'

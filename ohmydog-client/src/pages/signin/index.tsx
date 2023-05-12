@@ -1,11 +1,9 @@
 import {
     StyledSection,
     StyledImage,
-} from '@/styled-components/form.styled-components'
-import {
-    StyledMain,
     StyledTitle,
-} from '@/styled-components/styled-components'
+} from '@/styled-components/form.styled-components'
+import { StyledMain } from './styled-components'
 import ohmydogB64Image from '@/assets/images/ohmydog-b64-image'
 import { Form } from './components'
 import { RedirectTo } from '@/components'
@@ -21,11 +19,11 @@ export default function Signup() {
                 INICIO DE SESIÓN
             </StyledTitle>
             <Form />
+            <RedirectTo
+                to="/signup"
+                speech="¿No tiene cuenta?"
+                linkText="Regístrese"
+            />
         </StyledSection >
-        <RedirectTo
-            to="/signup"
-            speech="¿No tiene cuenta?"
-            linkText="Regístrese"
-        />
     </StyledMain>
 }

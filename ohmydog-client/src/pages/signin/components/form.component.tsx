@@ -14,6 +14,7 @@ import { Credential } from '@/pages/signin/credential.model'
 import { signin } from '@/pages/signin/signin.service'
 import { Session } from '@/models/session.model'
 import {
+    createPetsAdapter,
     createSessionAdapter,
     createUserAdapter
 } from '@/adapters'
@@ -21,6 +22,7 @@ import { SnackbarUtilities } from '@/utilities/snackbar.utility'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { User } from '@/models/user.model'
+import { Pet } from '@/models/pet.model'
 
 export default function Form() {
     const {
@@ -42,9 +44,13 @@ export default function Form() {
         const res = await callEndpoint(signin(data))
         const session: Session = createSessionAdapter(res.data)
         const user: User = createUserAdapter(res.data)
+        // const pets: Pet[] = createPetsAdapter(res.data)
+        console.log('ESTO ES SESSION DESDE CLIENTE', session)
+        console.log('ESTO ES USER DESDE CLIENTE', user)
         if (session.token) {
             dispatchCreateUser(user)
             dispatchCreateSession(session)
+            // dispatchCreatePets(pets)
             router.replace('/walkers-sitters')
         } else {
             SnackbarUtilities.error('Error al iniciar sesión')

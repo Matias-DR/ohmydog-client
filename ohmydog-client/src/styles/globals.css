@@ -9,13 +9,7 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif
 }
 
-html,
-body,
-#__next {
-    height: 100vh;
-}
-
-html, body, #__next, main, div {
+main, section, article, div {
     box-sizing: border-box !important;
 }
 

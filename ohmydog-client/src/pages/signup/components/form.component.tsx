@@ -2,9 +2,9 @@ import {
     StyledForm,
     StyledFieldset,
     StyledLegend,
+    StyledTitle,
     StyledSubmitButton,
 } from '@/styled-components/form.styled-components'
-import { StyledTitle } from '@/styled-components/styled-components'
 import {
     UserInputs,
     PetInputs
