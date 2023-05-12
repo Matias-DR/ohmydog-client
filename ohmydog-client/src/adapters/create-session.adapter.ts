@@ -1,8 +1,7 @@
 import { Session } from '@/models/session.model'
 
 const createSessionAdapter = (data: any): Session => ({
-    token: data.token,
-    refresh: data.refresh,
+    token: data.token
 })
 
 export default createSessionAdapter

@@ -6,11 +6,13 @@ export default async function handler(
     res: NextApiResponse
 ) {
     try {
-        const extRes = await axios.post(
+        const extRes = await axios.patch(
             'http://localhost:7162/api/cliente',
             req.body
         )
-        res.status(200).json(true)
+        if (extRes.status !== 200) {
+            res.status(200).json(true)
+        }
     } catch (err) {
         try {
             const jsonSvRes = await axios.get('http://localhost:3001/change-user-data')
