@@ -9,6 +9,7 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif
 }
 
+html,
 body,
 #__next {
     height: 100vh;
