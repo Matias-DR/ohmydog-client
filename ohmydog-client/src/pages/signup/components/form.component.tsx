@@ -15,6 +15,7 @@ import { signup } from '@/pages/signup/signup.service'
 import { SnackbarUtilities } from '@/utilities/snackbar.utility'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
+import { signupDataAdapter } from '../signup-data.adapter'
 
 export default function Form() {
     const {
@@ -24,23 +25,25 @@ export default function Form() {
         watch,
         clearErrors,
         setValue
-    } = useForm<Signup>()
+    } = useForm<any>()
     const {
         loading,
         callEndpoint
     } = useFetchAndLoad()
     const router = useRouter()
 
-    const onSubmit = async (data: Signup) => {
-        // const formData = new FormData()
-        // formData.append('cliente', JSON.stringify(data.cliente))
-        // formData.append('mascota', JSON.stringify(data.mascota))
-        const res = await callEndpoint(signup(data))
-        if (res.status === 200) {
-            SnackbarUtilities.success('Usuario creado')
+    const onSubmit = async (data: any) => {
+        const signupData: Signup = signupDataAdapter(data)
+        const res = await callEndpoint(signup(signupData))
+        if (res.data) {
+            SnackbarUtilities.success(
+                'Usuario creado exitosamente, ya puede iniciar sesión'
+            )
             router.replace('/signin')
         } else {
-            SnackbarUtilities.error('Error al crear el usuario')
+            SnackbarUtilities.error(
+                'Error al crear el usuario, por favor intente más tarde'
+            )
         }
     }
 

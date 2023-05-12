@@ -7,14 +7,10 @@ import {
     StyledGridContainer,
     StyledGrid,
 } from '@/styled-components/input-frames.styled-components'
-import {
-    Email,
-    Password
-} from './credential-inputs.component'
+import { CredentialInputs } from './credential-inputs.component'
 import { useFetchAndLoad } from '@/hooks/use-fetch-and-load.hook'
 import { dispatchUtility } from '@/utilities/dispatch.utility'
 import { Credential } from '@/pages/signin/credential.model'
-import { User } from '@/models/user.model'
 import { signin } from '@/pages/signin/signin.service'
 import { Session } from '@/models/session.model'
 import { createSessionAdapter } from '@/adapters'
@@ -45,7 +41,6 @@ export default function Form() {
         if (session.token) {
             // dispatchCreateUser(user)
             dispatchCreateSession(session)
-            SnackbarUtilities.success('Sesión iniciada')
             router.replace('/walkers-sitters')
         } else {
             SnackbarUtilities.error('Error al iniciar sesión')
@@ -56,16 +51,10 @@ export default function Form() {
         <StyledFieldset>
             <StyledGridContainer container spacing={1}>
                 <StyledGrid xs={12}>
-                    <Email
-                        register={register}
-                        errors={errors}
-                    ></Email>
+                    {CredentialInputs.email({ register, errors })}
                 </StyledGrid>
                 <StyledGrid xs={12}>
-                    <Password
-                        register={register}
-                        errors={errors}
-                    ></Password>
+                    {CredentialInputs.password({ register, errors })}
                 </StyledGrid>
             </StyledGridContainer>
         </StyledFieldset>

@@ -1,17 +1,13 @@
-import {
-    StyledGridContainer,
-    StyledGrid,
-} from '@/styled-components/input-frames.styled-components'
-import { User } from '@/models/user.model'
 import { UserProfileInputs } from '@/components'
 import {
-    UseFormRegister,
-    FieldErrors
-} from 'react-hook-form'
+    StyledGrid,
+    StyledGridContainer
+} from '@/styled-components/input-frames.styled-components'
+import { FieldErrors, UseFormRegister } from 'react-hook-form'
 
 export interface Props {
-    register: UseFormRegister<User>,
-    errors: FieldErrors<User>,
+    register: UseFormRegister<any>,
+    errors: FieldErrors,
     password: string,
 }
 
@@ -24,56 +20,60 @@ export default function UserInputs({
         <StyledGrid xs={12} sm={6} md={3}>
             {UserProfileInputs.name({
                 register,
-                name: 'cliente.nombre',
-                errors
+                name: 'nombre',
+                errors,
+                disabled: true
             })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
             {UserProfileInputs.lastname({
                 register,
-                name: 'cliente.apellido',
-                errors
+                name: 'apellido',
+                errors,
+                disabled: true
             })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
             {UserProfileInputs.dni({
                 register,
-                name: 'cliente.dni',
-                errors
+                name: 'dni',
+                errors,
+                disabled: true
             })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
             {UserProfileInputs.age({
                 register,
-                name: 'cliente.edad',
-                errors
+                name: 'edad',
+                errors,
+                disabled: true
             })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
             {UserProfileInputs.email({
                 register,
-                name: 'cliente.email',
+                name: 'email',
                 errors
             })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
             {UserProfileInputs.celphone({
                 register,
-                name: 'cliente.telefono',
+                name: 'telefono',
                 errors
             })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
             {UserProfileInputs.password({
                 register,
-                name: 'cliente.contraseña',
+                name: 'contraseña',
                 errors
             })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
-            {UserProfileInputs.passwordConfirmation({
+            {UserProfileInputs.passwordNew({
                 register,
-                name: 'contraseñaConfirmacion',
+                name: 'contraseñaNueva',
                 errors,
                 password: password
             })}

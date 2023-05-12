@@ -1,12 +1,12 @@
 import { AxiosCall } from '@/models/axios-call.model'
-import { Signup } from './signup.model'
+import { ChangeUserData } from './change-user-data.model'
 import axios from 'axios'
 
-export const signup = (body: Signup): AxiosCall<boolean> => {
+export const changeUserData = (body: ChangeUserData): AxiosCall<boolean> => {
     const controller = new AbortController()
     return {
         call: axios.post<boolean>(
-            '/api/signup',
+            '/api/change-user-data',
             body,
             { signal: controller.signal }),
         controller

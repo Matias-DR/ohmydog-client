@@ -4,7 +4,7 @@ import {
     StyledDoneIcon,
     StyledAddPhotoIcon,
     StyledHelperText,
-} from './img-uploader.styled-components'
+} from './b64-img-uploader.styled-components'
 import { IconButton } from '@mui/material'
 import { imgToB64 } from '@/utilities/img-to-b64.utility'
 import {
@@ -16,8 +16,8 @@ import { useState } from 'react'
 
 export interface ImgUploaderProps {
     register: UseFormRegister<any>,
-    errors: FieldErrors<Signup>
-    setValue: UseFormSetValue<Signup>
+    errors: FieldErrors<any>
+    setValue: UseFormSetValue<any>
 }
 
 export default function ImgUploader({

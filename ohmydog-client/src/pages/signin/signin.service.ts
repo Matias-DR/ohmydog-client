@@ -6,7 +6,11 @@ import axios from 'axios'
 export const signin = (body: Credential): AxiosCall<Session> => {
     const controller = new AbortController()
     return {
-        call: axios.post<Session>('/api/signin', body, {signal: controller.signal}),
+        call: axios.post<Session>(
+            '/api/signin',
+            body,
+            { signal: controller.signal }
+        ),
         controller
     }
 }

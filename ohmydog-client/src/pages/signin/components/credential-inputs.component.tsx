@@ -8,39 +8,42 @@ export interface InputProps {
     errors: FieldErrors<Credential>,
 }
 
-export const Email = ({
-    register,
-    errors
-}: InputProps) => <TextField
-        id='email'
-        type='email'
-        label='Email'
-        {...register(
-            'email',
-            {
-                required: true,
-                pattern: {
-                    value: EmailPattern,
-                    message: 'Email inválido'
-                }
-            })}
-        error={!!errors.email}
-        fullWidth
-        helperText={<>{errors.email?.message}</>}
-    />
+export const CredentialInputs = {
+    email: ({
+        register,
+        errors
+    }: InputProps) => <TextField
+            id='email'
+            type='email'
+            label='Email'
+            {...register(
+                'email',
+                {
+                    required: true,
+                    pattern: {
+                        value: EmailPattern,
+                        message: 'Email inválido'
+                    }
+                })}
+            error={!!errors.email}
+            fullWidth
+            helperText={<>{errors.email?.message}</>}
+        />,
+    password: ({
+        register,
+        errors
+    }: InputProps) => <TextField
+            id='contraseña'
+            type='password'
+            label='Contraseña'
+            {...register(
+                'contraseña',
+                { required: true }
+            )}
+            error={!!errors.contraseña}
+            helperText={<>{errors.contraseña?.message}</>}
+            fullWidth
+        />
+}
 
-export const Password = ({
-    register,
-    errors
-}: InputProps) => <TextField
-        id='contraseña'
-        type='password'
-        label='Contraseña'
-        {...register(
-            'contraseña',
-            { required: true }
-        )}
-        error={!!errors.contraseña}
-        helperText={<>{errors.contraseña?.message}</>}
-        fullWidth
-    />
+export default CredentialInputs
