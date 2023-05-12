@@ -1,5 +1,16 @@
 import styled from '@emotion/styled'
 
+const Main = styled.main`
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+`
+
+const Overflow = styled.div`
+    width: 100%;
+    height: 100%;
+`
+
 export const StyledMain = styled.main`
     width: 100%;
     height: 100%;
