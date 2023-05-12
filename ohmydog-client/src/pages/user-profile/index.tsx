@@ -1,8 +1,9 @@
 import {
     StyledMain,
     UserSection,
-    PetsSection
-} from './styled-components'
+    StyledSeparator,
+    PetsSection,
+} from './styled-components/styled-components'
 import { StyledTitle } from '@/styled-components/form.styled-components'
 import {
     Form,
@@ -14,8 +15,9 @@ export default function UserProfile() {
         <UserSection>
             <Form></Form>
         </UserSection>
+        <StyledSeparator />
         <PetsSection>
-            <StyledTitle>Mis mascotas</StyledTitle>
+            <StyledTitle>Mascotas</StyledTitle>
             <PetList></PetList>
         </PetsSection>
     </StyledMain>

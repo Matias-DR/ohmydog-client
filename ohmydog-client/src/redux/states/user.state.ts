@@ -1,11 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ReduxUser } from '@/redux/models/user.redux-model';
+import { User } from '@/models/user.model'
 
-const initialState: ReduxUser = {
-    username: '',
-    lastname: '',
+const initialState: User = {
+    nombre: '',
+    apellido: '',
+    edad: 0,
+    dni: 0,
     email: '',
-    telephone: '0',
+    telefono: '',
+    contraseña: '',
+    rol: ''
 }
 
 export const userSlice = createSlice({

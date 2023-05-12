@@ -2,13 +2,14 @@ import { User } from "@/models/user.model"
 
 const createUserAdapter = (data: any): User => {
     return {
-        nombre: data.cliente.nombre,
-        apellido: data.cliente.apellido,
-        edad: data.cliente.edad,
-        dni: data.cliente.dni,
-        email: data.cliente.email,
-        telefono: data.cliente.telefono,
+        nombre: data.cliente.Nombre,
+        apellido: data.cliente.Apellido,
+        edad: data.cliente.Edad,
+        dni: data.cliente.DNI,
+        email: data.cliente.Email,
+        telefono: data.cliente.Telefono,
         contraseña: '',
+        rol: data.cliente.Rol,
     }
 }
 

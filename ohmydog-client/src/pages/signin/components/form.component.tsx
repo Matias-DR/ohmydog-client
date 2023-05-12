@@ -36,7 +36,8 @@ export default function Form() {
     } = useFetchAndLoad()
     const {
         dispatchCreateUser,
-        dispatchCreateSession
+        dispatchCreateSession,
+        dispatchCreatePets
     } = dispatchUtility()
     const router = useRouter()
 
@@ -44,13 +45,11 @@ export default function Form() {
         const res = await callEndpoint(signin(data))
         const session: Session = createSessionAdapter(res.data)
         const user: User = createUserAdapter(res.data)
-        // const pets: Pet[] = createPetsAdapter(res.data)
-        console.log('ESTO ES SESSION DESDE CLIENTE', session)
-        console.log('ESTO ES USER DESDE CLIENTE', user)
+        const pets: Pet[] = createPetsAdapter(res.data)
         if (session.token) {
             dispatchCreateUser(user)
             dispatchCreateSession(session)
-            // dispatchCreatePets(pets)
+            dispatchCreatePets(pets)
             router.replace('/walkers-sitters')
         } else {
             SnackbarUtilities.error('Error al iniciar sesión')

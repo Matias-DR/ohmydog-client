@@ -9,6 +9,11 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif
 }
 
+html {
+    background: rgb(65,149,175);
+    background: linear-gradient(180deg, rgba(65,149,175,0.15) 35%, rgba(241,150,91,0.15449929971988796) 90%);   
+}
+
 main, section, article, div {
     box-sizing: border-box !important;
 }

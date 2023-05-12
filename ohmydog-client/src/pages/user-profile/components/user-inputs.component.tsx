@@ -3,6 +3,9 @@ import {
     StyledGrid,
     StyledGridContainer
 } from '@/styled-components/input-frames.styled-components'
+import { User } from '@/models/user.model'
+import { AppStore } from '@/redux/store'
+import { useSelector } from 'react-redux'
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
 
 export interface Props {
@@ -16,13 +19,16 @@ export default function UserInputs({
     errors,
     password
 }: Props) {
+    const user: User = useSelector((store: AppStore) => store.user)
+
     return <StyledGridContainer container spacing={1}>
         <StyledGrid xs={12} sm={6} md={3}>
             {UserProfileInputs.name({
                 register,
                 name: 'nombre',
                 errors,
-                disabled: true
+                disabled: true,
+                defaultValue: user.nombre
             })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
@@ -30,7 +36,8 @@ export default function UserInputs({
                 register,
                 name: 'apellido',
                 errors,
-                disabled: true
+                disabled: true,
+                defaultValue: user.apellido
             })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
@@ -38,7 +45,8 @@ export default function UserInputs({
                 register,
                 name: 'dni',
                 errors,
-                disabled: true
+                disabled: true,
+                defaultValue: user.dni
             })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
@@ -46,21 +54,24 @@ export default function UserInputs({
                 register,
                 name: 'edad',
                 errors,
-                disabled: true
+                disabled: true,
+                defaultValue: user.edad
             })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
             {UserProfileInputs.email({
                 register,
                 name: 'email',
-                errors
+                errors,
+                defaultValue: user.email
             })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
             {UserProfileInputs.celphone({
                 register,
                 name: 'telefono',
-                errors
+                errors,
+                defaultValue: user.telefono
             })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>

@@ -1,4 +1,4 @@
-import * as patterns from '@/models/patterns.model'
+import { Patterns } from '@/models/patterns.model'
 import { TextField } from '@mui/material'
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
 
@@ -7,7 +7,7 @@ export interface InputProps {
     name: string,
     errors: FieldErrors<any>,
     disabled?: boolean,
-    defaultValue?: string
+    defaultValue?: string | number
     required?: boolean
 }
 
@@ -21,19 +21,20 @@ const UserProfileInputs = {
         name,
         errors,
         disabled,
-        required
+        required,
+        defaultValue = 'Ejemplo'
     }: InputProps) => <TextField
             id='user-name'
             type='text'
             label='Nombre'
-            defaultValue='Ejemplo'
+            defaultValue={defaultValue}
             disabled={disabled}
             {...(register && register(
                 name,
                 {
                     required: required ? 'Campo requerido' : '',
                     pattern: {
-                        value: patterns.NamePattern,
+                        value: Patterns.name,
                         message: 'Campo inválido'
                     }
                 }))}
@@ -46,19 +47,20 @@ const UserProfileInputs = {
         name,
         errors,
         disabled,
-        required
+        required,
+        defaultValue = 'Ejemplo'
     }: InputProps) => <TextField
             id='user-lastname'
             type='text'
             label='Apellido'
-            defaultValue='Ejemplo'
+            defaultValue={defaultValue}
             disabled={disabled}
             {...(register && register(
                 name,
                 {
                     required: required ? 'Campo requerido' : '',
                     pattern: {
-                        value: patterns.NamePattern,
+                        value: Patterns.name,
                         message: 'Campo inválido'
                     }
                 }))}
@@ -71,19 +73,20 @@ const UserProfileInputs = {
         name,
         errors,
         disabled,
-        required
+        required,
+        defaultValue = '12345678'
     }: InputProps) => <TextField
             id='user-dni'
             type='text'
             label='DNI'
-            defaultValue='12345678'
+            defaultValue={defaultValue}
             disabled={disabled}
             {...(register && register(
                 name,
                 {
                     required: required ? 'Campo requerido' : '',
                     pattern: {
-                        value: patterns.DniPattern,
+                        value: Patterns.dni,
                         message: 'Campo inválido'
                     }
                 }))}
@@ -96,19 +99,20 @@ const UserProfileInputs = {
         name,
         errors,
         disabled,
-        required
+        required,
+        defaultValue = '18'
     }: InputProps) => <TextField
             id='user-age'
             type='number'
             label='Edad'
-            defaultValue='18'
+            defaultValue={defaultValue}
             disabled={disabled}
             {...(register && register(
                 name,
                 {
                     required: required ? 'Campo requerido' : '',
                     pattern: {
-                        value: patterns.AgePattern,
+                        value: Patterns.age,
                         message: 'Campo inválido'
                     }
                 }))}
@@ -121,19 +125,20 @@ const UserProfileInputs = {
         name,
         errors,
         disabled,
-        required
+        required,
+        defaultValue = 'ejemplo@ejemplo.com'
     }: InputProps) => <TextField
             id='user-email'
             type='email'
             label='Email'
-            defaultValue='ejemplo@ejemplo.com'
+            defaultValue={defaultValue}
             disabled={disabled}
             {...(register && register(
                 name,
                 {
                     required: required ? 'Campo requerido' : '',
                     pattern: {
-                        value: patterns.EmailPattern,
+                        value: Patterns.email,
                         message: 'Campo inválido'
                     }
                 }))}
@@ -146,19 +151,20 @@ const UserProfileInputs = {
         name,
         errors,
         disabled,
-        required
+        required,
+        defaultValue = '+54 221 620 3057'
     }: InputProps) => <TextField
             id='user-celphone'
             type='tel'
             label='Teléfono'
-            defaultValue='+54 221 620 3057'
+            defaultValue={defaultValue}
             disabled={disabled}
             {...(register && register(
                 name,
                 {
                     required: required ? 'Campo requerido' : '',
                     pattern: {
-                        value: patterns.TelephonePattern,
+                        value: Patterns.celphone,
                         message: 'Campo inválido'
                     }
                 }))}
@@ -171,19 +177,20 @@ const UserProfileInputs = {
         name,
         errors,
         disabled,
-        required
+        required,
+        defaultValue = ''
     }: InputProps) => <TextField
             id='user-password'
             type='password'
             label='Contraseña'
-            defaultValue='qweQWE123/*-'
+            defaultValue={defaultValue}
             disabled={disabled}
             {...(register && register(
                 name,
                 {
                     required: required ? 'Campo requerido' : '',
                     pattern: {
-                        value: patterns.PasswordPattern,
+                        value: Patterns.password,
                         message: `La contraseña debe contener al menos 8 
                             caracteres compuestos por un mínimo de una 
                             mayúscula, una minúscula, un número y un 
@@ -200,19 +207,20 @@ const UserProfileInputs = {
         errors,
         password,
         disabled,
-        required
+        required,
+        defaultValue = ''
     }: OtherPassProps) => <TextField
             id='user-password-confirmation'
             type='password'
             label='Repita la contraseña'
-            defaultValue='qweQWE123/*-'
+            defaultValue={defaultValue}
             disabled={disabled}
             {...(register && register(
                 name,
                 {
                     required: required ? 'Campo requerido' : '',
                     pattern: {
-                        value: patterns.PasswordPattern,
+                        value: Patterns.password,
                         message: `La contraseña debe contener al menos 8 
                             caracteres compuestos por un mínimo de una 
                             mayúscula, una minúscula, un número y un 
@@ -230,19 +238,20 @@ const UserProfileInputs = {
         errors,
         password,
         disabled,
-        required
+        required,
+        defaultValue = ''
     }: OtherPassProps) => <TextField
             id='user-password-new'
             type='password'
             label='Nueva contraseña'
-            defaultValue='/*-123QWEqwe'
+            defaultValue={defaultValue}
             disabled={disabled}
             {...(register && register(
                 name,
                 {
                     required: required ? 'Campo requerido' : '',
                     pattern: {
-                        value: patterns.PasswordPattern,
+                        value: Patterns.password,
                         message: `La contraseña debe contener al menos 8 
                             caracteres compuestos por un mínimo de una 
                             mayúscula, una minúscula, un número y un 

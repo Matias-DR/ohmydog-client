@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: Session = {
     token: '',
-    refresh: '',
 }
 
 export const sessionSlice = createSlice({

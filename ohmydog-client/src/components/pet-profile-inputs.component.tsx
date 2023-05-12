@@ -1,4 +1,4 @@
-import * as patterns from '@/models/patterns.model'
+import { Patterns } from '@/models/patterns.model'
 import {
     TextField,
     Select,
@@ -33,7 +33,7 @@ const PetProfileInputs = {
                 name,
                 {
                     pattern: {
-                        value: patterns.NamePattern,
+                        value: Patterns.name,
                         message: 'Campo inválido'
                     }
                 }))}
@@ -54,7 +54,7 @@ const PetProfileInputs = {
                 name,
                 {
                     pattern: {
-                        value: patterns.NamePattern,
+                        value: Patterns.name,
                         message: 'Campo inválido'
                     }
                 }))}
@@ -76,7 +76,7 @@ const PetProfileInputs = {
                 {
                     required: 'Campo requerido',
                     pattern: {
-                        value: patterns.NamePattern,
+                        value: Patterns.name,
                         message: 'Campo inválido'
                     }
                 }))}
@@ -97,7 +97,7 @@ const PetProfileInputs = {
                 name,
                 {
                     pattern: {
-                        value: patterns.AgePattern,
+                        value: Patterns.age,
                         message: 'Campo inválido'
                     }
                 }))}
@@ -190,7 +190,7 @@ const PetProfileInputs = {
                 {
                     required: 'Campo requerido',
                     pattern: {
-                        value: patterns.WeightPattern,
+                        value: Patterns.weight,
                         message: 'Campo inválido'
                     }
                 }))}
