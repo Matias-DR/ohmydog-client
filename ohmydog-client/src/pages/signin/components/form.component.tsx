@@ -50,7 +50,7 @@ export default function Form() {
             dispatchCreateUser(user)
             dispatchCreateSession(session)
             dispatchCreatePets(pets)
-            router.replace('/walkers-sitters')
+            router.replace('/home')
         } else {
             SnackbarUtilities.error('Error al iniciar sesión')
         }
