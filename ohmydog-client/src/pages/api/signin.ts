@@ -10,8 +10,7 @@ export default async function handler(
             'http://localhost:7162/api/login',
             req.body
         )
-        if (extRes.status !== 200) {
-            console.log('ESTA ES LA INFO QUE LLEGA\n', extRes.data)
+        if (extRes.status === 200) {
             res.status(200).json(extRes.data)
         }
     } catch (err) {

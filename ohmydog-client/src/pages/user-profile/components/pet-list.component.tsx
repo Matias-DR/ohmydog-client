@@ -28,20 +28,12 @@ export default function PetList() {
 
     const handleClose = () => setOpen(false)
 
-    const style = {
-        position: 'absolute' as 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
-    };
+    // top: '50%',
+    // left: '50%',
+    // transform: 'translate(-50%, -50%)',
 
     return <StyledList container spacing={1}>
-        {[...Array(7)].map((pet: Pet, index) => <StyledItem
+        {pets.map((pet: Pet, index) => <StyledItem
             xs={12} sm={6} md={4} lg={3} xl={2}
             key={index}
         >
