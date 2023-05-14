@@ -1,57 +1,69 @@
 import { Patterns } from '@/models/patterns.model'
 import { TextField } from '@mui/material'
-import { FieldErrors, UseFormRegister } from 'react-hook-form'
+import {
+    UseFormRegister,
+    FieldError
+} from 'react-hook-form'
 
 export interface InputProps {
-    register?: UseFormRegister<any>,
-    name: string,
-    errors: FieldErrors<any>,
-    disabled?: boolean,
+    register?: UseFormRegister<any>
+    error?: FieldError
+    name: string
     defaultValue?: string | number
     required?: boolean
+    disabled?: boolean,
 }
 
 export interface OtherPassProps extends InputProps {
     password: string
 }
 
+export enum InputType {
+    TEXT = 'text',
+    NUMBER = 'number',
+    EMAIL = 'email',
+    PASSWORD = 'password',
+    TEL = 'tel',
+}
+
 const UserProfileInputs = {
     name: ({
         register,
+        error,
         name,
-        errors,
         disabled,
+        defaultValue = 'Ejemplo',
         required,
-        defaultValue = 'Ejemplo'
-    }: InputProps) => <TextField
-            id='user-name'
-            type='text'
-            label='Nombre'
-            defaultValue={defaultValue}
-            disabled={disabled}
-            {...(register && register(
-                name,
-                {
-                    required: required ? 'Campo requerido' : '',
-                    pattern: {
-                        value: Patterns.name,
-                        message: 'Campo inválido'
-                    }
-                }))}
-            error={!!errors[name]}
-            fullWidth
-            helperText={<>{errors[name]?.message}</>}
-        />,
+    }: InputProps) => (<TextField
+        id={name}
+        type={InputType.TEXT}
+        label='Nombre'
+        defaultValue={defaultValue}
+        disabled={disabled}
+        {...(register && register(
+            name,
+            {
+                required: required ? 'Campo requerido' : '',
+                pattern: {
+                    value: Patterns.name,
+                    message: 'Campo inválido'
+                }
+            }
+        ))}
+        error={!!error}
+        helperText={<>{error && error.message}</>}
+        fullWidth
+    />),
     lastname: ({
         register,
         name,
-        errors,
+        error,
         disabled,
         required,
         defaultValue = 'Ejemplo'
     }: InputProps) => <TextField
-            id='user-lastname'
-            type='text'
+            id={name}
+            type={InputType.TEXT}
             label='Apellido'
             defaultValue={defaultValue}
             disabled={disabled}
@@ -63,21 +75,22 @@ const UserProfileInputs = {
                         value: Patterns.name,
                         message: 'Campo inválido'
                     }
-                }))}
-            error={!!errors[name]}
+                }
+            ))}
+            error={!!error}
+            helperText={<>{error && error.message}</>}
             fullWidth
-            helperText={<>{errors[name]?.message}</>}
         />,
     dni: ({
         register,
         name,
-        errors,
+        error,
         disabled,
         required,
         defaultValue = '12345678'
     }: InputProps) => <TextField
-            id='user-dni'
-            type='text'
+            id={name}
+            type={InputType.TEXT}
             label='DNI'
             defaultValue={defaultValue}
             disabled={disabled}
@@ -89,21 +102,22 @@ const UserProfileInputs = {
                         value: Patterns.dni,
                         message: 'Campo inválido'
                     }
-                }))}
-            error={!!errors[name]}
+                }
+            ))}
+            error={!!error}
+            helperText={<>{error && error.message}</>}
             fullWidth
-            helperText={<>{errors[name]?.message}</>}
         />,
     age: ({
         register,
         name,
-        errors,
+        error,
         disabled,
         required,
         defaultValue = '18'
     }: InputProps) => <TextField
-            id='user-age'
-            type='number'
+            id={name}
+            type={InputType.NUMBER}
             label='Edad'
             defaultValue={defaultValue}
             disabled={disabled}
@@ -115,21 +129,22 @@ const UserProfileInputs = {
                         value: Patterns.age,
                         message: 'Campo inválido'
                     }
-                }))}
-            error={!!errors[name]}
+                }
+            ))}
+            error={!!error}
+            helperText={<>{error && error.message}</>}
             fullWidth
-            helperText={<>{errors[name]?.message}</>}
         />,
     email: ({
         register,
         name,
-        errors,
+        error,
         disabled,
         required,
         defaultValue = 'ejemplo@ejemplo.com'
     }: InputProps) => <TextField
-            id='user-email'
-            type='email'
+            id={name}
+            type={InputType.EMAIL}
             label='Email'
             defaultValue={defaultValue}
             disabled={disabled}
@@ -141,21 +156,22 @@ const UserProfileInputs = {
                         value: Patterns.email,
                         message: 'Campo inválido'
                     }
-                }))}
-            error={!!errors[name]}
+                }
+            ))}
+            error={!!error}
+            helperText={<>{error && error.message}</>}
             fullWidth
-            helperText={<>{errors[name]?.message}</>}
         />,
     celphone: ({
         register,
         name,
-        errors,
+        error,
         disabled,
         required,
-        defaultValue = '+54 221 620 3057'
+        defaultValue = '+54 221 620 3057',
     }: InputProps) => <TextField
-            id='user-celphone'
-            type='tel'
+            id={name}
+            type={InputType.TEL}
             label='Teléfono'
             defaultValue={defaultValue}
             disabled={disabled}
@@ -166,22 +182,23 @@ const UserProfileInputs = {
                     pattern: {
                         value: Patterns.celphone,
                         message: 'Campo inválido'
-                    }
-                }))}
-            error={!!errors[name]}
+                    },
+                }
+            ))}
+            error={!!error}
+            helperText={<>{error && error.message}</>}
             fullWidth
-            helperText={<>{errors[name]?.message}</>}
         />,
     password: ({
         register,
         name,
-        errors,
+        error,
         disabled,
         required,
-        defaultValue = ''
+        defaultValue = 'qweQWE123/*-'
     }: InputProps) => <TextField
-            id='user-password'
-            type='password'
+            id={name}
+            type={InputType.PASSWORD}
             label='Contraseña'
             defaultValue={defaultValue}
             disabled={disabled}
@@ -196,22 +213,23 @@ const UserProfileInputs = {
                             mayúscula, una minúscula, un número y un 
                             caracter especial`
                     }
-                }))}
-            error={!!errors[name]}
+                }
+            ))}
+            error={!!error}
+            helperText={<>{error && error.message}</>}
             fullWidth
-            helperText={<>{errors[name]?.message}</>}
         />,
     passwordConfirmation: ({
         register,
         name,
-        errors,
+        error,
         password,
         disabled,
         required,
-        defaultValue = ''
+        defaultValue = 'qweQWE123/*-'
     }: OtherPassProps) => <TextField
-            id='user-password-confirmation'
-            type='password'
+            id={name}
+            type={InputType.PASSWORD}
             label='Repita la contraseña'
             defaultValue={defaultValue}
             disabled={disabled}
@@ -226,23 +244,25 @@ const UserProfileInputs = {
                             mayúscula, una minúscula, un número y un 
                             caracter especial`
                     },
-                    validate: value => value === password,
-                }))}
-            error={!!errors[name]}
+                    validate: value => value === password || `Las contraseñas
+                        son diferentes`
+                }
+            ))}
+            error={!!error}
+            helperText={<>{error && error.message}</>}
             fullWidth
-            helperText={<>{errors[name]?.message}</>}
         />,
     passwordNew: ({
         register,
         name,
-        errors,
+        error,
         password,
         disabled,
         required,
         defaultValue = ''
     }: OtherPassProps) => <TextField
-            id='user-password-new'
-            type='password'
+            id={name}
+            type={InputType.PASSWORD}
             label='Nueva contraseña'
             defaultValue={defaultValue}
             disabled={disabled}
@@ -257,12 +277,13 @@ const UserProfileInputs = {
                             mayúscula, una minúscula, un número y un 
                             caracter especial`
                     },
-                    validate: value => value !== password || `La contraseña 
+                    validate: value => value === password || `La contraseña 
                         debe ser distinta a la anterior`,
-                }))}
-            error={!!errors[name]}
+                }
+            ))}
+            error={!!error}
+            helperText={<>{error && error.message}</>}
             fullWidth
-            helperText={<>{errors[name]?.message}</>}
         />
 }
 

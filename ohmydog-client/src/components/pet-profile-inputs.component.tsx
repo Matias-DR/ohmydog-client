@@ -7,110 +7,142 @@ import {
     InputLabel,
     FormHelperText,
 } from '@mui/material'
-import { FieldErrors, UseFormRegister } from 'react-hook-form'
+import {
+    UseFormRegister,
+    FieldError
+} from 'react-hook-form'
 
 export interface InputProps {
-    register: UseFormRegister<any>,
-    name: string,
-    errors: FieldErrors<any>
+    register?: UseFormRegister<any>
+    error?: FieldError
+    name: string
+    defaultValue?: string | number
+    required?: boolean
+    disabled?: boolean
 }
 
 export interface SelectProps extends InputProps {
     clearErrors: (field: string) => void
 }
 
+enum InputType {
+    TEXT = 'text',
+    NUMBER = 'number',
+    EMAIL = 'email',
+    PASSWORD = 'password',
+    TEL = 'tel',
+}
+
 const PetProfileInputs = {
     name: ({
         register,
+        error,
         name,
-        errors
+        disabled,
+        defaultValue = 'Ejemplo',
+        required,
     }: InputProps) => <TextField
             id='pet-name'
-            type='text'
+            type={InputType.TEXT}
             label='Nombre'
-            defaultValue='Ejemplo'
+            defaultValue={defaultValue}
             {...(register && register && register(
                 name,
                 {
+                    required: required ? 'Campo requerido' : '',
                     pattern: {
                         value: Patterns.name,
                         message: 'Campo inválido'
                     }
                 }))}
-            error={!!errors[name]}
+            error={!!error}
+            helperText={<>{error && error.message}</>}
             fullWidth
-            helperText={<>{errors[name]?.message}</>}
         />,
     race: ({
         register,
+        error,
         name,
-        errors
+        disabled,
+        defaultValue = 'Ejemplo',
+        required,
     }: InputProps) => <TextField
             id='pet-race'
-            type='text'
+            type={InputType.TEXT}
             label='Raza'
-            defaultValue='Ejemplo'
+            defaultValue={defaultValue}
             {...(register && register(
                 name,
                 {
+                    required: required ? 'Campo requerido' : '',
                     pattern: {
                         value: Patterns.name,
                         message: 'Campo inválido'
                     }
                 }))}
-            error={!!errors[name]}
+            error={!!error}
+            helperText={<>{error && error.message}</>}
             fullWidth
-            helperText={<>{errors[name]?.message}</>}
         />,
     color: ({
         register,
+        error,
         name,
-        errors
+        disabled,
+        defaultValue = 'Ejemplo',
+        required,
     }: InputProps) => <TextField
             id='pet-color'
-            type='text'
+            type={InputType.TEXT}
             label='Color'
-            defaultValue='Ejemplo'
+            defaultValue={defaultValue}
             {...(register && register(
                 name,
                 {
-                    required: 'Campo requerido',
+                    required: required ? 'Campo requerido' : '',
                     pattern: {
                         value: Patterns.name,
                         message: 'Campo inválido'
                     }
                 }))}
-            error={!!errors[name]}
+            error={!!error}
+            helperText={<>{error && error.message}</>}
             fullWidth
-            helperText={<>{errors[name]?.message}</>}
         />,
     age: ({
         register,
+        error,
         name,
-        errors
+        disabled,
+        defaultValue = 1,
+        required,
     }: InputProps) => <TextField
             id='pet-age'
-            type='number'
+            type={InputType.NUMBER}
             label='Edad'
-            defaultValue='1'
+            defaultValue={defaultValue}
             {...(register && register(
                 name,
                 {
+                    required: required ? 'Campo requerido' : '',
                     pattern: {
                         value: Patterns.age,
                         message: 'Campo inválido'
                     }
                 }))}
-            error={!!errors[name]}
+            error={!!error}
+            helperText={<>{error && error.message}</>}
             fullWidth
-            helperText={<>{errors[name]?.message}</>}
         />,
     sex: ({
         register,
+        error,
         name,
-        errors,
+        disabled,
+        defaultValue = 'Hembra',
+        required,
         clearErrors,
-    }: SelectProps) => <FormControl fullWidth error={!!errors[name]}>
+    }: SelectProps) => <FormControl fullWidth error={!!error}>
             <InputLabel id='pet-sex-label'>
                 Sexo
             </InputLabel>
@@ -118,7 +150,7 @@ const PetProfileInputs = {
                 id='pet-sex'
                 labelId='pet-sex-label'
                 label='Sexo'
-                defaultValue=''
+                defaultValue={defaultValue}
                 {...(register && register(
                     name,
                     {
@@ -136,23 +168,26 @@ const PetProfileInputs = {
                 <MenuItem value='Macho'>Macho</MenuItem>
             </Select>
             <FormHelperText>
-                {!!errors[name] && 'Debe seleccionar una opción'}
+                {!!error && 'Debe seleccionar una opción'}
             </FormHelperText>
-        </FormControl>,
+        </FormControl >,
     size: ({
         register,
+        error,
         name,
-        errors,
+        disabled,
+        defaultValue = 'Mediano',
+        required,
         clearErrors,
-    }: SelectProps) => <FormControl fullWidth error={!!errors[name]}>
-            <InputLabel id='pet-size-label'>
+    }: SelectProps) => <FormControl fullWidth error={!!error}>
+            < InputLabel id='pet-size-label'>
                 Tamaño
             </InputLabel>
             <Select
                 id='pet-size'
                 labelId='pet-size-label'
                 label='Tamaño'
-                defaultValue=''
+                defaultValue={defaultValue}
                 {...(register && register(
                     name,
                     {
@@ -172,57 +207,68 @@ const PetProfileInputs = {
                 <MenuItem value='Grande'>Grande</MenuItem>
             </Select>
             <FormHelperText>
-                {!!errors[name] && 'Debe seleccionar una opción'}
+                {!!error && 'Debe seleccionar una opción'}
             </FormHelperText>
-        </FormControl>,
+        </FormControl >,
     weight: ({
         register,
+        error,
         name,
-        errors
+        disabled,
+        defaultValue = '24',
+        required,
     }: InputProps) => <TextField
             id='pet-weight'
-            type='number'
+            type={InputType.NUMBER}
             label='Peso'
             inputProps={{ step: '0.01' }}
-            defaultValue='24'
+            defaultValue={defaultValue}
             {...(register && register(
                 name,
                 {
-                    required: 'Campo requerido',
+                    required: required ? 'Campo requerido' : '',
                     pattern: {
                         value: Patterns.weight,
                         message: 'Campo inválido'
                     }
                 }))}
-            error={!!errors[name]}
+            error={!!error}
+            helperText={<>{error && error.message}</>}
             fullWidth
-            helperText={<>{errors[name]?.message}</>}
         />,
     origin: ({
         register,
+        error,
         name,
-        errors
+        disabled,
+        defaultValue = 'Ejemplo',
+        required,
     }: InputProps) => <TextField
             id='pet-origin'
-            type='text'
+            type={InputType.TEXT}
             label='Origen'
-            defaultValue='Ejemplo'
+            defaultValue={defaultValue}
             {...(register && register(name))}
+            error={!!error}
+            helperText={<>{error?.message}</>}
             fullWidth
-            helperText={<>{errors[name]?.message}</>}
         />,
     caracteristics: ({
         register,
+        error,
         name,
-        errors
+        disabled,
+        defaultValue = 'Ejemplo',
+        required,
     }: InputProps) => <TextField
             id='pet-caracteristics'
-            type='text'
+            type={InputType.TEXT}
             label='Cracteristicas'
-            defaultValue='Ejemplo'
+            defaultValue={defaultValue}
             {...(register && register(name))}
+            error={!!error}
+            helperText={<>{error?.message}</>}
             fullWidth
-            helperText={<>{errors[name]?.message}</>}
             multiline
             rows={4}
         />

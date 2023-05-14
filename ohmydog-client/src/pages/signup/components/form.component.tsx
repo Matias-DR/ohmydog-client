@@ -13,9 +13,19 @@ import { Signup } from '@/pages/signup/signup.model'
 import { useFetchAndLoad } from '@/hooks/use-fetch-and-load.hook'
 import { signup } from '@/pages/signup/signup.service'
 import { SnackbarUtilities } from '@/utilities/snackbar.utility'
+import { signupDataAdapter } from '../signup-data.adapter'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
-import { signupDataAdapter } from '../signup-data.adapter'
+import { TextField } from '@mui/material'
+import { Patterns } from '@/models/patterns.model'
+
+enum InputType {
+    TEXT = 'text',
+    NUMBER = 'number',
+    EMAIL = 'email',
+    PASSWORD = 'password',
+    TEL = 'tel',
+}
 
 export default function Form() {
     const {
@@ -24,8 +34,8 @@ export default function Form() {
         formState: { errors },
         watch,
         clearErrors,
-        setValue
-    } = useForm<any>()
+        setValue,
+    } = useForm<Signup>()
     const {
         loading,
         callEndpoint

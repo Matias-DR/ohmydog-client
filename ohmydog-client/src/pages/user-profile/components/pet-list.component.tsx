@@ -10,15 +10,21 @@ import {
     StyledCardActions,
     StyledCardContent,
     StyledText,
+    StyledViewEditButton,
+    StyledDeleteButton,
     StyledModalBackground,
     StyledModalCardContainer,
 } from '../styled-components/pet-card.styled-components'
+import { PetCard } from './'
 import { Pet } from '@/models/pet.model'
 import { AppStore } from '@/redux/store'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
-import { Button } from '@mui/material'
-import Modal from '@mui/material/Modal';
+import {
+    Modal,
+    ButtonGroup
+} from '@mui/material'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
 export default function PetList() {
     const pets: Pet[] = useSelector((store: AppStore) => store.pets)
@@ -33,7 +39,7 @@ export default function PetList() {
     // transform: 'translate(-50%, -50%)',
 
     return <StyledList container spacing={1}>
-        {pets.map((pet: Pet, index) => <StyledItem
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((pet: any, index) => <StyledItem
             xs={12} sm={6} md={4} lg={3} xl={2}
             key={index}
         >
@@ -41,25 +47,32 @@ export default function PetList() {
                 <StyledCardActionArea>
                     <StyledImgCard
                         height='140'
+                        // src={pet.foto}
                         src='https://cloudfront-us-east-2.images.arcpublishing.com/reuters/V46R76J7VBO7DGCHB4CLPOQHSE.jpg'
                         alt='dog-index'
                         onClick={handleOpen}
                     />
                 </StyledCardActionArea>
                 <StyledCardContent>
-                    <StyledTitle>
-                        Lizard
-                    </StyledTitle>
-                    <StyledText>
-                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                        species, ranging across all continents except Antarctica
-                        -
-                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                        species, ranging across all continents except Antarctica
-                    </StyledText>
+                    <StyledTitle>{pet.nombre}</StyledTitle>
+                    <StyledText>{pet.caracteristica}</StyledText>
                     <StyledCardActions>
-                        <Button size='small'>Share</Button>
-                        <Button size='small'>Learn More</Button>
+                        <ButtonGroup
+                            variant='outlined'
+                        >
+                            <StyledViewEditButton
+                                size='small'
+                                onClick={handleOpen}
+                            >
+                                Ver / Editar
+                            </StyledViewEditButton>
+                            <StyledDeleteButton
+                                color='error'
+                                size='small'
+                            >
+                                <DeleteForeverIcon />
+                            </StyledDeleteButton>
+                        </ButtonGroup>
                     </StyledCardActions>
                 </StyledCardContent>
             </StyledCard>
@@ -72,6 +85,7 @@ export default function PetList() {
                     onClick={handleClose}
                 >
                     <StyledModalCardContainer>
+                        <PetCard></PetCard>
                     </StyledModalCardContainer>
                 </StyledModalBackground>
             </Modal>

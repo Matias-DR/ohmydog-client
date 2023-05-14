@@ -2,7 +2,7 @@ import {
     StyledGridContainer,
     StyledGrid,
 } from '@/styled-components/input-frames.styled-components'
-import { Pet } from '@/models/pet.model'
+import { Signup } from '../signup.model'
 import { ImgUploader } from '@/components'
 import { PetProfileInputs } from '@/components'
 import {
@@ -12,10 +12,10 @@ import {
 } from 'react-hook-form'
 
 export interface Props {
-    register: UseFormRegister<Pet>,
-    errors: FieldErrors<Pet>,
+    register: UseFormRegister<Signup>,
+    errors: FieldErrors<Signup>,
     clearErrors: () => void,
-    setValue: UseFormSetValue<Pet>,
+    setValue: UseFormSetValue<Signup>,
 }
 
 export default function PetInputs({
@@ -29,65 +29,69 @@ export default function PetInputs({
             {PetProfileInputs.name({
                 register,
                 name: 'mascota.nombre',
-                errors
+                error: errors.mascota?.nombre,
             })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
             {PetProfileInputs.race({
                 register,
                 name: 'mascota.raza',
-                errors
+                error: errors.mascota?.raza,
             })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
             {PetProfileInputs.color({
                 register,
                 name: 'mascota.color',
-                errors
+                error: errors.mascota?.color,
+                required: true,
             })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
             {PetProfileInputs.age({
                 register,
                 name: 'mascota.edad',
-                errors
+                error: errors.mascota?.edad,
             })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
             {PetProfileInputs.sex({
                 register,
                 name: 'mascota.sexo',
-                errors,
+                error: errors.mascota?.sexo,
                 clearErrors: clearErrors,
+                required: true,
             })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
             {PetProfileInputs.size({
                 register,
                 name: 'mascota.tamaño',
-                errors,
+                error: errors.mascota?.tamaño,
                 clearErrors: clearErrors,
+                required: true,
             })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
             {PetProfileInputs.weight({
                 register,
                 name: 'mascota.peso',
-                errors
+                error: errors.mascota?.peso,
+                required: true,
             })}
         </StyledGrid>
         <StyledGrid xs={12} sm={6} md={3}>
             {PetProfileInputs.origin({
                 register,
                 name: 'mascota.origen',
-                errors
+                error: errors.mascota?.origen,
             })}
         </StyledGrid>
         <StyledGrid xs={12} sm={9}>
             {PetProfileInputs.caracteristics({
                 register,
                 name: 'mascota.caracteristica',
-                errors
+                error: errors.mascota?.caracteristica,
             })}
         </StyledGrid>
         <StyledGrid xs={12} sm={3}>

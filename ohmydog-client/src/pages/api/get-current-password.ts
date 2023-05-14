@@ -6,16 +6,18 @@ export default async function handler(
     res: NextApiResponse
 ) {
     try {
-        const extRes = await axios.patch(
-            'http://localhost:7162/api/cliente',
+        const extRes = await axios.post(
+            'http://localhost:7162/api/get-password',
             req.body
         )
         if (extRes.status === 200) {
-            res.status(200).json(true)
+            res.status(200).json(extRes.data)
         }
     } catch (err) {
         try {
-            const jsonSvRes = await axios.get('http://localhost:3001/change-user-data')
+            const jsonSvRes = await axios.get(
+                'http://localhost:3001/get-current-password'
+            )
             res.status(200).json(jsonSvRes.data)
         } catch (err) {
             res.status(200).json(false)

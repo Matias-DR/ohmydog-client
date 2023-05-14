@@ -1,4 +1,4 @@
-import { EmailPattern } from '@/models/patterns.model'
+import { Patterns } from '@/models/patterns.model'
 import { Credential } from '../credential.model'
 import { TextField } from '@mui/material'
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
@@ -21,8 +21,8 @@ export const CredentialInputs = {
                 {
                     required: true,
                     pattern: {
-                        value: EmailPattern,
-                        message: 'Email inválido'
+                        value: Patterns.email,
+                        message: 'Email'
                     }
                 })}
             error={!!errors.email}

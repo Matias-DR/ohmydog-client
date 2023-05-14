@@ -6,5 +6,7 @@ export interface User {
     email: string,
     telefono: string,
     contraseña: string,
+    confirmacioncontraseña?: string,
+    nuevacontraseña?: string,
     rol?: string
 }

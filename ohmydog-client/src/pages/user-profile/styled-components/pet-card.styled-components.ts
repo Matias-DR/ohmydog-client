@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
+import { Button } from '@mui/material'
 import {
     CardActionArea,
     CardActions
@@ -16,7 +16,6 @@ export const StyledCardActionArea = styled(CardActionArea)`
     width: 100%;
     height: 100%;
     position: absolute;
-    border: 1px solid red;
 `
 
 export const StyledImgCard = styled.img`
@@ -25,16 +24,22 @@ export const StyledImgCard = styled.img`
     object-fit: cover;
 `
 
-export const StyledCardContent = styled(CardContent)`
+export const StyledCardContent = styled.div`
     width: 100%;
-    /* height: 100%; */
-    /* max-height: 10rem; */
+    padding: .5rem;
     position: absolute;
     bottom: 0;
     z-index: 1;
+
+    background: rgba( 255, 255, 255, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
 `
 
 export const StyledCardActions = styled(CardActions)`
+    margin: 0;
+    padding: 0;
 `
 
 export const StyledTitle = styled.h2`
@@ -42,12 +47,22 @@ export const StyledTitle = styled.h2`
 `
 
 export const StyledText = styled.p`
-    height: 5rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     color: white;
-    border: 1px solid red;
+`
+
+export const StyledViewEditButton = styled(Button)`
+    background-color: var(--ohmydog-lightblue-color);
+    color: white;
+    font-weight: bold;
+`
+
+export const StyledDeleteButton = styled(Button)`
+    background-color: red;
+    color: white;
+    font-weight: bold;
 `
 
 export const StyledModalBackground = styled.div`
