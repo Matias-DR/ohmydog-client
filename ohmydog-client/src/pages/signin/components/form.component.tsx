@@ -43,6 +43,7 @@ export default function Form() {
 
     const onSubmit = async (data: Credential) => {
         const res = await callEndpoint(signin(data))
+        console.log(res)
         const session: Session = createSessionAdapter(res.data)
         const user: User = createUserAdapter(res.data)
         const pets: Pet[] = createPetsAdapter(res.data)

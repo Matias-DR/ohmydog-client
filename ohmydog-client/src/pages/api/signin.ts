@@ -15,6 +15,7 @@ export default async function handler(
         }
     } catch (err) {
         try {
+            console.log('json server pide')
             const jsonSvRes = await axios.get('http://localhost:3001/signin')
             res.status(200).json(jsonSvRes.data)
         } catch (err) {
