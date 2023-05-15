@@ -277,7 +277,7 @@ const UserProfileInputs = {
                             mayúscula, una minúscula, un número y un 
                             caracter especial`
                     },
-                    validate: value => value === password || `La contraseña 
+                    validate: value => value !== password || `La contraseña 
                         debe ser distinta a la anterior`,
                 }
             ))}

@@ -14,6 +14,7 @@ export const StyledImgUploaderContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
 `
 
 export const StyledDoneIcon = styled(DoneIcon)`
@@ -26,5 +27,10 @@ export const StyledAddPhotoIcon = styled(AddPhotoAlternateIcon)`
 `
 
 export const StyledHelperText = styled.p`
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    position: absolute;
+    bottom: -20px;
     color: ${props => props.color}
 `

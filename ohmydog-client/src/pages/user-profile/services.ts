@@ -1,7 +1,7 @@
 import { ChangeUserData } from './change-user-data.model'
+import { Pet } from '@/models/pet.model'
 import { AxiosCall } from '@/models/axios-call.model'
 import axios from 'axios'
-import { config } from 'process'
 
 export const services = {
     changeUserData: (
@@ -12,11 +12,13 @@ export const services = {
         return {
             call: axios.post<boolean>(
                 '/api/change-user-data',
+                body,
                 {
-                    data: { token, body },
-                    config: { signal: controller.signal }
-                },
-                
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                    signal: controller.signal
+                }
             ),
             controller: controller
         }
@@ -24,12 +26,35 @@ export const services = {
     getPassword: (token: string): AxiosCall<string> => {
         const controller = new AbortController()
         return {
-            call: axios.post<string>(
+            call: axios.get<string>(
                 '/api/get-current-password',
-                token,
-                { signal: controller.signal }
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                    signal: controller.signal
+                }
             ),
             controller
+        }
+    },
+    updatePet: (
+        token: string,
+        body: Pet
+    ): AxiosCall<boolean> => {
+        const controller = new AbortController()
+        return {
+            call: axios.post<boolean>(
+                '/api/update-pet',
+                body,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                    signal: controller.signal
+                }
+            ),
+            controller: controller
         }
     }
 }

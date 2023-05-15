@@ -3,7 +3,8 @@ import Card from '@mui/material/Card';
 import { Button } from '@mui/material'
 import {
     CardActionArea,
-    CardActions
+    CardActions,
+    IconButton
 } from '@mui/material';
 
 export const StyledCard = styled(Card)`
@@ -22,6 +23,8 @@ export const StyledImgCard = styled.img`
     width: 100%;
     height: 100%;
     object-fit: cover;
+    /* border: 5px solid var(--ohmydog-lightblue-color); */
+    border-radius: 5px;
 `
 
 export const StyledCardContent = styled.div`
@@ -71,20 +74,34 @@ export const StyledModalBackground = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-
-    background: rgba( 255, 255, 255, 0.05 );
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur( 0.7px );
-    -webkit-backdrop-filter: blur( 0.7px );
 `
 
 export const StyledModalCardContainer = styled.div`
-    width: 80%;
-    height: 60%;
-
-    background: rgba( 241, 150, 91, 0.25 );
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur( 1px );
-    -webkit-backdrop-filter: blur( 1px );
-    border-radius: 10px;
+    width: 90%;
+    height: 80%;
+    position: relative;
+    background-color: white;
+    border: 5px solid var(--ohmydog-orange-color);
+    border-radius: 15px;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
 `
+
+export const StyledModalCloseButtonContainer = styled.div`
+    position: absolute;
+    top: -56px;
+    right: -5px;
+    background-color: white;
+    border: 5px solid var(--ohmydog-orange-color);
+    border-bottom: none;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+`
+
+export const StyledModalCloseButtonBackground = styled.div`
+    background: rgba(65,149,175,0.15);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+`
+
+export const StyledModalCloseButton = styled(IconButton)``

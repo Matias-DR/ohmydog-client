@@ -1,19 +1,7 @@
+AL TENER MÁXIMO UN PERRO HAY QUE BLOQUEARLE LA POSIBILIDAD DE BORRARLO
+
 xs, extra-small: 0px
 sm, small: 600px
 md, medium: 900px
 lg, large: 1200px
 xl, extra-large: 1536px
-
-contra:
-qweQWE123/*-
-
-perro:
-- nombre?: VARCHAR
-- edad?: INTEGER
-- sexo: VARCHAR
-- tamaño: VARCHAR
-- caracteristica?: VARCHAR
-- peso: REAL
-- raza?: VARCHAR
-- color: VARCHAR
-- origen?: VARCHAR

@@ -14,6 +14,9 @@ import {
     StyledDeleteButton,
     StyledModalBackground,
     StyledModalCardContainer,
+    StyledModalCloseButtonContainer,
+    StyledModalCloseButtonBackground,
+    StyledModalCloseButton,
 } from '../styled-components/pet-card.styled-components'
 import { PetCard } from './'
 import { Pet } from '@/models/pet.model'
@@ -22,9 +25,11 @@ import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import {
     Modal,
-    ButtonGroup
+    ButtonGroup,
 } from '@mui/material'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import CloseIcon from '@mui/icons-material/Close'
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined'
 
 export default function PetList() {
     const pets: Pet[] = useSelector((store: AppStore) => store.pets)
@@ -54,8 +59,8 @@ export default function PetList() {
                     />
                 </StyledCardActionArea>
                 <StyledCardContent>
-                    <StyledTitle>{pet.nombre}</StyledTitle>
-                    <StyledText>{pet.caracteristica}</StyledText>
+                    <StyledTitle>{pet.nombre}nombre</StyledTitle>
+                    <StyledText>{pet.caracteristica}caracteristicas...</StyledText>
                     <StyledCardActions>
                         <ButtonGroup
                             variant='outlined'
@@ -82,10 +87,25 @@ export default function PetList() {
                 hideBackdrop
             >
                 <StyledModalBackground
-                    onClick={handleClose}
                 >
-                    <StyledModalCardContainer>
-                        <PetCard></PetCard>
+                    <StyledModalCardContainer
+                        onClick={() => { }}
+                    >
+                        <StyledModalCloseButtonContainer>
+                            <StyledModalCloseButtonBackground>
+                                <StyledModalCloseButton
+                                    color='error'
+                                    onClick={handleClose}
+                                >
+                                    <CancelOutlinedIcon
+                                        fontSize='large'
+                                    />
+                                </StyledModalCloseButton>
+                            </StyledModalCloseButtonBackground>
+                        </StyledModalCloseButtonContainer>
+                        <PetCard
+                            pet={pet}
+                        ></PetCard>
                     </StyledModalCardContainer>
                 </StyledModalBackground>
             </Modal>

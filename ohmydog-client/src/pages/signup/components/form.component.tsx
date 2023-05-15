@@ -16,8 +16,6 @@ import { SnackbarUtilities } from '@/utilities/snackbar.utility'
 import { signupDataAdapter } from '../signup-data.adapter'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
-import { TextField } from '@mui/material'
-import { Patterns } from '@/models/patterns.model'
 
 enum InputType {
     TEXT = 'text',

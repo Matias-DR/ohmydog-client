@@ -8,13 +8,14 @@ import { PetProfileInputs } from '@/components'
 import {
     UseFormRegister,
     FieldErrors,
-    UseFormSetValue
+    UseFormSetValue,
+    UseFormClearErrors
 } from 'react-hook-form'
 
 export interface Props {
     register: UseFormRegister<Signup>,
     errors: FieldErrors<Signup>,
-    clearErrors: () => void,
+    clearErrors: UseFormClearErrors<Signup>,
     setValue: UseFormSetValue<Signup>,
 }
 

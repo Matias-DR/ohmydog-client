@@ -9,7 +9,8 @@ import {
 } from '@mui/material'
 import {
     UseFormRegister,
-    FieldError
+    FieldError,
+    UseFormClearErrors
 } from 'react-hook-form'
 
 export interface InputProps {
@@ -22,7 +23,11 @@ export interface InputProps {
 }
 
 export interface SelectProps extends InputProps {
-    clearErrors: (field: string) => void
+    clearErrors: UseFormClearErrors<any>
+}
+
+export interface MultilineInputProps extends InputProps {
+    rows?: number
 }
 
 enum InputType {
@@ -161,7 +166,7 @@ const PetProfileInputs = {
                         ].includes(value),
                     },
                 ))}
-                onChange={() => clearErrors('sexo')}
+                onChange={() => clearErrors(name)}
                 fullWidth
             >
                 <MenuItem value='Hembra'>Hembra</MenuItem>
@@ -199,7 +204,7 @@ const PetProfileInputs = {
                         ].includes(value),
                     },
                 ))}
-                onChange={() => clearErrors('tamaño')}
+                onChange={() => clearErrors(name)}
                 fullWidth
             >
                 <MenuItem value='Chico'>Chico</MenuItem>
@@ -260,7 +265,8 @@ const PetProfileInputs = {
         disabled,
         defaultValue = 'Ejemplo',
         required,
-    }: InputProps) => <TextField
+        rows = 4,
+    }: MultilineInputProps) => <TextField
             id='pet-caracteristics'
             type={InputType.TEXT}
             label='Cracteristicas'
@@ -270,7 +276,7 @@ const PetProfileInputs = {
             helperText={<>{error?.message}</>}
             fullWidth
             multiline
-            rows={4}
+            rows={rows}
         />
 }
 
