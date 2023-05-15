@@ -15,7 +15,7 @@ export interface InputProps {
 }
 
 export interface OtherPassProps extends InputProps {
-    password: string
+    password?: string
 }
 
 export enum InputType {
@@ -259,7 +259,7 @@ const UserProfileInputs = {
         password,
         disabled,
         required,
-        defaultValue = ''
+        defaultValue = '',
     }: OtherPassProps) => <TextField
             id={name}
             type={InputType.PASSWORD}
@@ -277,8 +277,8 @@ const UserProfileInputs = {
                             mayúscula, una minúscula, un número y un 
                             caracter especial`
                     },
-                    validate: value => value !== password || `La contraseña 
-                        debe ser distinta a la anterior`,
+                    validate: value => value !== password || `La contraseña debe ser diferente a la
+                        anterior`
                 }
             ))}
             error={!!error}

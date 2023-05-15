@@ -1,7 +1,9 @@
 /* CUSTOM GLOBAL CSS */
 :root{
     --ohmydog-lightblue-color: rgba(65, 149, 175, 0.8);
+    --ohmydog-lightblue-opaque-color: rgba(65, 149, 175);
     --ohmydog-orange-color: rgba(241, 150, 91, 0.8);
+    --ohmydog-orange-opaque-color: rgba(241, 150, 91);
     --ohmydog-background-graident-color: linear-gradient(180deg, rgba(65,149,175,0.15) 35%, rgba(241,150,91,0.15449929971988796) 90%);
 }
 

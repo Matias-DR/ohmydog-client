@@ -7,17 +7,20 @@ export default async function handler(
 ) {
     try {
         const extRes = await axios.post(
-            'http://localhost:7162/api/get-password',
-            req.body
+            'http://localhost:7162/api/new-pet',
+            req.body,
+            {
+                headers: {
+                    Authorization: `Bearer ${req.headers.authorization}`
+                }
+            }
         )
         if (extRes.status === 200) {
-            res.status(200).json(extRes.data)
+            res.status(200).json(true)
         }
     } catch (err) {
         try {
-            const jsonSvRes = await axios.get(
-                'http://localhost:3001/get-current-password'
-            )
+            const jsonSvRes = await axios.get('http://localhost:3001/new-pet')
             res.status(200).json(jsonSvRes.data)
         } catch (err) {
             res.status(200).json(false)

@@ -7,12 +7,16 @@ import { User } from '@/models/user.model'
 import { ChangeUserData } from '@/pages/user-profile/change-user-data.model'
 import { AppStore } from '@/redux/store'
 import { useSelector } from 'react-redux'
-import { FieldErrors, UseFormRegister } from 'react-hook-form'
+import {
+    FieldErrors,
+    UseFormRegister,
+    UseFormTrigger
+} from 'react-hook-form'
 
 export interface Props {
     register: UseFormRegister<ChangeUserData>,
     errors: FieldErrors<ChangeUserData>,
-    password: string,
+    password?: string
 }
 
 export default function UserInputs({

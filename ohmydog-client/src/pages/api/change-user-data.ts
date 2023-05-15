@@ -8,7 +8,7 @@ export default async function handler(
     try {
         const extRes = await axios.patch(
             'http://localhost:7162/api/cliente',
-            req.body.data,
+            req.body,
             {
                 headers: {
                     Authorization: `Bearer ${req.headers.authorization}`

@@ -18,8 +18,9 @@ import {
     StyledModalCloseButtonBackground,
     StyledModalCloseButton,
 } from '../styled-components/pet-card.styled-components'
-import { PetCard } from './'
+import { AddPet, PetCard } from './'
 import { Pet } from '@/models/pet.model'
+import { dogExample } from '@/assets/images'
 import { AppStore } from '@/redux/store'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
@@ -28,7 +29,6 @@ import {
     ButtonGroup,
 } from '@mui/material'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
-import CloseIcon from '@mui/icons-material/Close'
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined'
 
 export default function PetList() {
@@ -44,6 +44,7 @@ export default function PetList() {
     // transform: 'translate(-50%, -50%)',
 
     return <StyledList container spacing={1}>
+        <AddPet></AddPet>
         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((pet: any, index) => <StyledItem
             xs={12} sm={6} md={4} lg={3} xl={2}
             key={index}
@@ -51,10 +52,8 @@ export default function PetList() {
             <StyledCard>
                 <StyledCardActionArea>
                     <StyledImgCard
-                        height='140'
-                        // src={pet.foto}
-                        src='https://cloudfront-us-east-2.images.arcpublishing.com/reuters/V46R76J7VBO7DGCHB4CLPOQHSE.jpg'
-                        alt='dog-index'
+                        src={pet.foto ? pet.foto : dogExample}
+                        alt={'dog-image-' + index.toString()}
                         onClick={handleOpen}
                     />
                 </StyledCardActionArea>
@@ -89,7 +88,6 @@ export default function PetList() {
                 <StyledModalBackground
                 >
                     <StyledModalCardContainer
-                        onClick={() => { }}
                     >
                         <StyledModalCloseButtonContainer>
                             <StyledModalCloseButtonBackground>

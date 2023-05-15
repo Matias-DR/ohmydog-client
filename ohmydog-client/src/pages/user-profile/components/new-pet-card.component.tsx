@@ -24,19 +24,14 @@ import { AppStore } from '@/redux/store'
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
-export interface Props {
-    pet: Pet
-}
-
-export default function PetCard({
-    pet
-}: Props) {
+export default function NewPetCard() {
     const {
         register,
         handleSubmit,
         formState: { errors },
         clearErrors,
         setValue,
+        getValues
     } = useForm<Pet>()
     const {
         loading,
@@ -46,19 +41,20 @@ export default function PetCard({
     const [image, setImage] = useState<string>()
 
     const onSubmit = async (data: Pet) => {
-        const res = await callEndpoint(services.updatePet(token, data))
+        const res = await callEndpoint(services.newPet(token, data))
         if (res.data) {
             SnackbarUtilities.success(
-                'Mascota actualizada exitosamente'
+                'Mascota añadida'
             )
         } else {
             SnackbarUtilities.error(
-                'Error al actualizar los datos, por favor intente más tarde'
+                'Error al añadir la mascota, por favor intente más tarde'
             )
         }
     }
 
-    useEffect(() => { }, [pet])
+    useEffect(() => {
+    }, [getValues('foto')])
 
     return <StyledForm
         encType="multipart/form-data"
@@ -73,7 +69,7 @@ export default function PetCard({
                 xs={12} sm={4} xl={6}
             >
                 <StyledImgCard
-                    src={image ? image : dogExample}
+                    src={image}
                 ></StyledImgCard>
             </StyledImgGrid>
             <StyledInputsGrid
@@ -86,6 +82,7 @@ export default function PetCard({
                         register,
                         name: 'mascota.nombre',
                         error: errors.nombre,
+                        defaultValue: '',
                     })}
                 </StyledGrid>
                 <StyledGrid xs={12} sm={6} xl={3}>
@@ -93,6 +90,7 @@ export default function PetCard({
                         register,
                         name: 'mascota.raza',
                         error: errors.raza,
+                        defaultValue: '',
                     })}
                 </StyledGrid>
                 <StyledGrid xs={12} sm={6} xl={3}>
@@ -101,6 +99,7 @@ export default function PetCard({
                         name: 'mascota.color',
                         error: errors.color,
                         required: true,
+                        defaultValue: '',
                     })}
                 </StyledGrid>
                 <StyledGrid xs={12} sm={6} xl={3}>
@@ -108,6 +107,7 @@ export default function PetCard({
                         register,
                         name: 'mascota.edad',
                         error: errors.edad,
+                        defaultValue: '',
                     })}
                 </StyledGrid>
                 <StyledGrid xs={12} sm={6} xl={3}>
@@ -116,6 +116,7 @@ export default function PetCard({
                         name: 'mascota.sexo',
                         error: errors.sexo,
                         clearErrors: clearErrors,
+                        defaultValue: '',
                     })}
                 </StyledGrid>
                 <StyledGrid xs={12} sm={6} xl={3}>
@@ -124,6 +125,7 @@ export default function PetCard({
                         name: 'mascota.tamaño',
                         error: errors.tamaño,
                         clearErrors: clearErrors,
+                        defaultValue: '',
                     })}
                 </StyledGrid>
                 <StyledGrid xs={12} sm={6} xl={3}>
@@ -131,6 +133,7 @@ export default function PetCard({
                         register,
                         name: 'mascota.peso',
                         error: errors.peso,
+                        defaultValue: '',
                     })}
                 </StyledGrid>
                 <StyledGrid xs={12} sm={6} xl={3}>
@@ -138,6 +141,7 @@ export default function PetCard({
                         register,
                         name: 'mascota.origen',
                         error: errors.origen,
+                        defaultValue: '',
                     })}
                 </StyledGrid>
                 <StyledGrid xs={12} sm={9}>
@@ -145,6 +149,7 @@ export default function PetCard({
                         register,
                         name: 'mascota.caracteristica',
                         error: errors.caracteristica,
+                        defaultValue: '',
                     })}
                 </StyledGrid>
                 <StyledGrid xs={12} sm={3}>

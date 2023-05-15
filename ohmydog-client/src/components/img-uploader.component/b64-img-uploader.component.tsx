@@ -15,15 +15,17 @@ import {
 import { useState } from 'react'
 
 export interface ImgUploaderProps {
-    register: UseFormRegister<any>,
+    register: UseFormRegister<any>
     errors: FieldErrors<any>
     setValue: UseFormSetValue<any>
+    setImage?: (img: string) => void
 }
 
 export default function ImgUploader({
     register,
     errors,
-    setValue
+    setValue,
+    setImage
 }: ImgUploaderProps) {
     const [fileUploaded, setFileUploaded] = useState<boolean>(false)
     const [errorMessage, setErrorMessage] = useState<string>('')
@@ -32,12 +34,16 @@ export default function ImgUploader({
         const file = e.target.files?.[0]
         if (file && file.size < 3 * 1024 ** 2) {
             const base64Img = imgToB64(file)
-                .then(res => setValue('mascota.foto', res))
+                .then(res => {
+                    setValue('mascota.foto', res)
+                    setImage && setImage(res)
+                })
             setFileUploaded(true)
         } else {
             setValue('mascota.foto', undefined)
             setFileUploaded(false)
             setErrorMessage('Peso máximo 3mb')
+            setImage && setImage('')
         }
     }
 

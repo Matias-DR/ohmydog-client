@@ -23,21 +23,6 @@ export const services = {
             controller: controller
         }
     },
-    getPassword: (token: string): AxiosCall<string> => {
-        const controller = new AbortController()
-        return {
-            call: axios.get<string>(
-                '/api/get-current-password',
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    },
-                    signal: controller.signal
-                }
-            ),
-            controller
-        }
-    },
     updatePet: (
         token: string,
         body: Pet
@@ -46,6 +31,25 @@ export const services = {
         return {
             call: axios.post<boolean>(
                 '/api/update-pet',
+                body,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                    signal: controller.signal
+                }
+            ),
+            controller: controller
+        }
+    },
+    newPet: (
+        token: string,
+        body: Pet
+    ): AxiosCall<boolean> => {
+        const controller = new AbortController()
+        return {
+            call: axios.post<boolean>(
+                '/api/new-pet',
                 body,
                 {
                     headers: {

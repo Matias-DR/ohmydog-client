@@ -13,47 +13,36 @@ import { services } from '../services'
 import { AppStore } from '@/redux/store'
 import { useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 export default function Form() {
     const {
         register,
         handleSubmit,
         formState: { errors },
+        trigger
     } = useForm<ChangeUserData>()
     const {
         loading,
         callEndpoint
     } = useFetchAndLoad()
-    const [currentPassword, setCurrentPassword] = useState<any>()
     const token = useSelector((state: AppStore) => state.session.token)
+    const user = useSelector((state: AppStore) => state.user)
+    const [password, setPassword] = useState<string>()
 
     const onSubmit = async (data: ChangeUserData) => {
         const res = await callEndpoint(services.changeUserData(token, data))
-        if (res.data) {
-            SnackbarUtilities.success(
-                'Datos guardados exitosamente'
-            )
-        } else {
+        if (res.data.errors) {
+            if (res.data.errors.nuevacontraseña) trigger('nuevacontraseña')
+            if (res.data.errors.telefono) trigger('telefono')
             SnackbarUtilities.error(
-                'Error al guardar los datos, por favor intente más tarde'
+                'Error al guardar los datos, revise los campos'
             )
         }
+        else {
+            SnackbarUtilities.warning('Revise los campos')
+        }
     }
-
-    useEffect(() => {
-        callEndpoint(services.getPassword(token))
-            .then(res => {
-                setCurrentPassword(res.data)
-            })
-            .catch(() => {
-                setCurrentPassword('')
-                SnackbarUtilities.error(
-                    `Error al recuperar los datos. Si desea actualizar los
-                    datos, por favor intente más tarde`
-                )
-            })
-    }, [])
 
     return <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <StyledFieldset>
@@ -65,7 +54,7 @@ export default function Form() {
             <UserInputs
                 register={register}
                 errors={errors}
-                password={currentPassword}
+                password={password}
             ></UserInputs>
         </StyledFieldset>
         <StyledSubmitButton
