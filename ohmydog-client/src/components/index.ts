@@ -8,3 +8,4 @@ export { default as AppbarClientContent } from './appbar/components/appbar-clien
 export { default as AppbarVetContent } from './appbar/components/appbar-vet-content.component'
 export { default as ProfileButton } from './appbar/components/profile-button.component'
 export { default as SignOutButton } from './appbar/components/signout-button.component'
+export { default as AppbarCommonLinks } from './appbar/components/appbar-common-links.component'
