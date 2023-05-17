@@ -1,4 +1,11 @@
-AL TENER MÁXIMO UN PERRO HAY QUE BLOQUEARLE LA POSIBILIDAD DE BORRARLO
+ingresa mal la contraseña:
+yo recibo: 'contraseña incorrecta'
+
+ingresa mal la nuevacontraseña:
+yo recibo: 'no coincide con la contraseña actual'
+
+dónde lo recibo:
+res.statusText
 
 xs, extra-small: 0px
 sm, small: 600px

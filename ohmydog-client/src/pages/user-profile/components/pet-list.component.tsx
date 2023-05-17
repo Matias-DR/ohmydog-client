@@ -45,7 +45,8 @@ export default function PetList() {
 
     return <StyledList container spacing={1}>
         <AddPet></AddPet>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((pet: any, index) => <StyledItem
+        {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((pet: any, index) => <StyledItem */}
+        {pets.map((pet: any, index) => <StyledItem
             xs={12} sm={6} md={4} lg={3} xl={2}
             key={index}
         >
@@ -58,8 +59,8 @@ export default function PetList() {
                     />
                 </StyledCardActionArea>
                 <StyledCardContent>
-                    <StyledTitle>{pet.nombre}nombre</StyledTitle>
-                    <StyledText>{pet.caracteristica}caracteristicas...</StyledText>
+                    <StyledTitle>{pet.nombre}</StyledTitle>
+                    <StyledText>{pet.caracteristica}</StyledText>
                     <StyledCardActions>
                         <ButtonGroup
                             variant='outlined'

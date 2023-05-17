@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(
@@ -16,14 +16,18 @@ export default async function handler(
             }
         )
         if (extRes.status === 200) {
+            console.log('ESTE ES EL RES 200 EN CHANGE-USER-DATA:', extRes.data)
             res.status(200).json(true)
         }
-    } catch (err) {
-        try {
-            const jsonSvRes = await axios.get('http://localhost:3001/change-user-data')
-            res.status(200).json(jsonSvRes.data)
-        } catch (err) {
-            res.status(200).json(false)
-        }
+    } catch (err: AxiosError | Error | any) {
+        console.log('ESTE ES EL ERROR EN CHANGE-USER-DATA:', err)
+        res.status(200).json(err.response.data)
+        // JSON SERVER
+        // try {
+        //     const jsonSvRes = await axios.get('http://localhost:3001/change-user-data')
+        //     res.status(200).json(jsonSvRes.data)
+        // } catch (err) {
+        //     res.status(200).json(false)
+        // }
     }
 }

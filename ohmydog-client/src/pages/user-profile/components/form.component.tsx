@@ -33,14 +33,19 @@ export default function Form() {
     const onSubmit = async (data: ChangeUserData) => {
         const res = await callEndpoint(services.changeUserData(token, data))
         if (res.data.errors) {
-            if (res.data.errors.nuevacontraseña) trigger('nuevacontraseña')
-            if (res.data.errors.telefono) trigger('telefono')
+            const error = res.data.errors.response.data
+            if (error === 'Contraseña incorrecta') {
+                trigger('contraseña')
+            }
+            else if (error === 'No coincide con la contraseña actual') {
+                trigger('nuevacontraseña')
+            }
             SnackbarUtilities.error(
                 'Error al guardar los datos, revise los campos'
             )
         }
         else {
-            SnackbarUtilities.warning('Revise los campos')
+            SnackbarUtilities.warning('Datos guardados')
         }
     }
 
