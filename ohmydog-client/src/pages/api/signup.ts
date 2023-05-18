@@ -6,12 +6,10 @@ export default async function handler(
     res: NextApiResponse
 ) {
     try {
-        console.log('llegardo')
         const extRes = await axios.post(
             'http://localhost:7162/api/register',
             req.body
         )
-        console.log('ESTE ES LA RESPUETA', extRes)
         if (extRes.status === 200) res.status(200).json(true)
     } catch (err) {
         console.log(err)

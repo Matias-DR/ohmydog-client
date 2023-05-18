@@ -5,13 +5,14 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
+    console.log('ESTOS SON LOS DATOS QUE SE ENVIARÁN', req.body)
     try {
         const extRes = await axios.post(
-            'http://localhost:7162/api/new-pet',
+            'http://localhost:7162/api/mascota',
             req.body,
             {
                 headers: {
-                    Authorization: `Bearer ${req.headers.authorization}`
+                    Authorization: `${req.headers.authorization}`
                 }
             }
         )

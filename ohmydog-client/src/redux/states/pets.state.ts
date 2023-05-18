@@ -23,7 +23,7 @@ export const petsSlice = createSlice({
                 ), 1
             )
             state = newPets
-        },
+        }
     }
 })
 

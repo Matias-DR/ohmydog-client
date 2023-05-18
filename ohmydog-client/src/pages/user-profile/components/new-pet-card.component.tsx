@@ -41,6 +41,7 @@ export default function NewPetCard() {
     const [image, setImage] = useState<string>()
 
     const onSubmit = async (data: Pet) => {
+        console.log('ESTA ES LA DATA QUE SE ENVIA A MI SV', data)
         const res = await callEndpoint(services.newPet(token, data))
         if (res.data) {
             SnackbarUtilities.success(
@@ -80,7 +81,7 @@ export default function NewPetCard() {
                 <StyledGrid xs={12} sm={6} xl={3}>
                     {PetProfileInputs.name({
                         register,
-                        name: 'mascota.nombre',
+                        name: 'nombre',
                         error: errors.nombre,
                         defaultValue: '',
                     })}
@@ -88,7 +89,7 @@ export default function NewPetCard() {
                 <StyledGrid xs={12} sm={6} xl={3}>
                     {PetProfileInputs.race({
                         register,
-                        name: 'mascota.raza',
+                        name: 'raza',
                         error: errors.raza,
                         defaultValue: '',
                     })}
@@ -96,7 +97,7 @@ export default function NewPetCard() {
                 <StyledGrid xs={12} sm={6} xl={3}>
                     {PetProfileInputs.color({
                         register,
-                        name: 'mascota.color',
+                        name: 'color',
                         error: errors.color,
                         required: true,
                         defaultValue: '',
@@ -105,7 +106,7 @@ export default function NewPetCard() {
                 <StyledGrid xs={12} sm={6} xl={3}>
                     {PetProfileInputs.age({
                         register,
-                        name: 'mascota.edad',
+                        name: 'edad',
                         error: errors.edad,
                         defaultValue: '',
                     })}
@@ -113,7 +114,7 @@ export default function NewPetCard() {
                 <StyledGrid xs={12} sm={6} xl={3}>
                     {PetProfileInputs.sex({
                         register,
-                        name: 'mascota.sexo',
+                        name: 'sexo',
                         error: errors.sexo,
                         clearErrors: clearErrors,
                         defaultValue: '',
@@ -122,7 +123,7 @@ export default function NewPetCard() {
                 <StyledGrid xs={12} sm={6} xl={3}>
                     {PetProfileInputs.size({
                         register,
-                        name: 'mascota.tamaño',
+                        name: 'tamaño',
                         error: errors.tamaño,
                         clearErrors: clearErrors,
                         defaultValue: '',
@@ -131,7 +132,7 @@ export default function NewPetCard() {
                 <StyledGrid xs={12} sm={6} xl={3}>
                     {PetProfileInputs.weight({
                         register,
-                        name: 'mascota.peso',
+                        name: 'peso',
                         error: errors.peso,
                         defaultValue: '',
                     })}
@@ -139,7 +140,7 @@ export default function NewPetCard() {
                 <StyledGrid xs={12} sm={6} xl={3}>
                     {PetProfileInputs.origin({
                         register,
-                        name: 'mascota.origen',
+                        name: 'origen',
                         error: errors.origen,
                         defaultValue: '',
                     })}
@@ -147,13 +148,14 @@ export default function NewPetCard() {
                 <StyledGrid xs={12} sm={9}>
                     {PetProfileInputs.caracteristics({
                         register,
-                        name: 'mascota.caracteristica',
+                        name: 'caracteristica',
                         error: errors.caracteristica,
                         defaultValue: '',
                     })}
                 </StyledGrid>
                 <StyledGrid xs={12} sm={3}>
                     <ImgUploader
+                        name='foto'
                         register={register}
                         errors={errors}
                         setValue={setValue}

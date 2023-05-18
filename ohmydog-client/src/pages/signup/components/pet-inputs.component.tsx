@@ -97,6 +97,7 @@ export default function PetInputs({
         </StyledGrid>
         <StyledGrid xs={12} sm={3}>
             <ImgUploader
+                name={'mascota.foto'}
                 register={register}
                 errors={errors}
                 setValue={setValue}

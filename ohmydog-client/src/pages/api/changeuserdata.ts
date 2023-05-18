@@ -11,23 +11,20 @@ export default async function handler(
             req.body,
             {
                 headers: {
-                    Authorization: `Bearer ${req.headers.authorization}`
+                    'Content-Type': 'application/json',
+                    Authorization: req.headers.authorization
                 }
             }
         )
         if (extRes.status === 200) {
-            console.log('ESTE ES EL RES 200 EN CHANGE-USER-DATA:', extRes.data)
-            res.status(200).json(true)
+            res.status(200).json(extRes.data.mensaje)
+            // res.status(200).json(extRes.data.mensaje)
         }
     } catch (err: AxiosError | Error | any) {
         console.log('ESTE ES EL ERROR EN CHANGE-USER-DATA:', err)
-        res.status(200).json(err.response.data)
-        // JSON SERVER
-        // try {
-        //     const jsonSvRes = await axios.get('http://localhost:3001/change-user-data')
-        //     res.status(200).json(jsonSvRes.data)
-        // } catch (err) {
-        //     res.status(200).json(false)
-        // }
+        if (err.response.status === 500)
+            res.status(200).json(false)
+        else if (err.response.status === 400)
+            res.status(200).json(err.response.data)
     }
 }

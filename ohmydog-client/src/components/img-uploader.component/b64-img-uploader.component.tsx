@@ -15,6 +15,7 @@ import {
 import { useState } from 'react'
 
 export interface ImgUploaderProps {
+    name: string
     register: UseFormRegister<any>
     errors: FieldErrors<any>
     setValue: UseFormSetValue<any>
@@ -22,6 +23,7 @@ export interface ImgUploaderProps {
 }
 
 export default function ImgUploader({
+    name,
     register,
     errors,
     setValue,
@@ -35,12 +37,12 @@ export default function ImgUploader({
         if (file && file.size < 3 * 1024 ** 2) {
             const base64Img = imgToB64(file)
                 .then(res => {
-                    setValue('mascota.foto', res)
+                    setValue(name, res)
                     setImage && setImage(res)
                 })
             setFileUploaded(true)
         } else {
-            setValue('mascota.foto', undefined)
+            setValue(name, undefined)
             setFileUploaded(false)
             setErrorMessage('Peso máximo 3mb')
             setImage && setImage('')

@@ -2,6 +2,7 @@ import { Pet } from '@/models/pet.model'
 
 const createPetAdapter = (pet: any): Pet => {
     return {
+        id: pet.Id,
         nombre: pet.Nombre,
         raza: pet.Raza,
         color: pet.Color,

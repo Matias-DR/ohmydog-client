@@ -11,6 +11,7 @@ import { SnackbarUtilities } from '@/utilities/snackbar.utility'
 import { ChangeUserData } from '@/pages/user-profile/change-user-data.model'
 import { services } from '../services'
 import { AppStore } from '@/redux/store'
+import { filterDataAdapter } from '../adapters/filter-user-data.adapte'
 import { useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
@@ -31,18 +32,26 @@ export default function Form() {
     const [password, setPassword] = useState<string>()
 
     const onSubmit = async (data: ChangeUserData) => {
-        const res = await callEndpoint(services.changeUserData(token, data))
-        if (res.data.errors) {
-            const error = res.data.errors.response.data
-            if (error === 'Contraseña incorrecta') {
+        const dataFiltered = filterDataAdapter(data)
+        const res = await callEndpoint(services.changeUserData(
+            token,
+            dataFiltered
+        ))
+        if (res.data) {
+            const message = res.data
+            if (message === 'Contraseña incorrecta') {
                 trigger('contraseña')
+                SnackbarUtilities.warning('Contraseña incorrecta')
             }
-            else if (error === 'No coincide con la contraseña actual') {
+            else if (message === 'Coincide con la contraseña actual') {
                 trigger('nuevacontraseña')
+                SnackbarUtilities.warning('Coincide con la contraseña actual')
             }
-            SnackbarUtilities.error(
-                'Error al guardar los datos, revise los campos'
-            )
+            else if (message === 'Datos guardados') {
+                SnackbarUtilities.error(
+                    'Error al guardar los datos, revise los campos'
+                )
+            }
         }
         else {
             SnackbarUtilities.warning('Datos guardados')

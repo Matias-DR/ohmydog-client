@@ -7,11 +7,11 @@ export const services = {
     changeUserData: (
         token: string,
         body: ChangeUserData
-    ): AxiosCall<boolean> => {
+    ): AxiosCall<any> => {
         const controller = new AbortController()
         return {
-            call: axios.post<boolean>(
-                '/api/change-user-data',
+            call: axios.post<any>(
+                '/api/changeuserdata',
                 body,
                 {
                     headers: {
@@ -25,13 +25,15 @@ export const services = {
     },
     updatePet: (
         token: string,
-        body: Pet
-    ): AxiosCall<boolean> => {
+        body: any,
+        id: number
+    ): AxiosCall<any> => {
         const controller = new AbortController()
+        console.log('ESTOS SON LOS DATOS QUE SE ENVIARÁN', {...body, id: id})
         return {
-            call: axios.post<boolean>(
-                '/api/update-pet',
-                body,
+            call: axios.post<any>(
+                '/api/updatepet',
+                { ...body, id: id },
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -45,10 +47,10 @@ export const services = {
     newPet: (
         token: string,
         body: Pet
-    ): AxiosCall<boolean> => {
+    ): AxiosCall<any> => {
         const controller = new AbortController()
         return {
-            call: axios.post<boolean>(
+            call: axios.post<any>(
                 '/api/new-pet',
                 body,
                 {

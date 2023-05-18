@@ -23,6 +23,7 @@ import { services } from '../services'
 import { AppStore } from '@/redux/store'
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
+import { filterPetDataAdapter } from '../adapters/filter-pet-data.adapter'
 
 export interface Props {
     pet: Pet
@@ -46,15 +47,25 @@ export default function PetCard({
     const [image, setImage] = useState<string>()
 
     const onSubmit = async (data: Pet) => {
-        const res = await callEndpoint(services.updatePet(token, data))
+        console.log('ESTOS SON LOS DATOS DEL PERRO', pet)
+        const dataFiltered = filterPetDataAdapter(data)
+        console.log('ESTA ES LA DATRA QUE SE ENVIA', dataFiltered)
+        const petId = pet.Id
+        console.log('ESTE ES EL ID DEL PERRO EN EL CLIENTE', petId)
+        const res = await callEndpoint(services.updatePet(
+            token,
+            dataFiltered,
+            1
+        ))
         if (res.data) {
+            // GUARDAR LOS DATOS EN REDUX
             SnackbarUtilities.success(
-                'Mascota actualizada exitosamente'
+                'actualizada exitosamente'
             )
         } else {
-            SnackbarUtilities.error(
-                'Error al actualizar los datos, por favor intente más tarde'
-            )
+            // SnackbarUtilities.error(
+            //     'Error'
+            // )
         }
     }
 
@@ -84,21 +95,21 @@ export default function PetCard({
                 <StyledGrid xs={12} sm={6} xl={3}>
                     {PetProfileInputs.name({
                         register,
-                        name: 'mascota.nombre',
+                        name: 'nombre',
                         error: errors.nombre,
                     })}
                 </StyledGrid>
                 <StyledGrid xs={12} sm={6} xl={3}>
                     {PetProfileInputs.race({
                         register,
-                        name: 'mascota.raza',
+                        name: 'raza',
                         error: errors.raza,
                     })}
                 </StyledGrid>
                 <StyledGrid xs={12} sm={6} xl={3}>
                     {PetProfileInputs.color({
                         register,
-                        name: 'mascota.color',
+                        name: 'color',
                         error: errors.color,
                         required: true,
                     })}
@@ -106,14 +117,14 @@ export default function PetCard({
                 <StyledGrid xs={12} sm={6} xl={3}>
                     {PetProfileInputs.age({
                         register,
-                        name: 'mascota.edad',
+                        name: 'edad',
                         error: errors.edad,
                     })}
                 </StyledGrid>
                 <StyledGrid xs={12} sm={6} xl={3}>
                     {PetProfileInputs.sex({
                         register,
-                        name: 'mascota.sexo',
+                        name: 'sexo',
                         error: errors.sexo,
                         clearErrors: clearErrors,
                     })}
@@ -121,7 +132,7 @@ export default function PetCard({
                 <StyledGrid xs={12} sm={6} xl={3}>
                     {PetProfileInputs.size({
                         register,
-                        name: 'mascota.tamaño',
+                        name: 'tamaño',
                         error: errors.tamaño,
                         clearErrors: clearErrors,
                     })}
@@ -129,21 +140,21 @@ export default function PetCard({
                 <StyledGrid xs={12} sm={6} xl={3}>
                     {PetProfileInputs.weight({
                         register,
-                        name: 'mascota.peso',
+                        name: 'peso',
                         error: errors.peso,
                     })}
                 </StyledGrid>
                 <StyledGrid xs={12} sm={6} xl={3}>
                     {PetProfileInputs.origin({
                         register,
-                        name: 'mascota.origen',
+                        name: 'origen',
                         error: errors.origen,
                     })}
                 </StyledGrid>
                 <StyledGrid xs={12} sm={9}>
                     {PetProfileInputs.caracteristics({
                         register,
-                        name: 'mascota.caracteristica',
+                        name: 'caracteristica',
                         error: errors.caracteristica,
                     })}
                 </StyledGrid>
