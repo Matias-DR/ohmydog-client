@@ -54,7 +54,7 @@ export default function Form() {
             }
         }
         else {
-            SnackbarUtilities.warning('Datos guardados')
+            SnackbarUtilities.success('Datos guardados')
         }
     }
 

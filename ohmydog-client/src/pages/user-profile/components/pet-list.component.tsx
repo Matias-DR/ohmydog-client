@@ -11,13 +11,13 @@ import {
     StyledCardContent,
     StyledText,
     StyledViewEditButton,
-    StyledDeleteButton,
     StyledModalBackground,
     StyledModalCardContainer,
     StyledModalCloseButtonContainer,
     StyledModalCloseButtonBackground,
     StyledModalCloseButton,
 } from '../styled-components/pet-card.styled-components'
+import { DeletePetButton } from './'
 import { AddPet, PetCard } from './'
 import { Pet } from '@/models/pet.model'
 import { dogExample } from '@/assets/images'
@@ -28,7 +28,6 @@ import {
     Modal,
     ButtonGroup,
 } from '@mui/material'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined'
 
 export default function PetList() {
@@ -38,10 +37,6 @@ export default function PetList() {
     const handleOpen = () => setOpen(true)
 
     const handleClose = () => setOpen(false)
-
-    // top: '50%',
-    // left: '50%',
-    // transform: 'translate(-50%, -50%)',
 
     return <StyledList container spacing={1}>
         <AddPet></AddPet>
@@ -71,12 +66,7 @@ export default function PetList() {
                             >
                                 Ver / Editar
                             </StyledViewEditButton>
-                            <StyledDeleteButton
-                                color='error'
-                                size='small'
-                            >
-                                <DeleteForeverIcon />
-                            </StyledDeleteButton>
+                            <DeletePetButton id={pet.id}/>
                         </ButtonGroup>
                     </StyledCardActions>
                 </StyledCardContent>

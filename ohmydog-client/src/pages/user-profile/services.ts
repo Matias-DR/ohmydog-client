@@ -62,5 +62,25 @@ export const services = {
             ),
             controller: controller
         }
+    },
+    delPet: (
+        token: string,
+        id: number
+    ): AxiosCall<any> => {
+        const controller = new AbortController()
+        console.log('service', id)
+        return {
+            call: axios.post<any>(
+                '/api/del-pet',
+                { id: id },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                    signal: controller.signal
+                }
+            ),
+            controller: controller
+        }
     }
 }

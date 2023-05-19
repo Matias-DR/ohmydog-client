@@ -1,3 +1,28 @@
+get de turnos disponibles (cliente): 'api/getturno'
+de cada turno recibo: dbo.Turno (ver en la base de datos) - obligatorios son id, motivo, fecha, horario (se ignora), estado
+
+get de turno no disponibles (cliente): 'api/getturnosnodisponibles'
+
+solicitar turno: 'api/reservarturno/${id-mascota}'
+
+solicitar turno recibe motivo: string y fecha: datetime
+
+get de turnos reservados: 'api/getturnosreservados'
+
+confirmar turno (veterinario): 'api/confirmarturnosolicitado/${id-turno}'
+
+get de turnos pendientes por confirmar (veterinario): 'api/turnosporconfirmar'
+
+cancelar turno (cliente): 'api/cancelarturno/${id-turno}'
+
+rechazar turno (veterinario): 'api/rechazarturno/${id-turno}'
+
+
+
+# //////////////////////////////
+
+
+
 ingresa mal la contraseña:
 yo recibo: 'contraseña incorrecta'
 

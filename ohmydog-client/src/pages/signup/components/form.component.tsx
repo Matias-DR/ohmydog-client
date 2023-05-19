@@ -42,12 +42,17 @@ export default function Form() {
 
     const onSubmit = async (data: any) => {
         const signupData: Signup = signupDataAdapter(data)
+        console.log('ESTO SE ENVÍA', signupData)
         const res = await callEndpoint(signup(signupData))
         if (res.data) {
             SnackbarUtilities.success(
                 'Usuario creado exitosamente, ya puede iniciar sesión'
             )
             router.replace('/signin')
+        } else if (!res.data) {
+            SnackbarUtilities.error(
+                'Correo electrónico ya registrado'
+            )
         } else {
             SnackbarUtilities.error(
                 'Error al crear el usuario, por favor intente más tarde'

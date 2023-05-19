@@ -47,25 +47,24 @@ export default function PetCard({
     const [image, setImage] = useState<string>()
 
     const onSubmit = async (data: Pet) => {
-        console.log('ESTOS SON LOS DATOS DEL PERRO', pet)
         const dataFiltered = filterPetDataAdapter(data)
-        console.log('ESTA ES LA DATRA QUE SE ENVIA', dataFiltered)
-        const petId = pet.Id
-        console.log('ESTE ES EL ID DEL PERRO EN EL CLIENTE', petId)
-        const res = await callEndpoint(services.updatePet(
-            token,
-            dataFiltered,
-            1
-        ))
-        if (res.data) {
-            // GUARDAR LOS DATOS EN REDUX
-            SnackbarUtilities.success(
-                'actualizada exitosamente'
-            )
-        } else {
-            // SnackbarUtilities.error(
-            //     'Error'
-            // )
+        const petId = pet.id
+        if (petId) {
+            const res = await callEndpoint(services.updatePet(
+                token,
+                dataFiltered,
+                petId
+            ))
+            if (res.data) {
+                // GUARDAR LOS DATOS EN REDUX
+                SnackbarUtilities.success(
+                    'actualizada exitosamente'
+                )
+            } else {
+                // SnackbarUtilities.error(
+                //     'Error'
+                // )
+            }
         }
     }
 
@@ -160,6 +159,7 @@ export default function PetCard({
                 </StyledGrid>
                 <StyledGrid xs={12} sm={3}>
                     <ImgUploader
+                        name='foto'
                         register={register}
                         errors={errors}
                         setValue={setValue}
