@@ -16,8 +16,8 @@ export default async function handler(
                 }
             }
         )
-        if (extRes.status === 200) {
-            res.status(200).json(true)
+        if (extRes.status === 200 || extRes.status === 204) {
+            res.status(200).json(extRes.data)
         } else {
             res.status(200).json(false)
         }

@@ -17,15 +17,8 @@ export interface Props {
 }
 
 export default function Appbar(props: Props) {
-    const {
-        user,
-        token
-    } = useContext(SessionContext)
+    const { user } = useContext(SessionContext)
     const router = useRouter()
-
-    useEffect(() => {
-        if (token) router.replace('/signin')
-    }, [])
 
     return <StyledAppbar>
         {

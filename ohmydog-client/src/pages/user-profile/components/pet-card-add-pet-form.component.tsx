@@ -20,8 +20,6 @@ import {
 import { StyledImgCard } from '../styled-components/pet-card.styled-components'
 import { SnackbarUtilities } from '@/utilities/snackbar.utility'
 import { services } from '../services'
-import { AppStore } from '@/redux/store'
-import { useSelector } from 'react-redux'
 import { filterPetDataAdapter } from '../adapters/filter-pet-data.adapter'
 import { useContext } from 'react'
 import { SessionContext } from '@/contexts/session.context'
@@ -32,7 +30,8 @@ export interface Props {
 
 export default function PetCardAddPetForm({ handleClose }: Props) {
     const {
-        addPet
+        addPet,
+        token
     } = useContext(SessionContext)
     const {
         register,
@@ -46,11 +45,11 @@ export default function PetCardAddPetForm({ handleClose }: Props) {
         loading,
         callEndpoint
     } = useFetchAndLoad()
-    const token = useSelector((store: AppStore) => store.session.token)
 
     const onSubmit = async (data: Pet) => {
         const res = await callEndpoint(services.addPet(token, data))
         if (res.data) {
+            if (!res.data.foto) res.data.foto = data.foto
             addPet(filterPetDataAdapter(res.data))
             SnackbarUtilities.success('Mascota añadida')
             handleClose()

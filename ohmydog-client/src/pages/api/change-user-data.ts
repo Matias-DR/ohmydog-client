@@ -16,14 +16,10 @@ export default async function handler(
                 }
             }
         )
-        if (extRes.status === 200) {
-            res.status(200).json(extRes.data.mensaje)
-            // res.status(200).json(extRes.data.mensaje)
-        }
-    } catch (err: AxiosError | Error | any) {
-        if (err.response.status === 500)
-            res.status(200).json(false)
-        else if (err.response.status === 400)
-            res.status(200).json(err.response.data)
+        res.status(200).json(extRes.data)
+    } catch (err: any) {
+        err.response.data ?
+        res.status(200).json(err.response.data)
+        : res.status(200).json(false)
     }
 }

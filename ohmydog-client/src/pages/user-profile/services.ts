@@ -11,7 +11,7 @@ export const services = {
         const controller = new AbortController()
         return {
             call: axios.post<any>(
-                '/api/changeuserdata',
+                '/api/change-user-data',
                 body,
                 {
                     headers: {

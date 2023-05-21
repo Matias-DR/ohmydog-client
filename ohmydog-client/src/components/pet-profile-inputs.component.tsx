@@ -44,7 +44,7 @@ const PetProfileInputs = {
         error,
         name,
         disabled,
-        defaultValue = 'Ejemplo',
+        defaultValue = '',
         required,
     }: InputProps) => <TextField
             id='pet-name'
@@ -69,7 +69,7 @@ const PetProfileInputs = {
         error,
         name,
         disabled,
-        defaultValue = 'Ejemplo',
+        defaultValue = '',
         required,
     }: InputProps) => <TextField
             id='pet-race'
@@ -94,7 +94,7 @@ const PetProfileInputs = {
         error,
         name,
         disabled,
-        defaultValue = 'Ejemplo',
+        defaultValue = '',
         required,
     }: InputProps) => <TextField
             id='pet-color'
@@ -119,7 +119,7 @@ const PetProfileInputs = {
         error,
         name,
         disabled,
-        defaultValue = 1,
+        defaultValue,
         required,
     }: InputProps) => <TextField
             id='pet-age'
@@ -144,7 +144,7 @@ const PetProfileInputs = {
         error,
         name,
         disabled,
-        defaultValue = 'Hembra',
+        defaultValue = '',
         required,
         clearErrors,
     }: SelectProps) => <FormControl fullWidth error={!!error}>
@@ -181,7 +181,7 @@ const PetProfileInputs = {
         error,
         name,
         disabled,
-        defaultValue = 'Mediano',
+        defaultValue = '',
         required,
         clearErrors,
     }: SelectProps) => <FormControl fullWidth error={!!error}>
@@ -220,7 +220,7 @@ const PetProfileInputs = {
         error,
         name,
         disabled,
-        defaultValue = '24',
+        defaultValue = '',
         required,
     }: InputProps) => <TextField
             id='pet-weight'
@@ -246,7 +246,7 @@ const PetProfileInputs = {
         error,
         name,
         disabled,
-        defaultValue = 'Ejemplo',
+        defaultValue = '',
         required,
     }: InputProps) => <TextField
             id='pet-origin'
@@ -263,7 +263,7 @@ const PetProfileInputs = {
         error,
         name,
         disabled,
-        defaultValue = 'Ejemplo',
+        defaultValue = '',
         required,
         rows = 4,
     }: MultilineInputProps) => <TextField

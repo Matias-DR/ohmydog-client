@@ -195,12 +195,11 @@ const UserProfileInputs = {
         error,
         disabled,
         required,
-        defaultValue = 'qweQWE123/*-'
+        defaultValue = ''
     }: InputProps) => <TextField
             id={name}
             type={InputType.PASSWORD}
             label='Contraseña'
-            defaultValue={defaultValue}
             disabled={disabled}
             {...(register && register(
                 name,
@@ -226,12 +225,11 @@ const UserProfileInputs = {
         password,
         disabled,
         required,
-        defaultValue = 'qweQWE123/*-'
+        defaultValue = ''
     }: OtherPassProps) => <TextField
             id={name}
             type={InputType.PASSWORD}
             label='Repita la contraseña'
-            defaultValue={defaultValue}
             disabled={disabled}
             {...(register && register(
                 name,
@@ -264,7 +262,6 @@ const UserProfileInputs = {
             id={name}
             type={InputType.PASSWORD}
             label='Nueva contraseña'
-            defaultValue={defaultValue}
             disabled={disabled}
             {...(register && register(
                 name,
@@ -277,8 +274,8 @@ const UserProfileInputs = {
                             mayúscula, una minúscula, un número y un 
                             caracter especial`
                     },
-                    validate: value => value !== password || `La contraseña debe ser diferente a la
-                        anterior`
+                    validate: value => value !== password || `La contraseña debe
+                    ser diferente a la anterior`
                 }
             ))}
             error={!!error}

@@ -7,7 +7,7 @@ export default function AppbarCommonLinks() {
     return <StyledLinksContainer>
         <StyledLink href='pet-adoption'>Adopciones</StyledLink>
         <StyledLink href='lost-pets'>Perdidos</StyledLink>
-        <StyledLink href='vet-appointments'>Turnos</StyledLink>
+        <StyledLink href='appointments'>Turnos</StyledLink>
         <StyledLink href='donations'>Donaciones</StyledLink>
     </StyledLinksContainer>
 }

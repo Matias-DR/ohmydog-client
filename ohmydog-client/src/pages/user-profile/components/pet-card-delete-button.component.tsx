@@ -40,7 +40,7 @@ export default function DeletePetButton({ id }: Props) {
 
     const handleSubmit = async () => {
         handleClose()
-        if (hasSinglePet()) {
+        if (!hasSinglePet()) {
             const res = await callEndpoint(services.delPet(token, id))
             if (res.data) {
                 delPet(id)

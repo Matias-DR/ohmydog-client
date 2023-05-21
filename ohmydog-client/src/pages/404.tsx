@@ -1,13 +1,12 @@
+import { SessionContext } from '@/contexts/session.context';
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import { AppStore } from '@/redux/store';
-import { useSelector } from 'react-redux';
+import { useContext, useEffect } from 'react'
 
 export default function Custom404() {
     const router = useRouter()
-    const sessionState = useSelector((store: AppStore) => store.session);
+    const { token } = useContext(SessionContext);
 
     useEffect(() => {
-        router.replace(sessionState?.token ? '/home' : '/signup')
+        router.replace(token ? '/home' : '/signin')
     }, [])
 }

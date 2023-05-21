@@ -12,10 +12,7 @@ import { PetCardAddPetForm } from '.'
 import { useState } from 'react'
 import { Modal } from '@mui/material'
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined'
-import {
-    StyledAddButton,
-    StyledAddIcon
-} from '../styled-components/add-pet.styled-components'
+import { StyledAddIcon } from '../styled-components/add-pet.styled-components'
 
 export default function AddButtonPet() {
 
@@ -28,11 +25,10 @@ export default function AddButtonPet() {
     return <StyledItem xs={12} sm={6} md={4} lg={3} xl={2}>
         <StyledCard>
             <StyledCardActionArea>
-                <StyledAddButton
+                <StyledAddIcon
                     onClick={handleOpen}
                 >
-                    <StyledAddIcon />
-                </StyledAddButton>
+                </StyledAddIcon>
             </StyledCardActionArea>
         </StyledCard>
         <Modal

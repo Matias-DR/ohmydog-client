@@ -10,12 +10,10 @@ import { UserInputs } from '.'
 import { SnackbarUtilities } from '@/utilities/snackbar.utility'
 import { ChangeUserData } from '@/pages/user-profile/change-user-data.model'
 import { services } from '../services'
-import { AppStore } from '@/redux/store'
 import { filterDataAdapter } from '../adapters/filter-user-data.adapte'
-import { useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
-import { useState } from 'react'
-import { dispatchUtility } from '@/utilities/dispatch.utility'
+import { useContext, useState } from 'react'
+import { SessionContext } from '@/contexts/session.context'
 
 export default function Form() {
     const {
@@ -28,10 +26,11 @@ export default function Form() {
         loading,
         callEndpoint
     } = useFetchAndLoad()
-    const token = useSelector((state: AppStore) => state.session.token)
-    const user = useSelector((state: AppStore) => state.user)
-    const [password, setPassword] = useState<string>()
-    const { dispatchUpdateUser } = dispatchUtility()
+    const {
+        token,
+        updateUser,
+        user
+    } = useContext(SessionContext)
 
     const onSubmit = async (data: ChangeUserData) => {
         const dataFiltered = filterDataAdapter(data)
@@ -41,23 +40,26 @@ export default function Form() {
         ))
         if (res.data) {
             const message = res.data
-            if (message === 'Contraseña incorrecta') {
-                trigger('contraseña')
-                SnackbarUtilities.warning('Contraseña incorrecta')
-            }
-            else if (message === 'Coincide con la contraseña actual') {
-                trigger('nuevacontraseña')
-                SnackbarUtilities.warning('Coincide con la contraseña actual')
+            if ([
+                'Contraseña incorrecta',
+                'Coincide con la contraseña actual'
+            ].includes(message)) {
+                SnackbarUtilities.warning(message)
+                if (message === 'Coincide con la contraseña actual') {
+                    trigger('contraseña')
+                } else {
+                    trigger('nuevacontraseña')
+                }
             }
             else if (message === 'Datos guardados') {
-                SnackbarUtilities.error(
-                    'Error al guardar los datos, revise los campos'
-                )
+                updateUser(dataFiltered)
+                SnackbarUtilities.success(message)
             }
         }
         else {
-            dispatchUpdateUser(dataFiltered)
-            SnackbarUtilities.success('Datos guardados')
+            SnackbarUtilities.error(
+                'Error de conexión, por favor intente más tarde'
+            )
         }
     }
 
@@ -71,7 +73,7 @@ export default function Form() {
             <UserInputs
                 register={register}
                 errors={errors}
-                password={password}
+                password={user.contraseña}
             ></UserInputs>
         </StyledFieldset>
         <StyledSubmitButton

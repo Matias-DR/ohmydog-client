@@ -1,21 +1,12 @@
 import styled from "@emotion/styled"
-import { IconButton } from '@mui/material'
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
-export const StyledAddButton = styled(IconButton)`
+export const StyledAddIcon = styled(AddOutlinedIcon)`
     height: 100%;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 0;   
-    background-color: var(--ohmydog-orange-opaque-color);
+    color: var(--ohmydog-lightblue-opaque-color);   
+    background-color: var(--ohmydog-orange-color);
     &:hover {
-        background-color: var(--ohmydog-orange-color);
+        background-color: var(--ohmydog-orange-opaque-color);
     }
-`
-
-export const StyledAddIcon = styled(AddOutlinedIcon)`
-    font-size: 10rem;
-    color: var(--ohmydog-lightblue-opaque-color);
 `

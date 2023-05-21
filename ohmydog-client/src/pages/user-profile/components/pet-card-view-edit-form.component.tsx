@@ -11,21 +11,21 @@ import {
 } from 'react-hook-form'
 import { SnackbarUtilities } from '@/utilities/snackbar.utility'
 import { services } from '../services'
-import { AppStore } from '@/redux/store'
-import { useSelector } from 'react-redux'
-import { useEffect } from 'react'
 import { filterPetDataAdapter } from '../adapters/filter-pet-data.adapter'
 import { PetCardViewEditInputs } from './'
-import { StyledFieldset } from '@/styled-components/form.styled-components'
-import { useContext } from 'react'
 import { SessionContext } from '@/contexts/session.context'
+import { createPetAdapter } from '@/adapters'
+import { useContext } from 'react'
 
 export interface Props {
     pet: Pet
 }
 
 export default function PetCardViewEditForm({ pet }: Props) {
-    const { updatePet } = useContext(SessionContext)
+    const {
+        token,
+        updatePet
+    } = useContext(SessionContext)
     const {
         register,
         handleSubmit,
@@ -37,7 +37,6 @@ export default function PetCardViewEditForm({ pet }: Props) {
         loading,
         callEndpoint
     } = useFetchAndLoad()
-    const token = useSelector((store: AppStore) => store.session.token)
 
     const onSubmit = async (data: Pet) => {
         const updatedPet = filterPetDataAdapter({
@@ -49,7 +48,7 @@ export default function PetCardViewEditForm({ pet }: Props) {
             updatedPet
         ))
         if (res.data) {
-            updatePet(res.data)
+            updatePet(createPetAdapter(res.data))
             SnackbarUtilities.success('Mascota actualizada')
         } else {
             SnackbarUtilities.error(
@@ -58,22 +57,17 @@ export default function PetCardViewEditForm({ pet }: Props) {
         }
     }
 
-    useEffect(() => { }, [pet])
-
     return <StyledForm
         encType="multipart/form-data"
         onSubmit={handleSubmit(onSubmit)}
     >
-        {/* ESTE FIELDSET SE AGREGÓ AL FORMULARIO DE LA MASCOTA */}
-        <StyledFieldset>
-            <PetCardViewEditInputs
-                pet={pet}
-                register={register}
-                errors={errors}
-                clearErrors={clearErrors}
-                setValue={setValue}
-            />
-        </StyledFieldset>
+        <PetCardViewEditInputs
+            pet={pet}
+            register={register}
+            errors={errors}
+            clearErrors={clearErrors}
+            setValue={setValue}
+        />
         <StyledSubmitButtonContainer>
             <StyledSubmitButtonBackground>
                 <StyledSubmitButton
