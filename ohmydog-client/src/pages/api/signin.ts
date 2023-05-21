@@ -14,16 +14,6 @@ export default async function handler(
             res.status(200).json(extRes.data)
         }
     } catch (err) {
-        try {
-            console.log('json server pide')
-            const jsonSvRes = await axios.get('http://localhost:3001/signin')
-            res.status(200).json(jsonSvRes.data)
-        } catch (err) {
-            res.status(200).json({
-                token: '',
-                cliente: {},
-                mascotas: [],
-            })
-        }
+        res.status(200).json(false)
     }
 }

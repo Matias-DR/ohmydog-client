@@ -3,15 +3,13 @@ import {
     StyledGrid,
     StyledGridContainer
 } from '@/styled-components/input-frames.styled-components'
-import { User } from '@/models/user.model'
 import { ChangeUserData } from '@/pages/user-profile/change-user-data.model'
-import { AppStore } from '@/redux/store'
-import { useSelector } from 'react-redux'
 import {
     FieldErrors,
     UseFormRegister,
-    UseFormTrigger
 } from 'react-hook-form'
+import { SessionContext } from '@/contexts/session.context'
+import { useContext } from 'react'
 
 export interface Props {
     register: UseFormRegister<ChangeUserData>,
@@ -24,7 +22,7 @@ export default function UserInputs({
     errors,
     password
 }: Props) {
-    const user: User = useSelector((store: AppStore) => store.user)
+    const { user } = useContext(SessionContext)
     return <StyledGridContainer container spacing={1}>
         <StyledGrid xs={12} sm={6} md={3}>
             {UserProfileInputs.name({

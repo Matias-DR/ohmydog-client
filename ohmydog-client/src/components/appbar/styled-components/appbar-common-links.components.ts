@@ -12,4 +12,14 @@ export const StyledLink = styled(Link)`
     color: black;
     font-weight: bold;
     text-decoration: none;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+
+    &:hover {
+        color: var(--ohmydog-orange-color);
+    };
+    &:active {
+        color: var(--ohmydog-orange-opaque-color);
+    };
 `

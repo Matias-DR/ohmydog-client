@@ -1,5 +1,4 @@
 import { Pet } from '@/models/pet.model'
-import { dogExample } from '@/assets/images'
 import {
     StyledForm,
     StyledCardContainer,
@@ -14,17 +13,27 @@ import { useFetchAndLoad } from '@/hooks/use-fetch-and-load.hook'
 import {
     useForm
 } from 'react-hook-form'
-import { ImgUploader, PetProfileInputs } from '@/components'
+import {
+    ImgUploader,
+    PetProfileInputs
+} from '@/components'
 import { StyledImgCard } from '../styled-components/pet-card.styled-components'
-import { } from '@/styled-components/form.styled-components'
 import { SnackbarUtilities } from '@/utilities/snackbar.utility'
-import { updatePetAdapter } from '@/adapters'
 import { services } from '../services'
 import { AppStore } from '@/redux/store'
 import { useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { filterPetDataAdapter } from '../adapters/filter-pet-data.adapter'
+import { useContext } from 'react'
+import { SessionContext } from '@/contexts/session.context'
 
-export default function NewPetCard() {
+export interface Props {
+    handleClose: () => void,
+}
+
+export default function PetCardAddPetForm({ handleClose }: Props) {
+    const {
+        addPet
+    } = useContext(SessionContext)
     const {
         register,
         handleSubmit,
@@ -38,24 +47,19 @@ export default function NewPetCard() {
         callEndpoint
     } = useFetchAndLoad()
     const token = useSelector((store: AppStore) => store.session.token)
-    const [image, setImage] = useState<string>()
 
     const onSubmit = async (data: Pet) => {
-        console.log('ESTA ES LA DATA QUE SE ENVIA A MI SV', data)
-        const res = await callEndpoint(services.newPet(token, data))
+        const res = await callEndpoint(services.addPet(token, data))
         if (res.data) {
-            SnackbarUtilities.success(
-                'Mascota añadida'
-            )
+            addPet(filterPetDataAdapter(res.data))
+            SnackbarUtilities.success('Mascota añadida')
+            handleClose()
         } else {
             SnackbarUtilities.error(
                 'Error al añadir la mascota, por favor intente más tarde'
             )
         }
     }
-
-    useEffect(() => {
-    }, [getValues('foto')])
 
     return <StyledForm
         encType="multipart/form-data"
@@ -70,7 +74,7 @@ export default function NewPetCard() {
                 xs={12} sm={4} xl={6}
             >
                 <StyledImgCard
-                    src={image}
+                    src={getValues('foto')}
                 ></StyledImgCard>
             </StyledImgGrid>
             <StyledInputsGrid
@@ -159,7 +163,6 @@ export default function NewPetCard() {
                         register={register}
                         errors={errors}
                         setValue={setValue}
-                        setImage={setImage}
                     ></ImgUploader>
                 </StyledGrid>
             </StyledInputsGrid>

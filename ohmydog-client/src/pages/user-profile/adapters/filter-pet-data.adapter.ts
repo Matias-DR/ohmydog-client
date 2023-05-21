@@ -1,5 +1,6 @@
 export const filterPetDataAdapter = (data: any) => {
     return {
+        id: data.id,
         nombre: data.nombre,
         raza: data.raza,
         color: data.color,

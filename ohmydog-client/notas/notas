@@ -1,3 +1,5 @@
+vet en turnos se ve los por aprobar
+
 get de turnos disponibles (cliente): 'api/getturno'
 de cada turno recibo: dbo.Turno (ver en la base de datos) - obligatorios son id, motivo, fecha, horario (se ignora), estado
 

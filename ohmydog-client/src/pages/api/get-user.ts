@@ -6,8 +6,8 @@ export default async function handler(
     res: NextApiResponse
 ) {
     try {
-        const extRes = await axios.delete(
-            `http://localhost:7162/api/mascota/${req.body.id}`,
+        const extRes = await axios.get(
+            'http://localhost:7162/api/cliente',
             {
                 headers: {
                     Authorization: `${req.headers.authorization}`
@@ -15,11 +15,12 @@ export default async function handler(
             }
         )
         if (extRes.status === 200) {
-            res.status(200).json(true)
+            res.status(200).json(extRes.data)
         } else {
             res.status(200).json(false)
         }
-    } catch (err) {
+    } catch (err: any) {
+        console.log(err.response)
         res.status(200).json(false)
     }
 }

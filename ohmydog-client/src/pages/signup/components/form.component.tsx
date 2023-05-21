@@ -17,14 +17,6 @@ import { signupDataAdapter } from '../signup-data.adapter'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 
-enum InputType {
-    TEXT = 'text',
-    NUMBER = 'number',
-    EMAIL = 'email',
-    PASSWORD = 'password',
-    TEL = 'tel',
-}
-
 export default function Form() {
     const {
         register,
@@ -42,16 +34,15 @@ export default function Form() {
 
     const onSubmit = async (data: any) => {
         const signupData: Signup = signupDataAdapter(data)
-        console.log('ESTO SE ENVÍA', signupData)
         const res = await callEndpoint(signup(signupData))
         if (res.data) {
             SnackbarUtilities.success(
-                'Usuario creado exitosamente, ya puede iniciar sesión'
+                'Usuario creado, puede iniciar sesión'
             )
             router.replace('/signin')
         } else if (!res.data) {
-            SnackbarUtilities.error(
-                'Correo electrónico ya registrado'
+            SnackbarUtilities.warning(
+                'Correo ya registrado'
             )
         } else {
             SnackbarUtilities.error(

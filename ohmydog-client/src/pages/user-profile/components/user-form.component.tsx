@@ -6,7 +6,7 @@ import {
     StyledTitle,
     StyledSubmitButton
 } from '@/styled-components/form.styled-components'
-import { UserInputs } from './'
+import { UserInputs } from '.'
 import { SnackbarUtilities } from '@/utilities/snackbar.utility'
 import { ChangeUserData } from '@/pages/user-profile/change-user-data.model'
 import { services } from '../services'
@@ -15,6 +15,7 @@ import { filterDataAdapter } from '../adapters/filter-user-data.adapte'
 import { useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
+import { dispatchUtility } from '@/utilities/dispatch.utility'
 
 export default function Form() {
     const {
@@ -30,6 +31,7 @@ export default function Form() {
     const token = useSelector((state: AppStore) => state.session.token)
     const user = useSelector((state: AppStore) => state.user)
     const [password, setPassword] = useState<string>()
+    const { dispatchUpdateUser } = dispatchUtility()
 
     const onSubmit = async (data: ChangeUserData) => {
         const dataFiltered = filterDataAdapter(data)
@@ -54,6 +56,7 @@ export default function Form() {
             }
         }
         else {
+            dispatchUpdateUser(dataFiltered)
             SnackbarUtilities.success('Datos guardados')
         }
     }

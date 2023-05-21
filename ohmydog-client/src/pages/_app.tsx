@@ -7,17 +7,20 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux'
 import { SnackbarProvider } from 'notistack'
 import { Appbar } from '@/components'
+import SessionContextProvider from '@/contexts/session.context'
 
 export default function App({ Component, pageProps }: AppProps) {
     return <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
             <SnackbarProvider>
                 <SnackbarUtilsConfigurator />
-                <Appbar>
-                    <StyledAppMain>
-                        <Component {...pageProps} />
-                    </StyledAppMain>
-                </Appbar>
+                <SessionContextProvider>
+                    <Appbar>
+                        <StyledAppMain>
+                            <Component {...pageProps} />
+                        </StyledAppMain>
+                    </Appbar>
+                </SessionContextProvider>
             </SnackbarProvider>
         </PersistGate>
     </Provider>

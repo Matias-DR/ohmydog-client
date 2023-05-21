@@ -9,10 +9,8 @@ import {
 } from '@/styled-components/input-frames.styled-components'
 import { CredentialInputs } from './credential-inputs.component'
 import { useFetchAndLoad } from '@/hooks/use-fetch-and-load.hook'
-import { dispatchUtility } from '@/utilities/dispatch.utility'
 import { Credential } from '@/pages/signin/credential.model'
 import { signin } from '@/pages/signin/signin.service'
-import { Session } from '@/models/session.model'
 import {
     createPetsAdapter,
     createSessionAdapter,
@@ -21,8 +19,8 @@ import {
 import { SnackbarUtilities } from '@/utilities/snackbar.utility'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
-import { User } from '@/models/user.model'
-import { Pet } from '@/models/pet.model'
+import { useContext } from 'react'
+import { SessionContext } from '@/contexts/session.context'
 
 export default function Form() {
     const {
@@ -34,23 +32,17 @@ export default function Form() {
         loading,
         callEndpoint
     } = useFetchAndLoad()
-    const {
-        dispatchCreateUser,
-        dispatchCreateSession,
-        dispatchCreatePets
-    } = dispatchUtility()
     const router = useRouter()
+    const { startSession } = useContext(SessionContext)
 
     const onSubmit = async (data: Credential) => {
         const res = await callEndpoint(signin(data))
-        console.log(res)
-        const session: Session = createSessionAdapter(res.data)
-        const user: User = createUserAdapter(res.data)
-        const pets: Pet[] = createPetsAdapter(res.data)
-        if (session.token) {
-            dispatchCreateUser(user)
-            dispatchCreateSession(session)
-            dispatchCreatePets(pets)
+        if (res) {
+            startSession(
+                createSessionAdapter(res.data),
+                createUserAdapter(res.data),
+                createPetsAdapter(res.data)
+            )
             router.replace('/home')
         } else {
             SnackbarUtilities.error('Error al iniciar sesión')

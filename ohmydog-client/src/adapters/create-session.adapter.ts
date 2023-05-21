@@ -1,7 +1,3 @@
-import { Session } from '@/models/session.model'
-
-const createSessionAdapter = (data: any): Session => ({
-    token: data.token
-})
+const createSessionAdapter = (data: any): string => data.token
 
 export default createSessionAdapter

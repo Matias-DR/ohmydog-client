@@ -25,15 +25,13 @@ export const services = {
     },
     updatePet: (
         token: string,
-        body: any,
-        id: number
+        body: Pet,
     ): AxiosCall<any> => {
         const controller = new AbortController()
-        console.log('ESTOS SON LOS DATOS QUE SE ENVIARÁN', {...body, id: id})
         return {
             call: axios.post<any>(
-                '/api/updatepet',
-                { ...body, id: id },
+                '/api/update-pet',
+                body,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -44,14 +42,14 @@ export const services = {
             controller: controller
         }
     },
-    newPet: (
+    addPet: (
         token: string,
         body: Pet
     ): AxiosCall<any> => {
         const controller = new AbortController()
         return {
             call: axios.post<any>(
-                '/api/new-pet',
+                '/api/add-pet',
                 body,
                 {
                     headers: {
@@ -68,7 +66,6 @@ export const services = {
         id: number
     ): AxiosCall<any> => {
         const controller = new AbortController()
-        console.log('service', id)
         return {
             call: axios.post<any>(
                 '/api/del-pet',

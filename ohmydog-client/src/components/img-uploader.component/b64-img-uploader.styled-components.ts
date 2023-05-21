@@ -31,6 +31,6 @@ export const StyledHelperText = styled.p`
     margin: 0;
     text-align: center;
     position: absolute;
-    bottom: -20px;
+    bottom: -30px;
     color: ${props => props.color}
 `

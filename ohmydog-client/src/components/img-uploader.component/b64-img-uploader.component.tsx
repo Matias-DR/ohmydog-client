@@ -1,4 +1,3 @@
-import { Signup } from '@/pages/signup/signup.model'
 import {
     StyledImgUploaderContainer,
     StyledDoneIcon,
@@ -24,8 +23,6 @@ export interface ImgUploaderProps {
 
 export default function ImgUploader({
     name,
-    register,
-    errors,
     setValue,
     setImage
 }: ImgUploaderProps) {
@@ -34,18 +31,23 @@ export default function ImgUploader({
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
-        if (file && file.size < 3 * 1024 ** 2) {
-            const base64Img = imgToB64(file)
-                .then(res => {
-                    setValue(name, res)
-                    setImage && setImage(res)
-                })
-            setFileUploaded(true)
+        if (file) {
+            if (file.size < 3 * 1024 ** 2) {
+                imgToB64(file)
+                    .then(res => {
+                        setValue(name, res)
+                        setImage && setImage(res)
+                    })
+                setFileUploaded(true)
+            } else {
+                setValue(name, undefined)
+                setFileUploaded(false)
+                setErrorMessage(': Peso máximo 3mb')
+                setImage && setImage('')
+            }
         } else {
-            setValue(name, undefined)
             setFileUploaded(false)
-            setErrorMessage('Peso máximo 3mb')
-            setImage && setImage('')
+            setErrorMessage('')
         }
     }
 
@@ -62,8 +64,8 @@ export default function ImgUploader({
             />
             {fileUploaded ? <StyledDoneIcon /> : <StyledAddPhotoIcon />}
         </IconButton>
-        <StyledHelperText color={fileUploaded ? 'black' : 'red'}>
-            {fileUploaded ? 'Foto añadida' : errorMessage}
+        <StyledHelperText color={errorMessage === '' ? 'black' : 'red'}>
+            Foto de la mascota{fileUploaded ? ': Añadida' : errorMessage}
         </StyledHelperText>
     </StyledImgUploaderContainer>
 }

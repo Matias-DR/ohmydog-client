@@ -8,18 +8,24 @@ import {
     AppbarClientContent,
     AppbarVetContent
 } from '../'
-import { User } from '@/models/user.model'
-import { AppStore } from '@/redux/store'
-import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
+import { useContext, useEffect } from 'react'
+import { SessionContext } from '@/contexts/session.context'
 
 export interface Props {
     children: React.ReactNode
 }
 
 export default function Appbar(props: Props) {
-    const user: User = useSelector((state: AppStore) => state.user)
+    const {
+        user,
+        token
+    } = useContext(SessionContext)
     const router = useRouter()
+
+    useEffect(() => {
+        if (token) router.replace('/signin')
+    }, [])
 
     return <StyledAppbar>
         {

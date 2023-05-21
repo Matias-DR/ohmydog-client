@@ -1,8 +1,10 @@
-import { AppStore } from '@/redux/store'
-import { useSelector } from 'react-redux'
+import { SessionContext } from '@/contexts/session.context'
+import { useRouter } from 'next/router'
+import { useContext } from 'react'
 
 export default function Home() {
-    const user = useSelector((store: AppStore) => store.user)
+    const { user } = useContext(SessionContext)
+    const router = useRouter()
 
     return <>Bienvenido {user.rol}</>
 }

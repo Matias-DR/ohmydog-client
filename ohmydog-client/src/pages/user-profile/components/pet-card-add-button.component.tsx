@@ -2,14 +2,13 @@ import { StyledItem } from '@/styled-components/pet-card-list.styled-components'
 import {
     StyledCard,
     StyledCardActionArea,
-    StyledImgCard,
     StyledModalBackground,
     StyledModalCardContainer,
     StyledModalCloseButtonContainer,
     StyledModalCloseButtonBackground,
     StyledModalCloseButton,
 } from '../styled-components/pet-card.styled-components'
-import { NewPetCard, PetCard } from '.'
+import { PetCardAddPetForm } from '.'
 import { useState } from 'react'
 import { Modal } from '@mui/material'
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined'
@@ -19,6 +18,7 @@ import {
 } from '../styled-components/add-pet.styled-components'
 
 export default function AddButtonPet() {
+
     const [open, setOpen] = useState(false)
 
     const handleOpen = () => setOpen(true)
@@ -56,7 +56,9 @@ export default function AddButtonPet() {
                             </StyledModalCloseButton>
                         </StyledModalCloseButtonBackground>
                     </StyledModalCloseButtonContainer>
-                    <NewPetCard></NewPetCard>
+                    <PetCardAddPetForm
+                        handleClose={handleClose}
+                    />
                 </StyledModalCardContainer>
             </StyledModalBackground>
         </Modal>

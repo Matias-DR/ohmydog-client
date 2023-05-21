@@ -1,13 +1,13 @@
-import { User } from '@/models/user.model'
 import { Session } from '@/models/session.model'
-import { Pet } from '@/models/pet.model'
+import { sessionSlice } from './states'
 import {
-    userSlice,
-    sessionSlice,
-    petsSlice
-} from './states'
-import { configureStore, combineReducers } from '@reduxjs/toolkit'
-import { persistReducer, persistStore } from 'redux-persist'
+    configureStore,
+    combineReducers,
+} from '@reduxjs/toolkit'
+import {
+    persistReducer,
+    persistStore
+} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 const persistConfig = {
@@ -16,21 +16,22 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-    user: userSlice,
     session: sessionSlice,
-    pets: petsSlice,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export interface AppStore {
-    user: User,
     session: Session,
-    pets: Pet[]
 }
 
 export const store = configureStore({
-    reducer: persistedReducer
+    reducer: persistedReducer,
+    middleware(getDefaultMiddleware) {
+        return getDefaultMiddleware({
+            serializableCheck: false,
+        })
+    },
 })
 
 export const persistor = persistStore(store)

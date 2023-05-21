@@ -21,7 +21,6 @@ export default async function handler(
             // res.status(200).json(extRes.data.mensaje)
         }
     } catch (err: AxiosError | Error | any) {
-        console.log('ESTE ES EL ERROR EN CHANGE-USER-DATA:', err)
         if (err.response.status === 500)
             res.status(200).json(false)
         else if (err.response.status === 400)
