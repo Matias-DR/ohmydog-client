@@ -1,2 +1,1 @@
-export { default as CredentialInputs } from './credential-inputs.component'
-export { default as Form } from './form.component'
+export { default as SigninForm } from './signin-form.component'

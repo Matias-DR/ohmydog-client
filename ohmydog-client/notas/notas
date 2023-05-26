@@ -1,3 +1,6 @@
+DE daysjs A string → daysjs().format('YYYY-MM-DD HH:mm:ss' | 'DD/MM/YYYY' | ...)
+DE string A daysjs → dayjs('2000-31-12')
+
 vet en turnos se ve los por aprobar
 
 get de turnos disponibles (cliente): 'api/getturno'

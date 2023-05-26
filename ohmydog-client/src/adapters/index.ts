@@ -1,5 +1,3 @@
-export { default as createSessionAdapter } from './create-session.adapter'
-export { default as createUserAdapter } from './create-user-adapter'
-export { default as createPetsAdapter } from './create-pets-adapter'
-export { default as createPetAdapter } from './create-pet-adapter'
-export { default as updatePetAdapter } from './create-pet-adapter'
+export { default as userAdapter } from './to-external-server.adapters/user.adapter'
+export { default as petAdapter } from './to-external-server.adapters/pet.adapter'
+export { default as petsAdapter } from './to-external-server.adapters/pets.adapter'

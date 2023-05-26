@@ -1,13 +1,5 @@
 import { User } from '@/models/user.model'
 import { Pet } from '@/models/pet.model'
-import { getUser } from '@/services/user.services'
-import { getPets } from '@/services/pet.services'
-import { ChangeUserData } from '@/pages/user-profile/change-user-data.model'
-import { useFetchAndLoad } from '@/hooks/use-fetch-and-load.hook'
-import {
-    createPetsAdapter,
-    createUserAdapter
-} from './adapters'
 import {
     createContext,
     useEffect,
@@ -17,22 +9,19 @@ import { useRouter } from 'next/router'
 
 export interface ContextProps {
     startSession: (
-        token: string,
         user: User,
         pets: Pet[]
     ) => void,
     closeSession: () => void,
-    token: string,
-    setToken: (token: string) => void,
-    user: User,
-    setUser: (user: User) => void,
-    pets: Pet[],
-    setPets: (pets: Pet[]) => void,
+    user: () => User,
     updateUser: (data: any) => void,
-    hasSinglePet: () => boolean,
+    pets: () => Pet[],
+    getPetById: (id: number) => Pet,
     addPet: (pet: Pet) => void,
     updatePet: (pet: Pet) => void,
-    delPet: (id: number) => void,
+    hasSinglePet: () => boolean,
+    hasPetById: (id: number) => boolean,
+    delPetById: (id: number) => boolean,
 }
 
 export interface ComponentProps {
@@ -40,139 +29,159 @@ export interface ComponentProps {
 }
 
 export const userInitialState: User = {
-    nombre: '',
-    apellido: '',
-    edad: 0,
+    name: '',
+    lastname: '',
+    age: 0,
     dni: 0,
     email: '',
-    telefono: '',
-    contraseña: '',
-    confirmacioncontraseña: '',
-    nuevacontraseña: '',
+    celphone: '',
+    password: '',
     rol: '',
+}
+
+export const petInitialState: Pet = {
+    id: 0,
+    name: '',
+    race: '',
+    color: '',
+    age: '',
+    sex: '',
+    size: '',
+    weight: 0,
+    origin: '',
+    caracteristics: '',
+    photo: '',
 }
 
 export const petsInitialState: Pet[] = []
 
-export const tokenInitialState: string = ''
-
 export const SessionContext = createContext<ContextProps>({
     startSession: (
-        token: string,
         user: User,
         pets: Pet[]
     ) => { },
     closeSession: () => { },
-    token: tokenInitialState,
-    setToken: () => { },
-    user: userInitialState,
-    setUser: () => { },
-    pets: petsInitialState,
-    setPets: () => { },
+    user: () => userInitialState,
     updateUser: () => { },
-    hasSinglePet: () => true,
+    pets: () => petsInitialState,
     addPet: () => { },
     updatePet: () => { },
-    delPet: () => { },
+    hasSinglePet: () => true,
+    getPetById: () => petInitialState,
+    hasPetById: () => false,
+    delPetById: () => false
 })
 
 export default function SessionContextProvider({ children }: ComponentProps) {
-    const [user, setUser] = useState<User>(userInitialState)
-    const [pets, setPets] = useState<Pet[]>(petsInitialState)
-    const [token, setToken] = useState<string>('')
-    const { callEndpoint } = useFetchAndLoad()
+    const [session, setSession] = useState(false)
     const router = useRouter()
 
     useEffect(() => {
-        setToken(sessionStorage.getItem('token') || '')
-        // console.log('Session context: Token', token)
-        if (token) {
-            callEndpoint(getUser(token)).then(
-                (res: any) => {
-                    if (res.data) setUser(createUserAdapter(res.data))
-                    // console.log('Session context: User', user)
-                }
-            )
-            callEndpoint(getPets(token)).then(
-                (res: any) => {
-                    // console.log('Session context: Pets res', res)
-                    if (res.data) setPets(createPetsAdapter(res.data))
-                    // console.log('Session context: Pets', pets)
-                }
-            )
-            if (['/signin', '/signup'].includes(router.pathname)) {
-                router.replace('/home')
-            }
-        } else {
-            if (!['/signin', '/signup'].includes(router.pathname)) {
-                router.replace('/signin')
-            }
+        const user = sessionStorage.getItem('user')
+        // Si estoy en inicio de sesión o registro
+        if (['/signin', '/signup'].includes(router.pathname)) {
+            // Y tengo sesión, me voy al inicio
+            if (user) router.replace('/home')
+            // Si no tengo sesión, me quedo en la página
+            else setSession(true)
         }
-    }, [token])
+        // Si estoy en cualquier otra página
+        else {
+            // Y no tengo sesión, me voy al inicio de sesión
+            if (!user) router.replace('/signin')
+            // Si tengo sesión, me quedo en la página
+            else setSession(true)
+        }
+    }, [])
 
     const startSession = (
-        token: string,
         user: User,
         pets: Pet[]
     ) => {
-        sessionStorage.setItem('token', token)
-        setToken(token)
-        setUser(user)
-        setPets(pets)
+        localStorage.setItem('user', JSON.stringify(user))
+        sessionStorage.setItem('pets', JSON.stringify(pets))
     }
 
     const closeSession = () => {
-        sessionStorage.removeItem('token')
-        setUser(userInitialState)
-        setPets(petsInitialState)
-        setToken(tokenInitialState)
+        sessionStorage.removeItem('user')
+        sessionStorage.removeItem('pets')
     }
 
-    const updateUser = (data: ChangeUserData) => {
-        const updates = {
-            telefono: data.telefono ?
-                data.telefono
-                : user.telefono,
-            contraseña: data.nuevacontraseña ?
-                data.nuevacontraseña
-                : user.contraseña
-        }
-        setUser({ ...user, ...updates })
+    const user = (): User => {
+        const user = sessionStorage.getItem('user')
+        if (!user) return userInitialState
+        return JSON.parse(user)
     }
 
-    const hasSinglePet = () => pets.length === 1
+    const setUser = (user: User) => {
+        sessionStorage.setItem('user', JSON.stringify(user))
+    }
 
-    const addPet = (pet: Pet) => setPets([...pets, pet])
+    const pets = (): Pet[] => {
+        const pets = sessionStorage.getItem('pets')
+        if (!pets) return petsInitialState
+        return JSON.parse(pets)
+    }
+
+    const setPets = (pets: Pet[]) => {
+        sessionStorage.setItem('pets', JSON.stringify(pets))
+    }
+
+    const updateUser = (data: any) => {
+        const _user: User = { ...user(), ...data }
+        setUser(_user)
+    }
+
+    const getPetById = (id: number) => {
+        const _pets = pets()
+        const pet = _pets.find((pet: Pet) => pet.id === id)
+        return pet ? pet : petInitialState
+    }
+
+    const hasSinglePet = () => pets().length === 1
+
+    const hasPetById = (id: number) => {
+        const _pets = pets()
+        return _pets.some((pet: Pet) => pet.id === id)
+    }
+
+    const addPet = (pet: Pet) => {
+        const _pets = pets()
+        _pets.push(pet)
+        setPets(_pets)
+    }
 
     const updatePet = (pet: Pet) => {
-        const newPets = [...pets]
-        const index = newPets.findIndex((p: Pet) => p.id === pet.id)
-        newPets[index] = pet
-        setPets(newPets)
+        const _pets = pets()
+        const index = _pets.findIndex(({ id }: Pet) => id === pet.id)
+        _pets[index] = pet
+        setPets(_pets)
     }
 
-    const delPet = (id: number) => {
-        const index = pets.findIndex((pet: Pet) => pet.id === id)
-        const newPets = [...pets]
-        newPets.splice(index, 1)
-        setPets(newPets)
+    const delPetById = (id: number) => {
+        const _pets = pets()
+        const index = _pets.findIndex((pet: Pet) => pet.id === id)
+        if (index === -1) return false
+        else {
+            _pets.splice(index, 1)
+            setPets(_pets)
+            return true
+        }
     }
 
     return <SessionContext.Provider value={{
-        token,
-        setToken,
         startSession,
         closeSession,
         user,
-        setUser,
-        pets,
-        setPets,
         updateUser,
+        pets,
+        getPetById,
         hasSinglePet,
+        hasPetById,
         addPet,
         updatePet,
-        delPet,
+        delPetById
     }}>
-        {children}
+        {session ? children : null}
     </SessionContext.Provider >
 }

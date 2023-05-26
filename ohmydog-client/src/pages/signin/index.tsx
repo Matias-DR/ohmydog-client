@@ -5,7 +5,7 @@ import {
 } from '@/styled-components/form.styled-components'
 import { StyledMain } from './styled-components'
 import ohmydogB64Image from '@/assets/images/ohmydog.b64image'
-import { Form } from './components'
+import { SigninForm } from './components'
 import { RedirectTo } from '@/components'
 
 export default function Signup() {
@@ -18,7 +18,7 @@ export default function Signup() {
             <StyledTitle>
                 INICIO DE SESIÓN
             </StyledTitle>
-            <Form />
+            <SigninForm />
             <RedirectTo
                 to="/signup"
                 speech="¿No tiene cuenta?"

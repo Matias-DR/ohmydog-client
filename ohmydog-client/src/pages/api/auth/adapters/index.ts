@@ -1,0 +1,6 @@
+export { default as userAdapter } from './from-external-server.adapters/user.adapter'
+export { default as petAdapter} from './from-external-server.adapters/pet.adapter'
+export { default as petsAdapter} from './from-external-server.adapters/pets.adapter'
+export { default as tokenAdapter } from './from-external-server.adapters/token.adapter'
+export { default as credentialAdapter } from './to-external-server.adapters/credential.adapter'
+export { default as signupAdapter } from './to-external-server.adapters/signup.adapter'

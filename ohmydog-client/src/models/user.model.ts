@@ -1,12 +1,12 @@
 export interface User {
-    nombre: string,
-    apellido: string,
-    edad: number,
+    name: string,
+    lastname: string,
+    birthdate: string,
     dni: number,
     email: string,
-    telefono: string,
-    contraseña: string,
-    confirmacioncontraseña?: string,
-    nuevacontraseña?: string,
-    rol?: string
+    celphone: string,
+    password: string,
+    passwordconfirm?: string,
+    passwordnew?: string,
+    role: string
 }

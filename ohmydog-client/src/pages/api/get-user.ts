@@ -20,7 +20,6 @@ export default async function handler(
             res.status(200).json(false)
         }
     } catch (err: any) {
-        console.log(err.response)
         res.status(200).json(false)
     }
 }

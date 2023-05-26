@@ -1,12 +1,12 @@
+import { Signup } from '@/models/auth/signup.model'
 import { AxiosCall } from '@/models/axios-call.model'
-import { Signup } from './signup.model'
-import { axiosInstance } from '@/utilities/unlimited-size-axios.utility'
+import axios from 'axios'
 
 export const signup = (body: Signup): AxiosCall<any> => {
     const controller = new AbortController()
     return {
-        call: axiosInstance.post<any>(
-            '/api/signup',
+        call: axios.post<any>(
+            '/api/auth/signup',
             body,
             { signal: controller.signal }),
         controller
