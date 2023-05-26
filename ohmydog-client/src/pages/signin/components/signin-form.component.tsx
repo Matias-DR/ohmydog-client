@@ -23,7 +23,6 @@ export default function SigninForm() {
     const {
         register,
         handleSubmit,
-        clearErrors,
         formState: { errors },
     } = useForm<Credential>()
     const {

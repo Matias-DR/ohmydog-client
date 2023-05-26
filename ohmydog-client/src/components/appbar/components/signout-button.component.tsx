@@ -3,7 +3,7 @@ import {
     StyledSignOutButton,
     StyledSignOutButtonLink,
     StyledSignOutButtonIcon
-} from '../styled-components/signout.styled-components'
+} from '../styled-components/button.styled-components'
 import { useContext } from 'react';
 
 export default function SignOutButton() {

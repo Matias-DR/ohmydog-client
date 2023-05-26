@@ -45,7 +45,7 @@ export default async function handler(
             // 404: Usuario no encontrado
             if ([401, 403, 404].includes(err.response.status)) {
                 res.status(err.response.status).json({
-                    messate: 'Datos inválidos'
+                    message: 'Datos inválidos'
                 })
             }
             else {

@@ -7,7 +7,7 @@ const userAdapter = (user: User): any => {
         Contraseña: user.password,
         Email: user.email,
         Telefono: user.celphone,
-        Nacimiento: user.birthdate,
+        FechaNacimiento: user.birthdate,
         DNI: user.dni,
         RolCliente: user.role ? user.role : 'Cliente'
     }

@@ -1,20 +1,19 @@
 import {
-    StyledProfileButton,
-    StyledProfileButtonLink,
-    StyledProfileButtonIcon,
-} from '../styled-components/profile-button.styled-component'
+    StyledLinkButtonContainer,
+    StyledLink,
+    StyledIconButton,
+} from '../styled-components/button.styled-components'
+import { SessionContext } from '@/contexts/session.context'
+import { useContext } from 'react'
 
-export interface Props {
-    username: string
-}
+export default function ProfileButton() {
+    const { name } = useContext(SessionContext).user()
 
-export default function ProfileButton(props: Props) {
-    return <StyledProfileButton
-        variant='outlined'
-    >
-        <StyledProfileButtonLink href={'/user-profile'}>
-            <StyledProfileButtonIcon />
-            {props.username}
-        </StyledProfileButtonLink>
-    </StyledProfileButton>
+    return <StyledLinkButtonContainer>
+        <StyledLink href={'/user-profile'}>
+            <StyledIconButton>
+                {name}
+            </StyledIconButton>
+        </StyledLink>
+    </StyledLinkButtonContainer>
 }

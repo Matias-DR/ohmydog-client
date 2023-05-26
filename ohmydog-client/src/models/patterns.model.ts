@@ -11,7 +11,7 @@ export const Patterns = {
      * Requiere al menos 8 caracteres, una mayúscula, minúscula, un número y un caracter especial.
      * Máximo 99 caracteres.
      */
-    password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+    password: /^(?=.*[!-~])(?=.{8,})/,
 
     /**
      * Admite desde 1 hasta n caracteres dentro del rango "[a-zA-Z0-9_]", guiones y puntos.

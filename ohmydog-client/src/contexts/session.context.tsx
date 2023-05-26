@@ -31,12 +31,12 @@ export interface ComponentProps {
 export const userInitialState: User = {
     name: '',
     lastname: '',
-    age: 0,
+    birthdate: '',
     dni: 0,
     email: '',
     celphone: '',
     password: '',
-    rol: '',
+    role: '',
 }
 
 export const petInitialState: Pet = {
@@ -44,7 +44,7 @@ export const petInitialState: Pet = {
     name: '',
     race: '',
     color: '',
-    age: '',
+    birthdate: '',
     sex: '',
     size: '',
     weight: 0,
@@ -85,20 +85,20 @@ export default function SessionContextProvider({ children }: ComponentProps) {
             // Si no tengo sesión, me quedo en la página
             else setSession(true)
         }
-        // Si estoy en cualquier otra página
+        // Si no estoy en inicio de sesión o registro
         else {
             // Y no tengo sesión, me voy al inicio de sesión
             if (!user) router.replace('/signin')
             // Si tengo sesión, me quedo en la página
             else setSession(true)
         }
-    }, [])
+    }, [router.pathname])
 
     const startSession = (
         user: User,
         pets: Pet[]
     ) => {
-        localStorage.setItem('user', JSON.stringify(user))
+        sessionStorage.setItem('user', JSON.stringify(user))
         sessionStorage.setItem('pets', JSON.stringify(pets))
     }
 

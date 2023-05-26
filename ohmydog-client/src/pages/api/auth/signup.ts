@@ -7,7 +7,6 @@ export default async function handler(
     res: NextApiResponse
 ) {
     const body = signupAdapter(req.body)
-    console.log('data', body)
     axios.post(
         'http://localhost:7162/api/register',
         body
@@ -18,7 +17,7 @@ export default async function handler(
         .catch(err => {
             if (err.response.data) {
                 res.status(409).json({
-                    message: 'El usuario ya se encuentra registrado con ese email'
+                    message: 'Usuario ya registrado'
                 })
             }
             else {

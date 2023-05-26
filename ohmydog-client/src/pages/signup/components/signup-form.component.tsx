@@ -40,7 +40,6 @@ export default function SignupForm() {
     const router = useRouter()
 
     const onSubmit = (data: any) => {
-        console.log('data', data)
         callEndpoint(signup(data))
             .then(res => {
                 SnackbarUtilities.success(res.data.message)

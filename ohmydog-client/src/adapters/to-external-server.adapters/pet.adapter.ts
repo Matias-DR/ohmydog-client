@@ -7,7 +7,7 @@ const petAdapter = (pet: Pet): any => {
         Nombre: pet.name,
         Raza: pet.race,
         Color: pet.color,
-        Nacimiento: pet.birthdate,
+        FechaNacimiento: pet.birthdate,
         Sexo: pet.sex,
         Tamaño: pet.size,
         Peso: pet.weight,
