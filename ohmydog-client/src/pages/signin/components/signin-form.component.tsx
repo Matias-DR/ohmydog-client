@@ -15,7 +15,7 @@ import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { useContext } from 'react'
 import { SessionContext } from '@/contexts/session.context'
-import { CustomInput } from '@/components'
+import { Input } from '@/components'
 import { InputType } from '@/components/custom-inputs/input.component'
 import { Patterns } from '@/models/patterns.model'
 
@@ -59,7 +59,7 @@ export default function SigninForm() {
         <StyledFieldset>
             <StyledGridContainer container spacing={1}>
                 <StyledGrid xs={12}>
-                    <CustomInput
+                    <Input
                         name='email'
                         label='Correo electrónico'
                         type={InputType.EMAIL}
@@ -71,19 +71,18 @@ export default function SigninForm() {
                                 message: 'Campo inválido'
                             }
                         }}
-                        errors={errors}
-                        clearErrors={clearErrors}
+                        error={errors.email}
                         required={true}
                     />
                 </StyledGrid>
                 <StyledGrid xs={12}>
-                    <CustomInput
+                    <Input
                         name='password'
                         label='Contraseña'
                         type={InputType.PASSWORD}
                         register={register}
                         registerOptions={{ required: true }}
-                        errors={errors}
+                        error={errors.password}
                         required={true}
                     />
                 </StyledGrid>
