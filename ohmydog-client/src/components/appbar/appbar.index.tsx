@@ -1,16 +1,12 @@
+import { AppbarContent } from './components'
 import {
     StyledAppbar,
     StyledAppbarContainer,
     StyledAppbarChildrenContainer
 } from './styled-components/appbar.styled-components'
-import {
-    AppbarAnonymousContent,
-    AppbarClientContent,
-    AppbarVetContent
-} from '../'
-import { useRouter } from 'next/router'
-import { useContext, useEffect } from 'react'
 import { SessionContext } from '@/contexts/session.context'
+import { useRouter } from 'next/router'
+import { useContext } from 'react'
 
 export interface Props {
     children: React.ReactNode
@@ -25,17 +21,7 @@ export default function Appbar(props: Props) {
             ['/signup', '/signin'].includes(router.asPath) ?
                 null
                 : <StyledAppbarContainer>
-                    {
-                        user.rol === 'Anonimo' ?
-                            <AppbarAnonymousContent></AppbarAnonymousContent>
-                            : user.rol === 'Cliente' ?
-                                <AppbarClientContent
-                                    user={user}
-                                ></AppbarClientContent>
-                                : <AppbarVetContent
-                                    user={user}
-                                ></AppbarVetContent>
-                    }
+                    <AppbarContent />
                 </StyledAppbarContainer>
         }
         <StyledAppbarChildrenContainer

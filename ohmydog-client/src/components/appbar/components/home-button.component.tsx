@@ -2,16 +2,16 @@ import {
     StyledImage,
     StyledLinkButtonContainer,
     StyledLink,
-    StyledIconButton
-} from '../styled-components/button.styled-components'
+    StyledButton
+} from '../styled-components/button-links.styled-components'
 import { ohmydogHomeB64Image } from '@/assets/images'
 
 export default function HomeButton() {
     return <StyledLinkButtonContainer>
         <StyledLink href='/home'>
-            <StyledIconButton>
+            <StyledButton>
                 <StyledImage src={ohmydogHomeB64Image} />
-            </StyledIconButton>
+            </StyledButton>
         </StyledLink>
     </StyledLinkButtonContainer>
 }

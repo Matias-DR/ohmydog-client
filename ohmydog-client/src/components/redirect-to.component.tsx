@@ -1,4 +1,5 @@
-import { useRouter } from "next/router"
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 export interface RedirectToProps {
     to: string
@@ -13,9 +14,9 @@ export default function RedirectTo(props: RedirectToProps) {
         router.replace(props.to)
     }
 
-    return <p>{props.speech} <a
-        href="#"
+    return <p>{props.speech} <Link
+        href='#'
         onClick={handleClick}
-    >{props.linkText}</a>
+    >{props.linkText}</Link>
     </p>
 }
