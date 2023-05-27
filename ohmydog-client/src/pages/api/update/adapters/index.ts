@@ -1,0 +1,1 @@
+export { default as updateUserAdapter } from './update-user.adapter'

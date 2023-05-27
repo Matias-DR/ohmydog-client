@@ -1,9 +1,7 @@
 import {
-    credentialAdapter,
-    userAdapter,
-    petsAdapter,
-    tokenAdapter
-} from './adapters'
+    signinToAdapter,
+    signinFromAdapter
+} from '@/adapters'
 import { signinTokenCookieOptions } from './lib'
 import { serialize } from 'cookie'
 import axios from 'axios'
@@ -16,16 +14,18 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    const credential = credentialAdapter(req.body)
+    const credential = signinToAdapter(req.body)
     axios.post(
         'http://localhost:7162/api/login',
         credential
     )
         .then(xres => {
             if (xres.status === 200) {
-                const token = tokenAdapter(xres.data)
-                const user = userAdapter(xres.data)
-                const pets = petsAdapter(xres.data)
+                const {
+                    token,
+                    user,
+                    pets
+                } = signinFromAdapter(xres.data)
                 const body = {
                     user,
                     pets

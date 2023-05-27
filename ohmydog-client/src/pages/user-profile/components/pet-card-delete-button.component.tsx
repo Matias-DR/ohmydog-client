@@ -10,13 +10,13 @@ import {
     StyledConfirmButton
 } from '../styled-components/delete-pet-button.styled-component'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
-import { services } from '../services'
 import { useFetchAndLoad } from '@/hooks/use-fetch-and-load.hook'
 import { SnackbarUtilities } from '@/utilities/snackbar.utility'
 import { Modal } from '@mui/material'
 import { useState } from 'react'
 import { useContext } from 'react'
 import { SessionContext } from '@/contexts/session.context'
+import { delPetById as delPetByIdService } from '../services'
 
 export interface Props {
     id: number,
@@ -28,33 +28,28 @@ export default function DeletePetButton({ id }: Props) {
         callEndpoint
     } = useFetchAndLoad()
     const {
-        delPet,
         hasSinglePet,
-        token
+        delPetById
     } = useContext(SessionContext)
     const [open, setOpen] = useState(false)
-
     const handleOpen = () => setOpen(true)
-
     const handleClose = () => setOpen(false)
 
     const handleSubmit = async () => {
-        handleClose()
         if (!hasSinglePet()) {
-            const res = await callEndpoint(services.delPet(token, id))
-            if (res.data) {
-                delPet(id)
-                SnackbarUtilities.success('Mascota eliminada')
-            } else {
-                SnackbarUtilities.error(
-                    'Error de conexión, por favor intente más tarde'
-                )
-            }
-        } else {
-            SnackbarUtilities.error(
-                'Debe poseer al menos una mascota'
-            )
-        }
+            callEndpoint(delPetByIdService(id))
+                .then((res) => {
+                    delPetById(id)
+                    SnackbarUtilities.success('Mascota eliminada')
+                    handleClose()
+                })
+                .catch((err) => SnackbarUtilities.error(
+                    'Error al eliminar la mascota, por favor intente más tarde'
+                ))
+        } else SnackbarUtilities.error(
+            `No se permite borrar la mascota ya
+            que debe poseer al menos una mascota`
+        )
     }
 
     return <>

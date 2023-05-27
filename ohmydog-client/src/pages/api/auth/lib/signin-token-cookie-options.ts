@@ -1,11 +1,12 @@
 import { CookieSerializeOptions } from 'cookie'
 
 const signinTokenCookieOptions: CookieSerializeOptions = {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'none',
+    httpOnly: false,
+    // secure: process.env.NODE_ENV === 'production',
+    secure: false,
+    sameSite: 'lax',
     maxAge: 1000 * 60 * 60 * 24 * 30, // 30 días
-    path: '/signin',
+    path: '/',
 }
 
 export default signinTokenCookieOptions

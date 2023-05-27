@@ -5,7 +5,7 @@ import {
 } from '@/styled-components/form.styled-components'
 import { StyledMain } from './styled-components'
 import ohmydogB64Image from '@/assets/images/ohmydog.b64image'
-import { SigninForm } from './components'
+import { SigninForm } from './signin-form.component'
 import { RedirectTo } from '@/components'
 
 export default function Signup() {

@@ -8,8 +8,8 @@ import {
 import { useContext } from 'react'
 
 export default function AppbarCommonLinks() {
-    const { user, closeSession } = useContext(SessionContext)
-    const _user = user()
+    const { getUser, closeSession } = useContext(SessionContext)
+    const _user = getUser()
 
     return <StyledLinksContainer>
         {

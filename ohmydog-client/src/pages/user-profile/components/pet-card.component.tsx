@@ -16,13 +16,14 @@ import {
 } from '../styled-components/pet-card.styled-components'
 import { DeletePetButton } from './'
 import { Pet } from '@/models/pet.model'
-import { PetCardViewEditForm } from './'
+import { ViewEditPetForm } from './'
 import { useState } from 'react'
 import {
     Modal,
     ButtonGroup,
 } from '@mui/material'
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined'
+import { defaultPetPhoto } from '@/assets/images'
 
 export interface Props {
     pet: Pet,
@@ -38,13 +39,13 @@ export default function PetCard({ pet }: Props) {
         <StyledCard>
             <StyledCardActionArea>
                 <StyledImgCard
-                    src={pet.foto}
+                    src={pet.photo ? pet.photo : defaultPetPhoto}
                     onClick={handleOpen}
                 />
             </StyledCardActionArea>
             <StyledCardContent>
-                <StyledTitle>{pet.nombre}</StyledTitle>
-                <StyledText>{pet.caracteristica}</StyledText>
+                <StyledTitle>{pet.name}</StyledTitle>
+                <StyledText>{pet.caracteristics}</StyledText>
                 <StyledCardActions>
                     <ButtonGroup
                         variant='outlined'
@@ -83,7 +84,7 @@ export default function PetCard({ pet }: Props) {
                             </StyledModalCloseButton>
                         </StyledModalCloseButtonBackground>
                     </StyledModalCloseButtonContainer>
-                    <PetCardViewEditForm
+                    <ViewEditPetForm
                         pet={pet}
                     />
                 </StyledModalCardContainer>

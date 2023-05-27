@@ -1,4 +1,3 @@
-import { SelectOption } from '@/models/components/select-option.model'
 import {
     FormControl,
     FormHelperText,
@@ -13,10 +12,17 @@ import {
     UseFormTrigger
 } from 'react-hook-form'
 
+export interface SelectOption {
+    value: string
+    label: string
+}
+
 interface SelectProps {
     name: string
     label: string
     required?: boolean
+    disabled?: boolean
+    defaultValue?: SelectOption
     register: UseFormRegister<any>
     trigger?: UseFormTrigger<any>
     registerOptions?: RegisterOptions<any>
@@ -25,10 +31,12 @@ interface SelectProps {
     options: SelectOption[]
 }
 
-export default function CustomSelect({
+export default function Select({
     name,
     label,
     required = false,
+    disabled = false,
+    defaultValue,
     register,
     registerOptions,
     trigger,
@@ -41,7 +49,8 @@ export default function CustomSelect({
             id={name}
             label={label}
             required={required}
-            defaultValue={options[0].value}
+            disabled={disabled}
+            defaultValue={defaultValue ? defaultValue : options[0].value}
             variant='outlined'
             select
             {...register(name, registerOptions && registerOptions)}

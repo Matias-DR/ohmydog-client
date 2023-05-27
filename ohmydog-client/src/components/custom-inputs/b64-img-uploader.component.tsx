@@ -17,32 +17,42 @@ import {
     UseFormRegister,
     UseFormSetValue,
     UseFormTrigger,
+    UseFormClearErrors,
 } from 'react-hook-form'
 import { useEffect, useState } from 'react'
 
 export interface ImgUploaderProps {
     name: string
+    required?: boolean
+    defaultValue?: string
     register: UseFormRegister<any>
-    trigger: UseFormTrigger<any>
+    trigger?: UseFormTrigger<any>
     error?: FieldError
     inputProps?: InputBaseProps['inputProps']
     setValue: UseFormSetValue<any>
     value?: string
+    clearErrors?: UseFormClearErrors<any>
 }
 
 export default function ImgUploader({
     name,
+    required = false,
+    defaultValue,
     register,
     trigger,
     error,
     setValue,
     value,
+    clearErrors,
 }: ImgUploaderProps) {
     const [hasImage, setHasImage] = useState(false)
 
     useEffect(() => {
-        register(name)
         setHasImage(!!(value && value[0]))
+        console.log(value, hasImage)
+        if (hasImage) {
+            clearErrors && clearErrors(name)
+        }
     }, [register, value])
 
     const validate = (event: any) => {
@@ -77,11 +87,12 @@ export default function ImgUploader({
                 imgToB64(file)
                     .then(res => {
                         setValue(name, res)
+                        clearErrors && clearErrors(name)
                     })
                     .catch(err => setValue(name, ''))
             }
         } else setValue(name, '')
-        trigger(name)
+        trigger && trigger(name)
     }
 
     return <FormControl fullWidth error={!!error}>
@@ -92,10 +103,17 @@ export default function ImgUploader({
                     sx={{ color: 'var(--ohmydog-lightblue-color)' }}
                 >
                     <input
+                        required={required}
                         hidden
                         accept='image/*'
                         type='file'
                         {...register(name, {
+                            required: required ?
+                            (() => {
+                                if (hasImage) return false
+                                return 'Campo requerido'
+                            })()
+                            : false,
                             validate: validate,
                             onChange: handleChange
                         })}

@@ -1,10 +1,8 @@
 import {
     FieldError,
-    RegisterOptions,
     UseFormRegister,
     UseFormSetValue,
     UseFormTrigger,
-    UseFormWatch,
 } from 'react-hook-form'
 import {
     FormControl,
@@ -22,9 +20,9 @@ interface Props {
     defaultValue?: Dayjs
     required?: boolean
     disabled?: boolean
-    register: UseFormRegister<any>
+    register?: UseFormRegister<any>
     trigger?: UseFormTrigger<any>
-    setValue: UseFormSetValue<any>
+    setValue?: UseFormSetValue<any>
     error?: FieldError
 }
 
@@ -42,9 +40,9 @@ export default function Datepicker({
     const handleChange = (value: Dayjs | null) => {
         if (value && value.isValid()) {
             const date = value.format('DD/MM/YYYY')
-            setValue(name, date)
+            setValue && setValue(name, date)
         } else {
-            setValue(name, '')
+            setValue && setValue(name, '')
         }
         trigger && trigger(name)
     }
@@ -56,19 +54,20 @@ export default function Datepicker({
                 dayjsDate.isValid() &&
                 dayjsDate.diff(new Date().toLocaleDateString(), 'days') <= 0
             ) return true
+            trigger && trigger(name)
             return 'Fecha inválida'
         }
         return true
     }
 
     useEffect(() => {
-        register(
+        register && register(
             name,
             {
-                required: true,
+                required: required ? 'Campo requerido' : false,
                 validate
             })
-        setValue(name, defaultValue?.format('DD/MM/YYYY') || '')
+        setValue && setValue(name, defaultValue?.format('DD/MM/YYYY') || '')
     }, [])
 
     return (

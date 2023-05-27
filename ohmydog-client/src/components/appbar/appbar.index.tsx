@@ -4,21 +4,19 @@ import {
     StyledAppbarContainer,
     StyledAppbarChildrenContainer
 } from './styled-components/appbar.styled-components'
-import { SessionContext } from '@/contexts/session.context'
 import { useRouter } from 'next/router'
-import { useContext } from 'react'
 
 export interface Props {
     children: React.ReactNode
 }
 
 export default function Appbar(props: Props) {
-    const { user } = useContext(SessionContext)
     const router = useRouter()
+    const actualPath = new RegExp(`^.*(signup|signin).*$`).test(router.asPath)
 
     return <StyledAppbar>
         {
-            ['/signup', '/signin'].includes(router.asPath) ?
+            actualPath ?
                 null
                 : <StyledAppbarContainer>
                     <AppbarContent />
@@ -26,7 +24,7 @@ export default function Appbar(props: Props) {
         }
         <StyledAppbarChildrenContainer
             height={
-                ['/signup', '/signin'].includes(router.asPath) ?
+                actualPath ?
                     '100vh'
                     : '91vh'
             }

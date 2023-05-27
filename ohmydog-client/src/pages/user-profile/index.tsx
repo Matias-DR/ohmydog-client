@@ -6,14 +6,14 @@ import {
 } from './styled-components/styled-components'
 import { StyledTitle } from '@/styled-components/form.styled-components'
 import {
-    Form,
+    UserForm,
     PetList
 } from './components'
 
 export default function UserProfile() {
     return <StyledMain>
         <UserSection>
-            <Form></Form>
+            <UserForm></UserForm>
         </UserSection>
         <StyledSeparator />
         <PetsSection>

@@ -7,12 +7,8 @@ import {
     StyledAppbarContentGrid,
     StyledAppbarContent,
 } from '../styled-components/appbar.styled-components'
-import { SessionContext } from '@/contexts/session.context'
-import { useContext } from 'react'
 
 export default function AppbarContent() {
-    const { role } = useContext(SessionContext).user()
-
     return <StyledAppbarContentGridContainer
         container
     >

@@ -6,7 +6,5 @@ export interface User {
     email: string,
     celphone: string,
     password: string,
-    passwordconfirm?: string,
-    passwordnew?: string,
     role: string
 }

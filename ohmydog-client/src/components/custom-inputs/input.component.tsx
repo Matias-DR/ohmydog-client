@@ -15,7 +15,7 @@ interface Props {
     type: InputType
     defaultValue?: string | number
     required?: boolean
-    register: UseFormRegister<any>
+    register?: UseFormRegister<any>
     registerOptions?: RegisterOptions<any>
     trigger?: UseFormTrigger<any>
     error?: FieldError
@@ -59,7 +59,13 @@ export function Input({
         disabled={disabled}
         variant='outlined'
         error={error && !!error?.message}
-        {...register(name, registerOptions && registerOptions)}
+        {...(register && register(
+            name,
+            {
+                required: required ? 'Campo requerido' : false,
+                ...registerOptions && registerOptions
+            }
+        ))}
         {...(inputProps && { inputProps: inputProps })}
         onBlur={() => trigger && trigger()}
         fullWidth

@@ -1,10 +1,9 @@
 import { SessionContext } from '@/contexts/session.context'
-import { useRouter } from 'next/router'
 import { useContext } from 'react'
 
 export default function Home() {
-    const { user } = useContext(SessionContext)
-    const router = useRouter()
+    const { getUser } = useContext(SessionContext)
+    const { role } = getUser()
 
-    return <>Bienvenido {user.rol}</>
+    return <>Bienvenido {role}</>
 }

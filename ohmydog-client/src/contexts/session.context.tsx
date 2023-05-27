@@ -13,9 +13,9 @@ export interface ContextProps {
         pets: Pet[]
     ) => void,
     closeSession: () => void,
-    user: () => User,
+    getUser: () => User,
     updateUser: (data: any) => void,
-    pets: () => Pet[],
+    getPets: () => Pet[],
     getPetById: (id: number) => Pet,
     addPet: (pet: Pet) => void,
     updatePet: (pet: Pet) => void,
@@ -61,9 +61,9 @@ export const SessionContext = createContext<ContextProps>({
         pets: Pet[]
     ) => { },
     closeSession: () => { },
-    user: () => userInitialState,
+    getUser: () => userInitialState,
     updateUser: () => { },
-    pets: () => petsInitialState,
+    getPets: () => petsInitialState,
     addPet: () => { },
     updatePet: () => { },
     hasSinglePet: () => true,
@@ -107,7 +107,7 @@ export default function SessionContextProvider({ children }: ComponentProps) {
         sessionStorage.removeItem('pets')
     }
 
-    const user = (): User => {
+    const getUser = (): User => {
         const user = sessionStorage.getItem('user')
         if (!user) return userInitialState
         return JSON.parse(user)
@@ -117,7 +117,7 @@ export default function SessionContextProvider({ children }: ComponentProps) {
         sessionStorage.setItem('user', JSON.stringify(user))
     }
 
-    const pets = (): Pet[] => {
+    const getPets = (): Pet[] => {
         const pets = sessionStorage.getItem('pets')
         if (!pets) return petsInitialState
         return JSON.parse(pets)
@@ -128,43 +128,43 @@ export default function SessionContextProvider({ children }: ComponentProps) {
     }
 
     const updateUser = (data: any) => {
-        const _user: User = { ...user(), ...data }
-        setUser(_user)
+        const user: User = { ...getUser(), ...data }
+        setUser(user)
     }
 
     const getPetById = (id: number) => {
-        const _pets = pets()
-        const pet = _pets.find((pet: Pet) => pet.id === id)
+        const pets = getPets()
+        const pet = pets.find((pet: Pet) => pet.id === id)
         return pet ? pet : petInitialState
     }
 
-    const hasSinglePet = () => pets().length === 1
+    const hasSinglePet = () => getPets().length === 1
 
     const hasPetById = (id: number) => {
-        const _pets = pets()
-        return _pets.some((pet: Pet) => pet.id === id)
+        const pets = getPets()
+        return pets.some((pet: Pet) => pet.id === id)
     }
 
     const addPet = (pet: Pet) => {
-        const _pets = pets()
-        _pets.push(pet)
-        setPets(_pets)
+        const pets = getPets()
+        pets.push(pet)
+        setPets(pets)
     }
 
     const updatePet = (pet: Pet) => {
-        const _pets = pets()
-        const index = _pets.findIndex(({ id }: Pet) => id === pet.id)
-        _pets[index] = pet
-        setPets(_pets)
+        const pets = getPets()
+        const index = pets.findIndex(({ id }: Pet) => id === pet.id)
+        pets[index] = pet
+        setPets(pets)
     }
 
     const delPetById = (id: number) => {
-        const _pets = pets()
-        const index = _pets.findIndex((pet: Pet) => pet.id === id)
+        const pets = getPets()
+        const index = pets.findIndex((pet: Pet) => pet.id === id)
         if (index === -1) return false
         else {
-            _pets.splice(index, 1)
-            setPets(_pets)
+            pets.splice(index, 1)
+            setPets(pets)
             return true
         }
     }
@@ -172,9 +172,9 @@ export default function SessionContextProvider({ children }: ComponentProps) {
     return <SessionContext.Provider value={{
         startSession,
         closeSession,
-        user,
+        getUser,
         updateUser,
-        pets,
+        getPets,
         getPetById,
         hasSinglePet,
         hasPetById,
