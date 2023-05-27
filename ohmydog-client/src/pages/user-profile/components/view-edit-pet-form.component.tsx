@@ -43,7 +43,6 @@ export default function ViewEditPetForm({ pet }: Props) {
         loading,
         callEndpoint
     } = useFetchAndLoad()
-    console.log(pet)
 
     const onSubmit = (data: Pet) => {
         callEndpoint(updatePetService(data))

@@ -1,32 +1,30 @@
 import {
     StyledImageContainer,
-    StyledGrid,
-    StyledAddPhotoIcon,
+    StyledFormControl,
+    StyledErrorText,
     StyledImage
 } from './custom-inputs.styled-components'
 import {
-    FormControl,
     FormHelperText,
-    IconButton,
     InputBaseProps
 } from '@mui/material'
-import DeleteIcon from '@mui/icons-material/Delete'
 import { imgToB64 } from '@/utilities/img-to-b64.utility'
+import { Patterns } from '@/models/patterns.model'
 import {
     FieldError,
     UseFormRegister,
     UseFormSetValue,
-    UseFormTrigger,
     UseFormClearErrors,
+    RegisterOptions,
 } from 'react-hook-form'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { MuiFileInput } from 'mui-file-input'
 
 export interface ImgUploaderProps {
     name: string
     required?: boolean
-    defaultValue?: string
     register: UseFormRegister<any>
-    trigger?: UseFormTrigger<any>
+    registerOptions?: RegisterOptions<any>
     error?: FieldError
     inputProps?: InputBaseProps['inputProps']
     setValue: UseFormSetValue<any>
@@ -37,115 +35,81 @@ export interface ImgUploaderProps {
 export default function ImgUploader({
     name,
     required = false,
-    defaultValue,
     register,
-    trigger,
+    registerOptions,
     error,
     setValue,
     value,
     clearErrors,
 }: ImgUploaderProps) {
-    const [hasImage, setHasImage] = useState(false)
+    const [file, setFile] = useState<File | null>(null)
 
-    useEffect(() => {
-        setHasImage(!!(value && value[0]))
-        console.log(value, hasImage)
-        if (hasImage) {
-            clearErrors && clearErrors(name)
+    const handleChange = (newValue: any) => {
+        if (newValue === null) {
+            setValue(name, undefined)
+            setFile(null)
+            return
         }
-    }, [register, value])
-
-    const validate = (event: any) => {
-        if (!['string', 'undefined', '', 'null', undefined].includes(typeof event)) {
-            const file = event[0]
-            if (file) {
-                if (file.size < 3 * 1024 ** 2) {
-                    imgToB64(file)
-                        .then(res => {
-                            setValue(name, res)
-                            return true
-                        })
-                        .catch(err => {
-                            setValue(name, '')
-                            return 'Error al cargar el archivo'
-                        })
-                }
-                else {
-                    setValue(name, '')
-                    return 'Máximo 3mb'
-                }
-            }
-            else setValue(name, '')
-        }
-        return true
-    }
-
-    const handleChange = (e: any) => {
-        const file = e.target.files[0]
-        if (file) {
-            if (file.size < 3 * 1024 ** 2) {
-                imgToB64(file)
+        if (Patterns.image.test(newValue.name)) {
+            if (newValue.size < 3 * 1024 ** 2) {
+                imgToB64(newValue)
                     .then(res => {
                         setValue(name, res)
+                        setFile(newValue)
                         clearErrors && clearErrors(name)
                     })
-                    .catch(err => setValue(name, ''))
+                    .catch(err => {
+                        setValue(name, undefined)
+                    })
             }
-        } else setValue(name, '')
-        trigger && trigger(name)
+            else {
+                setValue(name, undefined)
+                setFile(newValue)
+            }
+        }
     }
 
-    return <FormControl fullWidth error={!!error}>
-        <StyledGrid>
-            <StyledGrid xs={12}>
-                <IconButton
-                    component='label'
-                    sx={{ color: 'var(--ohmydog-lightblue-color)' }}
-                >
-                    <input
-                        required={required}
-                        hidden
-                        accept='image/*'
-                        type='file'
-                        {...register(name, {
-                            required: required ?
-                            (() => {
-                                if (hasImage) return false
-                                return 'Campo requerido'
-                            })()
-                            : false,
-                            validate: validate,
-                            onChange: handleChange
-                        })}
-                    />
-                    {
-                        hasImage ?
-                            <StyledImageContainer>
-                                <StyledImage src={value} alt='pet-photo' />
-                            </StyledImageContainer>
-                            : <StyledAddPhotoIcon />
-                    }
-                </IconButton>
-            </StyledGrid>
-            <StyledGrid xs={12}>
-                <FormHelperText >
-                    {
-                        error?.message ? error.message :
-                            hasImage ?
-                                'Imagen seleccionada' :
-                                'Imagen no seleccionada'
-                    }
-                </FormHelperText>
+    const validation = (newValue: any): any => {
+        if (Patterns.image.test(newValue.name)) {
+            if (newValue.size < 3 * 1024 ** 2) {
+                return 'Seleccionada'
+            }
+            else {
+                return <StyledErrorText>Tamaño máximo 3mb</StyledErrorText>
+            }
+        }
+        else return <StyledErrorText>Formato no válido</StyledErrorText>
+    }
+
+    return <StyledFormControl fullWidth error={!!error}>
+        <MuiFileInput
+            value={file}
+            inputProps={{ accept: '.png,.jpg,.jpeg' }}
+            label='Foto'
+            getInputText={newValue => { return validation(newValue) }}
+            {...(register && register(
+                name,
                 {
-                    hasImage ? <IconButton
-                        aria-label='delete'
-                        size='small'
-                        onClick={() => setValue(name, '')}
-                    >
-                        <DeleteIcon sx={{ color: 'lightcoral' }} />
-                    </IconButton> : null
+                    required: required ? 'Campo requerido' : false,
+                    ...registerOptions && registerOptions
                 }
-            </StyledGrid>
-        </StyledGrid>
-    </FormControl>
+            ))}
+            onChange={handleChange}
+        />
+        {
+            value ?
+                <StyledImageContainer>
+                    <StyledImage src={value} alt='pet-photo' />
+                </StyledImageContainer>
+                : null
+        }
+        <FormHelperText >
+            {
+                error?.message ? error.message :
+                    file ?
+                        null :
+                        'Imagen no seleccionada'
+            }
+        </FormHelperText>
+    </StyledFormControl>
 }

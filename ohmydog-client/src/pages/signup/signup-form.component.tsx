@@ -23,6 +23,7 @@ import { SnackbarUtilities } from '@/utilities/snackbar.utility'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import dayjs from 'dayjs'
+import dogRaces from '@/lib/dog-races'
 
 export function SignupForm() {
     const {
@@ -236,21 +237,27 @@ export function SignupForm() {
                     />
                 </StyledGrid>
                 <StyledGrid xs={12} sm={6} md={3}>
-                    <Input
-                        name='pet.race'
+                    <Select
+                        name='race'
                         label='Raza'
-                        type={InputType.TEXT}
-                        defaultValue='ejemplo'
-                        required
+                        required={true}
                         register={register}
-                        trigger={trigger}
                         registerOptions={{
-                            pattern: {
-                                value: Patterns.name,
-                                message: 'Campo inválido'
-                            },
+                            required: true,
+                            validate: (value: string) => {
+                                if (dogRaces.includes(value))
+                                    return true
+                                else
+                                    return 'Campo inválido'
+                            }
                         }}
                         error={errors.pet?.race}
+                        options={dogRaces.map(dogRace => {
+                            return {
+                                value: dogRace,
+                                label: dogRace
+                            }
+                        })}
                     />
                 </StyledGrid>
                 <StyledGrid xs={12} sm={6} md={3}>
@@ -380,7 +387,6 @@ export function SignupForm() {
                         name={'pet.photo'}
                         required
                         register={register}
-                        trigger={trigger}
                         error={errors.pet?.photo}
                         setValue={setValue}
                         value={watch('pet.photo')}

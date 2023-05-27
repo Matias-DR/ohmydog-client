@@ -1,5 +1,10 @@
 export const Patterns = {
     /**
+     * Admite solo archivos de tipo imagen
+     */
+    image: /\.(png|jpg|jpeg)$/,
+
+    /**
      * Admite espacios, mayúsculas y minúsculas incluyendo bocales con acento.
      * Requiere iniciar con al menos 3 caracteres sin incluir el espacio.
      * Máximo 32 caracteres.

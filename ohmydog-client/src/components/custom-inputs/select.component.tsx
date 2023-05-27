@@ -50,7 +50,7 @@ export default function Select({
             label={label}
             required={required}
             disabled={disabled}
-            defaultValue={defaultValue ? defaultValue : options[0].value}
+            defaultValue={defaultValue ? defaultValue.value : options[0].value}
             variant='outlined'
             select
             {...register(name, registerOptions && registerOptions)}
@@ -59,13 +59,6 @@ export default function Select({
             error={!!error}
             fullWidth
         >
-            <MenuItem
-                key='Seleccione una opción'
-                value='Seleccione una opción'
-                disabled
-            >
-                Seleccione una opción
-            </MenuItem>
             {options.map((option) => (
                 <MenuItem
                     key={option.value}

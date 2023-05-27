@@ -8,9 +8,7 @@ export default function PetList() {
     const { getPets } = useContext(SessionContext)
     const pets = getPets()
 
-    useEffect(() => {
-        console.log(pets)
-    }, [pets])
+    useEffect(() => { }, [pets])
 
     return <StyledList container spacing={1}>
         <AddPet />
