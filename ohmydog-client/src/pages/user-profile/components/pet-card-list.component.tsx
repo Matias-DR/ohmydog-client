@@ -5,10 +5,19 @@ import { useContext } from 'react'
 import { SessionContext } from '@/contexts/session.context'
 
 export default function PetList() {
-    const { getPets } = useContext(SessionContext)
+    const {
+        getPets,
+        petUpdated,
+        setPetUpdated
+    } = useContext(SessionContext)
     const pets = getPets()
 
-    useEffect(() => { }, [pets])
+    useEffect(() => {
+        setPetUpdated(false)
+    }, [
+        pets,
+        petUpdated
+    ])
 
     return <StyledList container spacing={1}>
         <AddPet />

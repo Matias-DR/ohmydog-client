@@ -2,7 +2,7 @@ import { Pet } from "@/models/pet.model"
 
 const petToAdapter = (data: Pet): any => {
     return {
-        Id: data.id,
+        Id: data.id ? data.id : undefined,
         Nombre: data.name,
         Raza: data.race,
         Color: data.color,

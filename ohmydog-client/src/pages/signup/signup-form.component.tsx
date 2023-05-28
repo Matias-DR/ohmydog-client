@@ -238,7 +238,7 @@ export function SignupForm() {
                 </StyledGrid>
                 <StyledGrid xs={12} sm={6} md={3}>
                     <Select
-                        name='race'
+                        name='pet.race'
                         label='Raza'
                         required={true}
                         register={register}

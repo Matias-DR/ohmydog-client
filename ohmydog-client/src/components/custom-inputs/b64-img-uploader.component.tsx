@@ -81,7 +81,7 @@ export default function ImgUploader({
         else return <StyledErrorText>Formato no válido</StyledErrorText>
     }
 
-    return <StyledFormControl fullWidth error={!!error}>
+    return <StyledFormControl fullWidth error={!!error?.message}>
         <MuiFileInput
             value={file}
             inputProps={{ accept: '.png,.jpg,.jpeg' }}

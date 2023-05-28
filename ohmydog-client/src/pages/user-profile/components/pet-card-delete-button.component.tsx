@@ -29,26 +29,28 @@ export default function DeletePetButton({ id }: Props) {
     } = useFetchAndLoad()
     const {
         hasSinglePet,
-        delPetById
+        delPetById,
+        setPetUpdated
     } = useContext(SessionContext)
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
 
-    const handleSubmit = async () => {
+    const handleSubmit = () => {
         if (!hasSinglePet()) {
             callEndpoint(delPetByIdService(id))
                 .then((res) => {
                     delPetById(id)
                     SnackbarUtilities.success('Mascota eliminada')
+                    setPetUpdated(true)
                     handleClose()
                 })
-                .catch((err) => SnackbarUtilities.error(
-                    'Error al eliminar la mascota, por favor intente más tarde'
-                ))
+                .catch((err) => {
+                    // SnackbarUtilities.error(err.response.data.message)
+                })
         } else SnackbarUtilities.error(
             `No se permite borrar la mascota ya
-            que debe poseer al menos una mascota`
+            que debe poseer al menos una`
         )
     }
 

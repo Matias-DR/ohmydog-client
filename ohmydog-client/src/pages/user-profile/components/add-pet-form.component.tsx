@@ -25,21 +25,27 @@ import { SessionContext } from '@/contexts/session.context'
 import { addPet as addPetService } from '../services'
 import { Select } from '@/components'
 import dogRaces from '@/lib/dog-races'
+import { Patterns } from '@/models/patterns.model'
+import dayjs from 'dayjs'
 
 export interface Props {
     handleClose: () => void,
 }
 
 export default function AddPetForm({ handleClose }: Props) {
-    const { addPet } = useContext(SessionContext)
+    const {
+        addPet,
+        setPetUpdated
+    } = useContext(SessionContext)
     const {
         register,
+        trigger,
         handleSubmit,
         formState: { errors },
-        watch,
         setValue,
-        getValues,
-        trigger
+        watch,
+        clearErrors,
+        getValues
     } = useForm<Pet>()
     const {
         loading,
@@ -49,15 +55,13 @@ export default function AddPetForm({ handleClose }: Props) {
     const onSubmit = (data: Pet) => {
         callEndpoint(addPetService(data))
             .then((res) => {
-                addPet(data)
+                const newPet = res.data
+                addPet(newPet)
                 SnackbarUtilities.success('Mascota añadida')
+                setPetUpdated(true)
                 handleClose()
             })
-            .catch((err) => {
-                SnackbarUtilities.error(
-                    'Error al añadir la mascota, por favor intente más tarde'
-                )
-            })
+            .catch((err) => SnackbarUtilities.error(err.response.data.message))
     }
 
     return <StyledForm
@@ -86,11 +90,16 @@ export default function AddPetForm({ handleClose }: Props) {
                         name='name'
                         label='Nombre'
                         type={InputType.TEXT}
-                        required={true}
-                        disabled
+                        defaultValue='ejemplo'
+                        required
                         register={register}
                         trigger={trigger}
-                        registerOptions={{ required: true }}
+                        registerOptions={{
+                            pattern: {
+                                value: Patterns.name,
+                                message: 'Campo inválido'
+                            },
+                        }}
                         error={errors?.name}
                     />
                 </StyledGrid>
@@ -109,7 +118,6 @@ export default function AddPetForm({ handleClose }: Props) {
                                     return 'Campo inválido'
                             }
                         }}
-                        trigger={trigger}
                         error={errors?.race}
                         options={dogRaces.map(dogRace => {
                             return {
@@ -124,11 +132,16 @@ export default function AddPetForm({ handleClose }: Props) {
                         name='color'
                         label='Color'
                         type={InputType.TEXT}
-                        required={true}
-                        disabled
+                        defaultValue='ejemplo'
+                        required
                         register={register}
                         trigger={trigger}
-                        registerOptions={{ required: true }}
+                        registerOptions={{
+                            pattern: {
+                                value: Patterns.name,
+                                message: 'Campo inválido'
+                            },
+                        }}
                         error={errors?.color}
                     />
                 </StyledGrid>
@@ -136,6 +149,10 @@ export default function AddPetForm({ handleClose }: Props) {
                     <Datepicker
                         name='birthdate'
                         label='Fecha de nacimiento'
+                        defaultValue={dayjs(
+                            new Date().toLocaleDateString(),
+                            'M/D/YYYY'
+                        )}
                         setValue={setValue}
                         required
                         register={register}
@@ -146,11 +163,12 @@ export default function AddPetForm({ handleClose }: Props) {
                     <Select
                         name='sex'
                         label='Sexo'
-                        required={true}
+                        required
                         register={register}
+                        trigger={trigger}
+                        error={errors?.sex}
                         registerOptions={{
-                            required: true,
-                            validate: (value: string) => {
+                            validate: (value) => {
                                 if (['Hembra', 'Macho']
                                     .includes(value))
                                     return true
@@ -158,8 +176,6 @@ export default function AddPetForm({ handleClose }: Props) {
                                     return 'Campo inválido'
                             }
                         }}
-                        trigger={trigger}
-                        error={errors?.sex}
                         options={[
                             { value: 'Hembra', label: 'Hembra' },
                             { value: 'Macho', label: 'Macho' }
@@ -170,11 +186,12 @@ export default function AddPetForm({ handleClose }: Props) {
                     <Select
                         name='size'
                         label='Tamaño'
-                        required={true}
+                        required
                         register={register}
+                        trigger={trigger}
+                        error={errors?.size}
                         registerOptions={{
-                            required: true,
-                            validate: (value: string) => {
+                            validate: (value) => {
                                 if (['Chico', 'Mediano', 'Grande']
                                     .includes(value))
                                     return true
@@ -182,8 +199,6 @@ export default function AddPetForm({ handleClose }: Props) {
                                     return 'Campo inválido'
                             }
                         }}
-                        trigger={trigger}
-                        error={errors?.size}
                         options={[
                             { value: 'Chico', label: 'Chico' },
                             { value: 'Mediano', label: 'Mediano' },
@@ -196,11 +211,17 @@ export default function AddPetForm({ handleClose }: Props) {
                         name='weight'
                         label='Peso'
                         type={InputType.NUMBER}
-                        required={true}
-                        disabled
+                        defaultValue={1}
+                        required
+                        inputProps={{ step: '0.1' }}
                         register={register}
                         trigger={trigger}
-                        registerOptions={{ required: true }}
+                        registerOptions={{
+                            pattern: {
+                                value: Patterns.weight,
+                                message: 'Campo inválido'
+                            },
+                        }}
                         error={errors?.weight}
                     />
                 </StyledGrid>
@@ -208,12 +229,10 @@ export default function AddPetForm({ handleClose }: Props) {
                     <Input
                         name='origin'
                         label='Origen'
+                        defaultValue='ejemplo'
                         type={InputType.TEXT}
-                        required={true}
-                        disabled
                         register={register}
                         trigger={trigger}
-                        registerOptions={{ required: true }}
                         error={errors?.origin}
                     />
                 </StyledGrid>
@@ -221,12 +240,10 @@ export default function AddPetForm({ handleClose }: Props) {
                     <Input
                         name='caracteristics'
                         label='Características'
+                        defaultValue='ejemplo'
                         type={InputType.TEXT}
-                        required={true}
-                        disabled
                         register={register}
                         trigger={trigger}
-                        registerOptions={{ required: true }}
                         error={errors?.caracteristics}
                         multiline
                         rows={4}
@@ -235,11 +252,12 @@ export default function AddPetForm({ handleClose }: Props) {
                 <StyledGrid xs={12} sm={3}>
                     <ImgUploader
                         name={'photo'}
+                        required
                         register={register}
-                        trigger={trigger}
                         error={errors?.photo}
                         setValue={setValue}
                         value={watch('photo')}
+                        clearErrors={clearErrors}
                     ></ImgUploader>
                 </StyledGrid>
             </StyledInputsGrid>

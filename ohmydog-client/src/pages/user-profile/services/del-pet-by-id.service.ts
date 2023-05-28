@@ -6,7 +6,7 @@ const delPetById = (id: number): AxiosCall<any> => {
     return {
         call: axios.post<any>(
             '/api/del-pet',
-            id,
+            { id },
             { signal: controller.signal }
         ),
         controller: controller

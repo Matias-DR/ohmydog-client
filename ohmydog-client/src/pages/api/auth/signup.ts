@@ -7,7 +7,6 @@ export default async function handler(
     res: NextApiResponse
 ) {
     const body = signupToAdapter(req.body)
-    console.log(body)
     axios.post(
         'http://localhost:7162/api/register',
         body
@@ -16,7 +15,6 @@ export default async function handler(
             message: 'Usuario registrado'
         }))
         .catch(err => {
-            console.log(err.response.data)
             if (err.response.data) {
                 res.status(409).json({
                     message: 'Usuario ya registrado'

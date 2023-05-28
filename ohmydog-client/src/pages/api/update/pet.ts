@@ -1,3 +1,4 @@
+import { petToAdapter } from '@/adapters'
 import axios from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
@@ -5,23 +6,23 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    try {
-        const extRes = await axios.patch(
-            `http://localhost:7162/api/mascota/${req.body.id}`,
-            { ...req.body },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `${req.headers.authorization}`
-                }
+    const body = petToAdapter(req.body)
+    const { token } = req.cookies
+    axios.patch(
+        `http://localhost:7162/api/mascota/${req.body.id}`,
+        body,
+        {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
             }
-        )
-        if (extRes.status === 200 || extRes.status === 204) {
-            res.status(200).json(extRes.data)
-        } else {
-            res.status(200).json(false)
         }
-    } catch (err) {
-        res.status(200).json(false)
-    }
+    )
+        .then((response) => {
+            res.status(200).json({ message: response.data })
+        })
+        .catch((err) => {
+            const message = err.response?.data || 'Error al actualizar la mascota'
+            res.status(500).json({ message })
+        })
 }

@@ -11,17 +11,21 @@ export interface ContextProps {
     startSession: (
         user: User,
         pets: Pet[]
-    ) => void,
-    closeSession: () => void,
-    getUser: () => User,
-    updateUser: (data: any) => void,
-    getPets: () => Pet[],
-    getPetById: (id: number) => Pet,
-    addPet: (pet: Pet) => void,
-    updatePet: (pet: Pet) => void,
-    hasSinglePet: () => boolean,
-    hasPetById: (id: number) => boolean,
-    delPetById: (id: number) => boolean,
+    ) => void
+    closeSession: () => void
+    getUser: () => User
+    updateUser: (data: any) => void
+    getPets: () => Pet[]
+    getPetById: (id: number) => Pet
+    addPet: (pet: Pet) => void
+    updatePet: (pet: Pet) => void
+    hasSinglePet: () => boolean
+    hasPetById: (id: number) => boolean
+    delPetById: (id: number) => boolean
+    userUpdated: boolean
+    setUserUpdated: (updated: boolean) => void
+    petUpdated: boolean
+    setPetUpdated: (updated: boolean) => void
 }
 
 export interface ComponentProps {
@@ -69,12 +73,18 @@ export const SessionContext = createContext<ContextProps>({
     hasSinglePet: () => true,
     getPetById: () => petInitialState,
     hasPetById: () => false,
-    delPetById: () => false
+    delPetById: () => false,
+    userUpdated: false,
+    setUserUpdated: () => { },
+    petUpdated: false,
+    setPetUpdated: () => { },
 })
 
 export default function SessionContextProvider({ children }: ComponentProps) {
     const [session, setSession] = useState(false)
     const router = useRouter()
+    const [userUpdated, setUserUpdated] = useState(false)
+    const [petUpdated, setPetUpdated] = useState(false)
 
     useEffect(() => {
         const user = sessionStorage.getItem('user')
@@ -180,7 +190,11 @@ export default function SessionContextProvider({ children }: ComponentProps) {
         hasPetById,
         addPet,
         updatePet,
-        delPetById
+        delPetById,
+        userUpdated,
+        setUserUpdated,
+        petUpdated,
+        setPetUpdated,
     }}>
         {session ? children : null}
     </SessionContext.Provider >

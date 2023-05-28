@@ -19,7 +19,7 @@ import {
 } from 'react-hook-form'
 import { SnackbarUtilities } from '@/utilities/snackbar.utility'
 import { SessionContext } from '@/contexts/session.context'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { updatePet as updatePetService } from '../services'
 import { StyledImgCard } from '../styled-components/pet-card.styled-components'
 import { Datepicker, ImgUploader, Select } from '@/components'
@@ -31,13 +31,17 @@ export interface Props {
 }
 
 export default function ViewEditPetForm({ pet }: Props) {
-    const { updatePet } = useContext(SessionContext)
+    const {
+        updatePet,
+        setPetUpdated
+    } = useContext(SessionContext)
     const {
         register,
         handleSubmit,
         formState: { errors },
         watch,
         setValue,
+        clearErrors
     } = useForm<Pet>()
     const {
         loading,
@@ -45,15 +49,17 @@ export default function ViewEditPetForm({ pet }: Props) {
     } = useFetchAndLoad()
 
     const onSubmit = (data: Pet) => {
-        callEndpoint(updatePetService(data))
+        const newPet = { ...data, id: pet.id }
+        callEndpoint(updatePetService(newPet))
             .then((res) => {
-                updatePet(data)
+                updatePet(newPet)
                 SnackbarUtilities.success('Mascota actualizada')
+                setPetUpdated(true)
             })
-            .catch((err) => SnackbarUtilities.error(
-                'Error al actualizar los datos, por favor intente más tarde'
-            ))
+            .catch((err) => SnackbarUtilities.error(err.response.data.message))
     }
+
+    useEffect(() => {}, [pet.photo])
 
     return <StyledForm
         encType="multipart/form-data"
@@ -68,7 +74,7 @@ export default function ViewEditPetForm({ pet }: Props) {
                 xs={12} sm={4} xl={6}
             >
                 <StyledImgCard
-                    src={pet.photo ? pet.photo : undefined}
+                    src={watch('photo') ? watch('photo') : pet.photo}
                 ></StyledImgCard>
             </StyledImgGrid>
             <StyledInputsGrid
@@ -81,9 +87,8 @@ export default function ViewEditPetForm({ pet }: Props) {
                         name='name'
                         label='Nombre'
                         type={InputType.TEXT}
-                        required={true}
+                        required
                         defaultValue={pet.name}
-                        disabled
                         register={register}
                         registerOptions={{ required: true }}
                         error={errors?.name}
@@ -93,7 +98,7 @@ export default function ViewEditPetForm({ pet }: Props) {
                     <Select
                         name='race'
                         label='Raza'
-                        required={true}
+                        required
                         defaultValue={pet.race ? {
                             value: pet.race,
                             label: pet.race
@@ -122,9 +127,8 @@ export default function ViewEditPetForm({ pet }: Props) {
                         name='color'
                         label='Color'
                         type={InputType.TEXT}
-                        required={true}
+                        required
                         defaultValue={pet.color}
-                        disabled
                         register={register}
                         registerOptions={{ required: true }}
                         error={errors?.color}
@@ -147,7 +151,7 @@ export default function ViewEditPetForm({ pet }: Props) {
                     <Select
                         name='sex'
                         label='Sexo'
-                        required={true}
+                        required
                         defaultValue={pet.sex ?
                             { value: pet.sex, label: pet.sex }
                             : undefined}
@@ -173,7 +177,7 @@ export default function ViewEditPetForm({ pet }: Props) {
                     <Select
                         name='size'
                         label='Tamaño'
-                        required={true}
+                        required
                         defaultValue={pet.size ?
                             { value: pet.size, label: pet.size }
                             : undefined}
@@ -201,9 +205,8 @@ export default function ViewEditPetForm({ pet }: Props) {
                         name='weight'
                         label='Peso'
                         type={InputType.NUMBER}
-                        required={true}
+                        required
                         defaultValue={pet.weight}
-                        disabled
                         register={register}
                         registerOptions={{ required: true }}
                         error={errors?.weight}
@@ -214,9 +217,8 @@ export default function ViewEditPetForm({ pet }: Props) {
                         name='origin'
                         label='Origen'
                         type={InputType.TEXT}
-                        required={true}
+                        required
                         defaultValue={pet.origin}
-                        disabled
                         register={register}
                         registerOptions={{ required: true }}
                         error={errors?.origin}
@@ -227,9 +229,8 @@ export default function ViewEditPetForm({ pet }: Props) {
                         name='caracteristics'
                         label='Características'
                         type={InputType.TEXT}
-                        required={true}
+                        required
                         defaultValue={pet.caracteristics}
-                        disabled
                         register={register}
                         registerOptions={{ required: true }}
                         error={errors?.caracteristics}
@@ -240,11 +241,11 @@ export default function ViewEditPetForm({ pet }: Props) {
                 <StyledGrid xs={12} sm={3}>
                     <ImgUploader
                         name={'photo'}
-                        defaultValue={pet.photo ? pet.photo : undefined}
                         register={register}
                         error={errors?.photo}
                         setValue={setValue}
                         value={watch('photo')}
+                        clearErrors={clearErrors}
                     ></ImgUploader>
                 </StyledGrid>
             </StyledInputsGrid>
