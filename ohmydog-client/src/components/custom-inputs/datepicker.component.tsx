@@ -24,6 +24,8 @@ interface Props {
     trigger?: UseFormTrigger<any>
     setValue?: UseFormSetValue<any>
     error?: FieldError
+    weekend?: boolean
+    past?: boolean
 }
 
 export default function Datepicker({
@@ -36,28 +38,71 @@ export default function Datepicker({
     trigger,
     setValue,
     error,
+    weekend = true,
+    past = true
 }: Props) {
     const handleChange = (value: Dayjs | null) => {
-        if (value && value.isValid()) {
-            const date = value.format('DD/MM/YYYY')
-            setValue && setValue(name, date)
-        } else {
+        try {
+            if (value && value.isValid()) {
+                const date = value.format('DD/MM/YYYY')
+                setValue && setValue(name, date)
+            } else {
+                setValue && setValue(name, '')
+            }
+            trigger && trigger(name)
+        } catch {
             setValue && setValue(name, '')
         }
-        trigger && trigger(name)
     }
 
     const validate = (date: any) => {
-        if (date) {
-            const dayjsDate = dayjs(date, 'DD/MM/YYYY')
-            if (
-                dayjsDate.isValid() &&
-                dayjsDate.diff(new Date().toLocaleDateString(), 'days') <= 0
-            ) return true
-            trigger && trigger(name)
+        try {
+            if (date) {
+                const dayjsDate = dayjs(date, 'DD/MM/YYYY')
+                // Si la fecha es válida
+                if (dayjsDate.isValid()) {
+                    // Si la fecha es menor o igual a hoy
+                    if (
+                        dayjsDate.isSame(dayjs(), 'day') ||
+                        dayjsDate.isBefore(dayjs(), 'day')
+                    ) {
+                        // Si no están habilitadas fechas pasadas
+                        if (!past) {
+                            // trigger && trigger(name)
+                            return `No se puede seleccionar una fecha pasada o
+                            igual a hoy`
+                        }
+                        // Si están habilitadas fecha pasadas
+                        else {
+                            return true
+                        }
+                    }
+                    // Si la fecha es mayor a hoy
+                    else {
+                        // Si están habilitadas fechas pasadas (están habilidatas fechas futuras)
+                        if (past) {
+                            // trigger && trigger(name)
+                            return `No se puede seleccionar una fecha mayor a hoy`
+                        }
+                        // Si no están habilitados fines de semana
+                        if (!weekend) {
+                            const day = dayjsDate.day()
+                            if (day === 0 || day === 6) {
+                                // trigger && trigger(name)
+                                return 'No trabajamos fines de semana'
+                            }
+                        }
+                        // Si están habilitados fines de semana
+                        else {
+                            return true
+                        }
+                    }
+                }
+            }
+            return true
+        } catch {
             return 'Fecha inválida'
         }
-        return true
     }
 
     useEffect(() => {
@@ -71,7 +116,6 @@ export default function Datepicker({
     }, [])
 
     return (
-        <FormControl fullWidth error={!!error?.message}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DateField
                     id={name}
@@ -79,15 +123,17 @@ export default function Datepicker({
                     required={required}
                     disabled={disabled}
                     format='DD/MM/YYYY'
-                    disableFuture
+                    disableFuture={past}
+                    disablePast={!past}
                     onChange={handleChange}
                     defaultValue={defaultValue}
                     fullWidth
+                    slotProps={{
+                        textField: {
+                            error: !!error?.message,
+                            helperText: error?.message
+                        }}}
                 />
             </LocalizationProvider>
-            <FormHelperText>
-                {error?.message ? error.message : ''}
-            </FormHelperText>
-        </FormControl >
     )
 }

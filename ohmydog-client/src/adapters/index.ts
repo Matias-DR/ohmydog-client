@@ -9,3 +9,4 @@ export { default as petsToAdapter } from './to-external-server.adapters/pets-to.
 export { default as signinToAdapter } from './to-external-server.adapters/signin-to.adapter'
 export { default as signupToAdapter } from './to-external-server.adapters/signup-to.adapter'
 export { default as userToAdapter } from './to-external-server.adapters/user-to.adapter'
+export { default as appointmentToAdapter } from './to-external-server.adapters/appointment-to.adapter'

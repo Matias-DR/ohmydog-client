@@ -1,4 +1,5 @@
-export { default as ReasonInput } from './reason-input.component'
-export { default as DatePicker } from './datepicker.component'
-export { default as TimePicker } from './timepicker.component'
+export { default as Reason } from './reason.component'
+export { default as Date } from './date.component'
+export { default as Time } from './time.component'
 export { default as Summary } from './summary.component'
+export { default as Pet } from './pet.component'

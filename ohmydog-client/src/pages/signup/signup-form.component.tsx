@@ -290,6 +290,8 @@ export function SignupForm() {
                         required
                         register={register}
                         trigger={trigger}
+                        error={errors?.pet?.birthdate}
+                        past={true}
                     />
                 </StyledGrid>
                 <StyledGrid xs={12} sm={6} md={3}>

@@ -157,6 +157,8 @@ export default function AddPetForm({ handleClose }: Props) {
                         required
                         register={register}
                         trigger={trigger}
+                        error={errors?.birthdate}
+                        past={true}
                     />
                 </StyledGrid>
                 <StyledGrid xs={12} sm={6} xl={3}>
