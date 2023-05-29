@@ -17,10 +17,13 @@ export default async function handler(
             res.status(200).json(appointment)
         })
         .catch((err) => {
-            // console.log(err)
-            const message = err.response.data ?
-                err.response.data
-                : 'Error al aceptar el turno'
-            res.status(500).json({ message })
+            try {
+                const message = err.response.data ?
+                    err.response.data
+                    : 'Error al aceptar el turno'
+                res.status(500).json({ message })
+            } catch (error) {
+                res.status(500).json({ message: 'Error al aceptar el turno' })
+            }
         })
 }

@@ -43,12 +43,19 @@ export default async function handler(
             // 401: Credenciales inválidas
             // 403: Credenciales inválidas
             // 404: Usuario no encontrado
-            if ([401, 403, 404].includes(err.response.status)) {
-                res.status(err.response.status).json({
-                    message: 'Datos inválidos'
-                })
+            try {
+                if ([401, 403, 404].includes(err.response.status)) {
+                    res.status(err.response.status).json({
+                        message: 'Datos inválidos'
+                    })
+                }
+                else {
+                    res.status(500).json({
+                        message: 'Error de conexión'
+                    })
+                }
             }
-            else {
+            catch (e) {
                 res.status(500).json({
                     message: 'Error de conexión'
                 })

@@ -43,12 +43,13 @@ export default function VetAppointments() {
     const [appointmentsUpdated, setAppointmentsUpdated] = useState(false)
 
     useEffect(() => {
+        setAppointmentsUpdated(false)
         callEndpoint(getAllAppointmentsService())
             .then((res) => {
                 const appointments: Appointment[] = res.data
                 setPendingAppointments(appointments
                     .filter((appointment: Appointment) =>
-                        appointment.status === 'Reservado'
+                        appointment.status === 'Pendiente'
                     ))
                 setAcceptedAppointments(appointments
                     .filter((appointment: Appointment) =>
@@ -69,20 +70,38 @@ export default function VetAppointments() {
 
     const acceptAppointment = (id: number) => {
         callEndpoint(acceptAppointmentService(id))
-        .then(() => setAppointmentsUpdated(true))
-        .catch((err) => {
-            const message = err.response.data.message
-            SnackbarUtilities.error(message)
-        })
+            .then((res) => {
+                const newAppointments = pendingAppointments.filter(
+                    (appointment: Appointment) => appointment.id !== id
+                )
+                const appointmentAccepted = pendingAppointments.find(
+                    (appointment: Appointment) => appointment.id === id
+                )
+                if (appointmentAccepted) {
+                    appointmentAccepted.status = 'Confirmado'
+                    setPendingAppointments(newAppointments)
+                    setAcceptedAppointments([
+                        ...acceptedAppointments,
+                        appointmentAccepted
+                    ])
+                }
+                setAppointmentsUpdated(true)
+            })
+            .catch((err) => {
+                const message = err.response.data.message
+                SnackbarUtilities.error(message)
+            })
     }
 
     const rejectAppointment = (id: number) => {
         callEndpoint(rejectAppointmentService(id))
-        .then(() => setAppointmentsUpdated(true))
-        .catch((err) => {
-            const message = err.response.data.message
-            SnackbarUtilities.error(message)
-        })
+            .then(() => {
+                setAppointmentsUpdated(true)
+            })
+            .catch((err) => {
+                const message = err.response.data.message
+                SnackbarUtilities.error(message)
+            })
     }
 
     return <StyledMain>

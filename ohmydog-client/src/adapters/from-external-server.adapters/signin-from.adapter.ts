@@ -7,7 +7,7 @@ import {
 const signinFromAdapter = (data: any): any => {
     const token = tokenFromAdapter(data)
     const user = userFromSigninAdapter(data)
-    const pets = petsFromSigninAdapter(data)
+    const pets = data.mascotas ? petsFromSigninAdapter(data) : data.Mascotas ? petsFromSigninAdapter(data) : []
 
     return {
         token,
