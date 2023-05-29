@@ -4,9 +4,9 @@ const appointmentToAdapter = (appointment: Appointment): any => {
     return {
         Motivo: appointment.reason,
         Fecha: appointment.date,
-        Hora: appointment.time,
-        Mascota: appointment.petId,
-        Comentario: appointment.comment,
+        idMascota: appointment.petId,
+        Horario: appointment.time + ':00',
+        // Comentario: appointment.comment,
     }
 }
 

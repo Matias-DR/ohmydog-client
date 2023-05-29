@@ -9,16 +9,26 @@ import {
     UserForm,
     PetList
 } from './components'
+import { useContext } from 'react'
+import { SessionContext } from '@/contexts/session.context'
 
 export default function UserProfile() {
+    const { role } = useContext(SessionContext).getUser()
+
     return <StyledMain>
         <UserSection>
             <UserForm></UserForm>
         </UserSection>
-        <StyledSeparator />
-        <PetsSection>
-            <StyledTitle>Mascotas</StyledTitle>
-            <PetList></PetList>
-        </PetsSection>
+        {
+            role === 'Cliente' &&
+            <StyledSeparator />
+        }
+        {
+            role === 'Cliente' &&
+            <PetsSection>
+                <StyledTitle>Mascotas</StyledTitle>
+                <PetList></PetList>
+            </PetsSection>
+        }
     </StyledMain>
 }

@@ -1,25 +1,24 @@
 import axios from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { appointmentToAdapter } from '../appointments/adapters'
+import { appointmentsFromAdapter } from '@/adapters'
 
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
     const token = req.cookies.token
-    const body = appointmentToAdapter(req.body)
-    axios.post(
-        `http://localhost:7162/api/turnos`,
-        body,
+    axios.get(
+        `http://localhost:7162/api/turno/pendientes`,
         { headers: { Authorization: `Bearer ${token}` } }
     )
         .then((response) => {
-            res.status(200).json({ message: response.data })
+            const appointments = appointmentsFromAdapter(response.data)
+            res.status(200).json(appointments)
         })
         .catch((err) => {
             const message = err.response.data ?
                 err.response.data
-                : 'Error al solicitar el turno'
+                : 'Error al cargar los turnos aceptados'
             res.status(500).json({ message })
         })
 }

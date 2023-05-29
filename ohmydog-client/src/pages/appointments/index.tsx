@@ -12,10 +12,6 @@ import {
     Pet
 } from './components'
 import {
-    Input,
-    InputType
-} from '@/components/custom-inputs/input.component'
-import {
     AppointmentForm,
     StyledFormSection,
     StyledFieldset,
@@ -27,6 +23,8 @@ import {
 import { useForm } from 'react-hook-form'
 import { useFetchAndLoad } from '@/hooks/use-fetch-and-load.hook'
 import { Appointment } from '@/models/appointment.model'
+import { appointmentService } from './appointment.service'
+import { SnackbarUtilities } from '@/utilities/snackbar.utility'
 
 export default function Appointments() {
     const {
@@ -43,7 +41,9 @@ export default function Appointments() {
     } = useFetchAndLoad()
 
     const onSubmit = (data: any) => {
-        console.log('APPOINTMENT DATA: ', data)
+        callEndpoint(appointmentService(data))
+            .then((res) => SnackbarUtilities.success(res.data.message))
+            .catch((err) => SnackbarUtilities.error(err.response.data.message))
     }
 
     return <StyledMain>
@@ -90,7 +90,7 @@ export default function Appointments() {
                                 />
                             </StyledGridItem>
                         </StyledGridItem>
-                        <StyledGridItem xs={12}>
+                        {/* <StyledGridItem xs={12}>
                             <Input
                                 name='comment'
                                 label='Comentario'
@@ -100,7 +100,7 @@ export default function Appointments() {
                                 multiline
                                 rows={3}
                             />
-                        </StyledGridItem>
+                        </StyledGridItem> */}
                         <StyledGridItem xs={12}>
                             <Summary watch={watch} />
                         </StyledGridItem>

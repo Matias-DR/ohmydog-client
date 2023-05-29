@@ -8,3 +8,14 @@ export const StyledAppMain = styled.div`
     justify-content: center;
     align-items: center;
 `
+
+export const StyledMain = styled.main`
+    height: 100%;
+    width: 100%;
+    padding: .5rem;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+`

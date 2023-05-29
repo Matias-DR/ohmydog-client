@@ -13,9 +13,10 @@ export default function AppbarCommonLinks() {
 
     return <StyledLinksContainer>
         {
-            _user.role !== '' ?
-                <StyledLink href='appointments'>Turnos</StyledLink> :
-                null
+            _user.role !== '' &&
+            <StyledLink href={
+                _user.role === 'Cliente' ? 'appointments' : 'vet-appointments'
+            }>Turnos</StyledLink>
         }
         <StyledLink href='pet-adoption'>Adopciones</StyledLink>
         <StyledLink href='lost-pets'>Perdidos</StyledLink>
@@ -23,29 +24,21 @@ export default function AppbarCommonLinks() {
         <StyledLink href='pet-walkers'>Paseadores</StyledLink>
         <StyledLink href='donations'>Donaciones</StyledLink>
         {
-            _user.role !== '' ?
-                <StyledLink
-                    href={
-                        _user.role === 'Cliente' ?
-                            'user-profile' :
-                            'vet-user-profile'
-                    }
-                >
-                    <StyledProfileButtonIcon />
-                    {_user.name}
-                </StyledLink> :
-                null
+            _user.role !== '' &&
+            <StyledLink href='user-profile'>
+                <StyledProfileButtonIcon />
+                {_user.name}
+            </StyledLink>
         }
         {
-            _user.role !== '' ?
-                <StyledLink
-                    href='/signin'
-                    onClick={closeSession}
-                >
-                    <StyledSignOutButtonIcon />
-                    CERRAR SESIÓN
-                </StyledLink> :
-                null
+            _user.role !== '' &&
+            <StyledLink
+                href='/signin'
+                onClick={closeSession}
+            >
+                <StyledSignOutButtonIcon />
+                CERRAR SESIÓN
+            </StyledLink>
         }
     </StyledLinksContainer>
 }
